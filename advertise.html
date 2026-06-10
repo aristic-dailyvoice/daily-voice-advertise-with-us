@@ -35,6 +35,14 @@ nav.nav-hidden { transform: translateY(calc(-100% - 36px)); }
 .nav-cta { background: var(--red); color: white !important; font-size: 13px; font-weight: 700; padding: 13px 27px; text-decoration: none; transition: background .2s; white-space: nowrap; margin-left: 8px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .nav-cta:hover { background: var(--red-dark) !important; }
 .nav-cta-top { display: none; }
+.agency-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 210; background: rgba(31,31,31,0.85); color: var(--charcoal-text); padding: 12px 5%; opacity: 0; pointer-events: none; transform: translateY(-100%); transition: transform .48s cubic-bezier(.22, 1, .36, 1), opacity .32s ease; }
+.agency-bar.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.agency-bar-inner { max-width: 1160px; margin: 0 auto; padding: 0 34px; display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; font-size: 13.5px; line-height: 1.35; }
+.agency-bar-text strong { color: white; font-weight: 700; }
+.agency-bar-email { color: white; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.agency-bar-email:hover { color: white; }
+.agency-bar-close { position: absolute; top: 50%; right: 16px; transform: translateY(-50%); width: 30px; height: 30px; border: 0; background: transparent; color: rgba(255,255,255,0.68); font-size: 26px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.agency-bar-close:hover { color: white; }
 footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32px 5%; }
 .footer-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .footer-brand { font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.42); }
@@ -49,8 +57,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .footer-bottom a:hover { text-decoration: underline; }
 .section-inner { max-width: 1160px; margin: 0 auto; }
 .section-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
-.section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.2; margin-bottom: 12px; }
-.section-sub { font-size: 15px; color: var(--body); line-height: 1.8; max-width: 580px; }
+.section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.14; margin-bottom: 12px; }
+.section-sub { font-size: 15px; color: var(--body); line-height: 1.8; max-width: 1000px; }
 .btn-primary { background: var(--red); color: white; font-size: 15px; font-weight: 700; padding: 14px 28px; text-decoration: none; transition: background .2s; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .btn-primary:hover { background: var(--red-dark); }
 .btn-secondary { background: white; border: 1px solid #b5b3af; color: #525252; font-size: 14px; font-weight: 700; padding: 12px 24px; text-decoration: none; transition: all .2s; display: inline-block; }
@@ -69,14 +77,6 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .attention-proof { background: white; border: 1px solid var(--border); border-top: 4px solid var(--red); padding: 28px 26px; box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
 .attention-proof--mockup { background: transparent; border: none; padding: 0; box-shadow: none; margin-bottom: -61px; position: relative; z-index: 3; align-self: end; min-height: 420px; display: flex; align-items: flex-end; }
 .attention-proof--mockup img { --mockup-x: -116px; width: 150%; max-width: none; height: auto; display: block; transform: translateX(var(--mockup-x)); flex-shrink: 0; }
-.ap-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); padding-bottom: 14px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-.ap-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; padding-bottom: 14px; }
-.ap-stat { display: flex; flex-direction: column; gap: 3px; }
-.ap-n { font-size: 26px; font-weight: 900; color: var(--red); line-height: 1; }
-.ap-d { font-size: 12px; color: var(--gray); line-height: 1.3; }
-.ap-why { border-top: 1px solid var(--border); padding-top: 14px; }
-.ap-why-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
-.ap-why p { font-size: 13.5px; color: var(--body); line-height: 1.75; }
 .dark-ticker-bar { background: var(--charcoal); padding: 20px 0; overflow: hidden; position: relative; z-index: 10; margin-bottom: -1px; }
 .dark-ticker-label { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px; }
 .dark-ticker-wrap { overflow: hidden; position: relative; }
@@ -85,14 +85,79 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .dark-ticker-fade--right { right: 0; background: linear-gradient(to left,  var(--charcoal), transparent); }
 .dark-ticker-track { display: flex; align-items: center; width: max-content; animation: ticker-scroll 55s linear infinite; }
 .dark-ticker-track:hover { animation-play-state: paused; }
-.dark-ticker-item { font-size: 16px; font-weight: 700; color: rgba(255,255,255,.55); white-space: nowrap; padding: 0 44px; border-right: 1px solid rgba(255,255,255,.1); letter-spacing: 0.2px; transition: color .2s; }
-.dark-ticker-track:hover .dark-ticker-item { color: var(--charcoal-muted); }
+.dark-ticker-item { font-size: 16px; font-weight: 700; color: rgba(255,255,255,.55); white-space: nowrap; padding: 0 44px; border-right: 1px solid rgba(255,255,255,.1); letter-spacing: 0.2px; }
+.dark-ticker-item--logo { min-width: 190px; height: 54px; display: inline-flex; align-items: center; justify-content: center; padding: 0 44px; }
+.dark-ticker-logo { display: block; max-width: 260px; height: 48px; width: auto; object-fit: contain; filter: grayscale(1) brightness(1.8) contrast(0.85); opacity: 0.72; }
+.dark-ticker-logo--tall,
+.dark-ticker-logo--wide,
+.dark-ticker-logo--large { max-width: 260px; }
+.dark-ticker-logo--bright { filter: grayscale(1) brightness(2.25) contrast(0.78); opacity: 0.82; }
+.dark-ticker-logo--invert { filter: grayscale(1) invert(1) brightness(0.95) contrast(0.85); opacity: 0.78; }
+.dark-ticker-logo--soft { filter: grayscale(1) brightness(1.12) contrast(0.92); opacity: 0.58; }
+.dark-ticker-logo--muted { filter: grayscale(1) brightness(1.65) contrast(0.84); opacity: 0.72; }
+.dark-ticker-logo--natural { filter: grayscale(1) brightness(1.28) contrast(1.18); opacity: 0.82; }
 @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.interest-section { background: white; padding: 72px 5%; border-bottom: 1px solid var(--border); }
-.interest-intro { max-width: 760px; margin-bottom: 48px; }
-.interest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.packages-section { background: white; padding: 72px 5%; border-bottom: 1px solid var(--border); }
+.packages-intro { max-width: 760px; margin-bottom: 40px; }
+.packages-intro .section-sub { max-width: 650px; }
+.packages-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; isolation: isolate; }
+.package-card { background: white; border: 1px solid #d8d5d0; border-top-color: #c9c5be; border-radius: 6px; box-shadow: 0 10px 28px rgba(31,31,31,0.05); padding: 30px 26px; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; min-height: 820px; position: relative; z-index: 1; }
+.package-card--featured { position: relative; background: #FEF5F5; border-color: #ed212a; border-radius: 0 0 6px 6px; box-shadow: 0 16px 36px rgba(31,31,31,0.1); overflow: visible; }
+.package-card--featured .package-label { position: absolute; top: -41px; left: -1px; right: -1px; height: 41px; display: flex; align-items: center; justify-content: center; background: #ed212a; color: #fff; border-radius: 6px 6px 0 0; letter-spacing: 1.8px; font-size: 14px; }
+.package-card--custom { grid-column: 1 / -1; min-height: 0; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 28px; align-items: start; z-index: 3; }
+.package-tier { width: 100%; display: flex; flex-direction: column; gap: 9px; }
+.package-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); }
+.package-name { font-size: clamp(24px, 3vw, 34px); font-weight: 900; color: var(--charcoal); line-height: 1.05; }
+.package-price { width: 100%; display: flex; align-items: baseline; gap: 5px; margin: 4px 0 2px; padding: 8px 0 2px; color: var(--charcoal); }
+.package-price-value { font-size: clamp(28px, 3.4vw, 38px); font-weight: 900; letter-spacing: 0; line-height: 1; }
+.package-price-term { font-size: 13.5px; font-weight: 700; color: var(--gray); }
+.package-price-note { display: block; font-size: 14px; color: var(--gray); margin-top: 0; line-height: 1.45; }
+.package-summary { font-size: 14px; color: var(--body); line-height: 1.7; }
+.package-includes { width: 100%; padding-top: 4px; flex: 1; display: flex; flex-direction: column; }
+.package-includes-heading,
+.package-complimentary-heading { display: block; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--charcoal); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.package-include-list { list-style: none; display: flex; flex: 1; flex-direction: column; gap: 12px; }
+.package-include-list li { position: relative; padding-left: 24px; font-size: 13.5px; color: var(--body); line-height: 1.45; }
+.package-include-list li::before { content: "\2713"; position: absolute; left: 0; top: 1px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
+.package-include-list strong { display: block; color: var(--charcoal); font-size: 14px; line-height: 1.25; margin-bottom: 2px; }
+.package-include-list a { color: inherit; text-decoration: none; }
+.package-include-list a:hover { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.package-item-badge { display: inline-flex; align-items: center; justify-content: center; margin-left: 7px; padding: 0; background: transparent; color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; line-height: 1; vertical-align: 1px; }
+.package-include-divider { padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.package-product-row { margin-left: 18px; }
+.package-product-row::before { left: 0; }
+.package-include-note { margin-top: auto; padding-top: 34px; padding-left: 0 !important; border-top: 0; color: var(--body) !important; font-size: 13.5px !important; }
+.package-include-list .package-include-note::before { content: none; }
+.package-include-note strong { color: var(--charcoal); font-size: 14px; }
+.package-complimentary-heading { width: 100%; margin-top: 0; margin-left: 0; }
+.package-complimentary-feature { --feature-check-offset: 0px; display: block; position: relative; padding-left: 24px; }
+.package-complimentary-feature::before { content: "\2713"; position: absolute; left: 0; top: calc(var(--feature-check-offset) + 1px); color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
+.package-complimentary-feature + .package-complimentary-feature { --feature-check-offset: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.package-product-options { margin-top: 2px; padding-top: 0; border-top: 0; color: var(--gray) !important; }
+.package-product-options::before { content: "\2713"; top: 1px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; background: transparent; }
+.package-product-options > strong { width: calc(100% + 24px); margin-left: -24px; padding-left: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.package-product-options > strong { color: var(--charcoal); font-size: 14px; }
+.package-option-list { width: 100%; display: grid; gap: 12px; margin-top: 12px; }
+.package-option-list span { display: block; font-size: 14px; color: #b9b5ae; line-height: 1.45; padding: 0; border-top: 0; margin-left: 18px; }
+.package-option-list span:not(:last-child) { width: calc(100% + 6px); margin-left: -6px; padding-left: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.package-option-list b { display: block; color: #b9b5ae; font-size: 14px; line-height: 1.25; margin-bottom: 1px; }
+.package-option-list b,
+.package-product-row strong { font-weight: 400; }
+.package-action { width: 100%; margin-top: 6px; white-space: nowrap; }
+.package-action .btn-secondary { width: 100%; text-align: center; background: white; }
+.package-card--featured .package-action .btn-secondary { background: var(--red); border-color: var(--red); color: white; }
+.package-card--featured .package-action .btn-secondary:hover { background: var(--red-dark); border-color: var(--red-dark); color: white; }
+.package-card--custom .package-tier { min-width: 0; }
+.package-card--custom .package-summary { max-width: 680px; }
+.package-card--custom .package-action { width: auto; max-width: none; margin-top: 0; align-self: center; justify-self: end; }
+.package-card--custom .package-action .btn-secondary { width: auto; min-width: 180px; white-space: nowrap; padding-left: 26px; padding-right: 26px; }
+.package-custom-anchor { position: absolute; top: -420px; left: 0; width: 1px; height: 1px; pointer-events: none; scroll-margin-top: 78px; }
+.interest-section { background: #FAF9F8; padding: 72px 5%; border-bottom: 1px solid var(--border); }
+.interest-intro { max-width: 1000px; margin-bottom: 40px; }
+.interest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .interest-card { background: var(--light); border: 1px solid var(--border); padding: 28px 26px; }
 .interest-card--featured { background: var(--charcoal); border-color: var(--charcoal); }
+.interest-card--white { background: white; }
 .interest-card.interest-card--featured h3 { color: #f6f4f1; font-weight: 700; }
 .interest-card.interest-card--featured p { color: #ffffffad; }
 .interest-card--featured .ic-stat { color: var(--charcoal-muted); border-top-color: rgba(255,255,255,.15); }
@@ -101,12 +166,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .interest-card p { font-size: 13.5px; color: var(--body); line-height: 1.78; margin-bottom: 16px; }
 .ic-stat { font-size: 13.5px; color: var(--gray); padding-top: 14px; border-top: 1px solid var(--border); }
 .ic-stat strong { color: var(--red); font-size: 13.5px; font-weight: 600; }
-.interest-cta-nudge { margin-top: 32px; }
 .options-slim { background: var(--charcoal); padding: 72px 5%; }
-.options-slim .section-inner { display: flex; flex-direction: column; gap: 28px; }
+.options-slim .section-inner { display: flex; flex-direction: column; gap: 40px; }
 .options-slim-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
-.options-slim-h { font-size: clamp(22px, 2.8vw, 33px); font-weight: 900; color: var(--charcoal-text); line-height: 1.25; max-width: 640px; }
-.options-slim-pills { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.options-slim-h { font-size: clamp(22px, 2.8vw, 33px); font-weight: 900; color: var(--charcoal-text); line-height: 1.14; max-width: 640px; }
+.options-slim-pills { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
 .options-pill { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); padding: 15px; transition: background .2s; text-decoration: none; display: block; }
 .options-pill:hover { background: rgba(255,255,255,.11); }
 .options-pill-name { font-size: 14px; font-weight: 700; color: var(--charcoal-text); margin-bottom: 5px; }
@@ -114,10 +178,6 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .options-pill--cta { background: var(--red); border-color: var(--red); }
 .options-pill--cta:hover { background: var(--red-dark); border-color: var(--red-dark); }
 .options-pill--cta .options-pill-desc { color: rgba(255,255,255,.7); }
-.do-bottom { background: var(--red); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.do-bottom-copy { display: flex; flex-direction: column; gap: 4px; }
-.do-bottom-copy strong { font-size: 16px; font-weight: 700; color: white; }
-.do-bottom-copy span { font-size: 13.5px; color: rgba(255,255,255,.8); }
 .action-section { background: var(--light); padding: 72px 5%; border-top: 1px solid var(--border); scroll-margin-top: 78px; transition: height .56s cubic-bezier(.22,1,.36,1); overflow: hidden; }
 .action-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start; }
 .action-copy p { font-size: 15px; color: var(--body); line-height: 1.8; margin-bottom: 28px; }
@@ -141,15 +201,41 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .action-form-header p { font-size: 13px; color: var(--gray); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
-.fg label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); }
+.fg label { font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--gray); }
 .fg.req label::after { content: ' *'; color: var(--red); }
-.fg input, .fg select, .fg textarea { background: var(--lighter); border: 1px solid var(--border); color: var(--charcoal); padding: 11px 13px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
+.fg input, .fg select, .fg textarea { background: white; border: 1px solid var(--border); color: var(--charcoal); padding: 11px 13px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
 .fg select { cursor: pointer; }
 .fg.is-hidden { display: none; }
 .fg select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 22px 22px; padding-right: 44px; }
-.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: #1f1f1f; background: white; }
+.fg input:focus, .fg textarea:focus { border-color: #1f1f1f; background: white; }
+.fg.is-active input, .fg.is-active select, .fg.is-active textarea { border-color: #1f1f1f; background: white; }
 .fg input::placeholder, .fg textarea::placeholder { color: #c0c0c0; }
 .fg textarea { resize: vertical; min-height: 160px; }
+.package-site-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 5px; flex-wrap: wrap; }
+.package-site-picker { background: white; border: 1px solid var(--border); padding: 11px 13px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; transition: border-color .2s, background .2s; }
+.package-site-picker:focus-within { border-color: #1f1f1f; background: white; }
+.package-site-selected { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.package-site-chip { display: inline-flex; align-items: center; gap: 8px; background: #f1efec; border: 1px solid #ddd8d2; color: var(--charcoal); font-size: 13px; line-height: 1; padding: 8px 10px; }
+.package-site-chip button { border: 0; background: transparent; color: var(--gray); font-size: 16px; line-height: 1; cursor: pointer; padding: 0; }
+.package-site-chip button:hover { color: var(--charcoal); }
+.package-site-search { flex: 1 1 180px; min-width: 180px; border: 0 !important; background: transparent !important; padding: 0 !important; font-family: Helvetica, Arial, sans-serif; font-size: 14px !important; color: var(--charcoal); outline: none; box-shadow: none !important; }
+.site-scroll-shell { position: relative; margin-top: 8px; }
+.package-site-results { margin-top: 0; background: white; border: 1px solid var(--border); height: 220px; overflow-y: auto; scrollbar-width: none; }
+.package-site-results::-webkit-scrollbar { width: 0; height: 0; }
+.site-scrollbar { position: absolute; top: 1px; right: 1px; bottom: 1px; width: 11px; background: #f7f6f4; border-left: 1px solid var(--border); cursor: pointer; z-index: 3; touch-action: none; }
+.site-scrollbar-thumb { position: absolute; left: 3px; top: 0; width: 4px; min-height: 24px; background: #aaa39b; border-radius: 2px; cursor: grab; transition: background .15s ease; }
+.site-scroll-shell:hover .site-scrollbar-thumb,
+.site-scroll-shell.is-dragging .site-scrollbar-thumb { background: #8f8880; }
+.site-scroll-shell.is-dragging .site-scrollbar-thumb { cursor: grabbing; }
+.package-site-results.is-hidden { display: none; }
+.package-site-result { width: 100%; border: 0; border-bottom: 1px solid var(--border); background: white; text-align: left; padding: 11px 28px 11px 13px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; font-family: Helvetica, Arial, sans-serif; }
+.package-site-result:last-child { border-bottom: 0; }
+.package-site-result:hover { background: #faf9f8; }
+.package-site-result-name { font-size: 13.5px; font-weight: 700; color: var(--charcoal); }
+.package-site-result-meta { font-size: 12px; color: var(--gray); line-height: 1.4; }
+.package-site-empty { padding: 11px 28px 11px 13px; font-size: 13px; color: var(--gray); line-height: 1.5; }
+.package-site-help { font-size: 12px; color: var(--gray); margin-top: 8px; line-height: 1.45; }
+.package-site-help--inline { color: var(--red); margin-top: 0; white-space: nowrap; }
 .fg-textarea-wrap { position: relative; }
 .fg-char-count { position: absolute; right: 20px; bottom: 10px; font-size: 11px; color: var(--gray); background: #fff; padding-left: 6px; line-height: 1; opacity: 0; pointer-events: none; transition: opacity .15s ease; }
 .fg-char-count.is-visible { opacity: 1; }
@@ -158,28 +244,53 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .form-submit { background: var(--red); color: white; border: none; padding: 16px 0; width: 100%; font-family: Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background .2s; margin-top: 20px; }
 .form-submit:hover { background: var(--red-dark); }
 .form-guarantee { text-align: center; font-size: 12px; color: var(--gray); margin-top: 10px; }
+.acr-val a { color: var(--charcoal); text-decoration: none; }
+.acr-val a:hover { text-decoration: underline; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeUpMockup { from { opacity: 0; transform: translate(var(--mockup-x), 14px); } to { opacity: 1; transform: translate(var(--mockup-x), 0); } }
-.attention-copy h1  { animation: fadeUp .45s ease both; }
-.attention-lead     { animation: fadeUp .45s ease .07s both; }
-.attention-actions  { animation: fadeUp .45s ease .13s both; }
-.hero-response-note { animation: fadeUp .45s ease .17s both; }
+.aida-label         { animation: fadeUp .45s ease both; }
+.attention-copy h1  { animation: fadeUp .45s ease .07s both; }
+.attention-lead     { animation: fadeUp .45s ease .13s both; }
+.attention-actions  { animation: fadeUp .45s ease .19s both; }
+.hero-response-note { animation: fadeUp .45s ease .23s both; }
 .attention-proof:not(.attention-proof--mockup) { animation: fadeUp .45s ease .1s both; }
 .attention-proof--mockup img { animation: fadeUpMockup .45s ease .1s both; }
 @media (max-width: 960px) {
+  html,
+  body { overflow-x: hidden; }
   nav.nav-hidden { transform: translateY(calc(-100% - 12px)); }
-  nav { padding: 0 20px; }
+  nav { width: 100%; max-width: 100vw; padding: 0 20px; }
   footer { padding-left: 20px; padding-right: 20px; }
-  .nav-links { position: absolute; top: 66px; left: 0; right: 0; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow-x: visible; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
+  .nav-top { min-width: 0; }
+  .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-link { font-size: 13px; padding: 10px 20px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .nav-link { min-width: 0; font-size: 13px; padding: 10px 12px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-cta { display: none; }
   .nav-cta-top { display: inline-flex; flex-shrink: 0; }
-  .attention-hero { padding: 64px 20px 42px; }
+  .agency-bar { padding: 12px 20px; }
+  .agency-bar-inner { padding: 0 28px; flex-direction: column; gap: 4px; font-size: 13.5px; }
+  .agency-bar-close { right: 8px; }
+  .attention-hero { padding: 64px 20px 42px; overflow: visible; }
+  .attention-inner { grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  .attention-copy,
+  .attention-lead { max-width: none; }
+  .attention-proof--mockup { width: 100%; min-height: 0; margin-bottom: -43px; justify-content: center; align-self: auto; }
+  .attention-proof--mockup img { --mockup-x: 0px; width: 100%; max-width: 430px; transform: none; }
+  .attention-copy h1 { line-height: 1.15; }
+  .packages-section { padding: 42px 20px; }
+  .packages-list { grid-template-columns: 1fr; gap: 40px; }
+  .package-card { min-height: 0; gap: 18px; padding: 24px 22px; }
+  .package-card--featured { margin-top: 40px; }
+  .package-card--custom { grid-template-columns: 1fr; gap: 20px; }
+  .package-card--custom .package-action { justify-self: center; }
+  .package-action { white-space: normal; }
   .interest-section { padding: 42px 20px; }
+  .interest-grid { grid-template-columns: 1fr; gap: 16px; }
   .options-slim { padding: 42px 20px; }
+  .options-pill-name { font-size: 16px; }
+  .options-pill-desc { font-size: 13.5px; line-height: 1.45; }
   .action-section { padding: 42px 20px; }
-  section[style*="padding: 0 5% 48px"] { padding: 0 20px 42px !important; }
+  .action-grid { grid-template-columns: 1fr; gap: 32px; }
   .action-form-wrap {
     width: calc(100% + 40px);
     margin-left: -20px;
@@ -190,32 +301,31 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   }
   .aida-label { margin-bottom: 12px; }
   .attention-copy h1 { font-size: 32px; }
-  .do-bottom-copy strong { font-size: 18px; }
-  .do-bottom-copy span { font-size: 14px; }
-  .attention-inner, .interest-grid, .action-grid { grid-template-columns: 1fr; }
-  .attention-proof--mockup { margin-bottom: -44px; min-height: 0; display: block; position: relative; z-index: 3; }
-  .attention-proof--mockup img { width: 100%; margin-top: 0; margin-bottom: 0; transform: none; animation: fadeUp .45s ease .1s both; }
-  .do-grid { grid-template-columns: 1fr; }
-  .do-bottom { flex-direction: column; align-items: center; text-align: center; }
-  .do-bottom-copy { align-items: center; text-align: center; }
 }
 @media (max-width: 860px) { .options-slim-pills { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .dark-ticker-label { max-width: 400px; margin-left: auto; margin-right: auto; font-size: 10px; line-height: 1.45; letter-spacing: 1.1px; padding-left: 20px; padding-right: 20px; } .dark-ticker-item--logo { min-width: 170px; height: 46px; padding-left: 34px; padding-right: 34px; } .dark-ticker-logo { height: 40px; max-width: 220px; } }
 @media (max-width: 560px) {
   .form-row { grid-template-columns: 1fr; }
   .attention-actions { flex-direction: column; }
   .hero-response-note { text-align: center; }
-  .dark-ticker-label { padding-left: 20px; padding-right: 20px; }
   .fg input,
   .fg select,
   .fg textarea { font-size: 16px; }
   .btn-lg, .btn-ghost { width: 100%; text-align: center; font-size: 16px; padding: 16px 34px; line-height: 1; }
   .btn-ghost { padding-top: 14px; padding-bottom: 14px; }
 }
+@media (max-width: 360px) { .dark-ticker-label { max-width: 330px; font-size: 9px; letter-spacing: 0.8px; } }
 @media (max-width: 480px) { .options-slim-pills { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 <div id="nav-spacer" style="height:66px"></div>
+<div class="agency-bar">
+  <div class="agency-bar-inner">
+    <span class="agency-bar-text"><strong>Are you a larger regional advertiser or an agency?</strong> Contact us for our complete media kit at <a class="agency-bar-email" href="mailto:advertisers@dailyvoice.com">advertisers@dailyvoice.com</a>.</span>
+  </div>
+  <button class="agency-bar-close" type="button" aria-label="Dismiss media kit notice">&times;</button>
+</div>
 <nav>
   <div class="nav-top">
     <a href="advertise.html" class="nav-logo" aria-label="Daily Voice">
@@ -224,11 +334,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="nav-links">
       <a href="advertise.html" class="nav-link active">Advertise</a>
       <a href="products.html" class="nav-link">Products</a>
-      <a href="audience.html" class="nav-link">Our Audience</a>
+      <a href="audience.html" class="nav-link">Find Your Site</a>
       <a href="about.html" class="nav-link">About Us</a>
-      <a href="#contact-form" class="nav-cta">Get a Free Quote</a>
+      <a href="#packages" class="nav-cta">View Packages</a>
     </div>
-    <a href="#contact-form" class="nav-cta nav-cta-top">Get a Free Quote</a>
+    <a href="#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
 
@@ -239,8 +349,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <h1>Your Neighbors Trust<br>Daily Voice.<br><em style="display:block;margin-top:0.12em;">Put Your Business<br>in Front of Them.</em></h1>
       <p class="attention-lead">Every day, thousands of people in your community open Daily Voice to find out what's happening locally. They're homeowners, parents, and loyal locals, exactly the customers you want. Turn that trust into calls, bookings, and visits.</p>
       <div class="attention-actions">
-      <a href="#contact-form" class="btn-primary btn-lg">Get a Free Quote</a>
-      <a href="products.html" class="btn-ghost">View Products</a>
+      <a href="#packages" class="btn-primary btn-lg">View Packages</a>
+      <a href="#contact-form" class="btn-ghost">Contact Us</a>
       </div>
       <p class="hero-response-note">We typically reply within 1 business day</p>
     </div>
@@ -256,37 +366,136 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="dark-ticker-fade dark-ticker-fade--left"></div>
     <div class="dark-ticker-fade dark-ticker-fade--right"></div>
     <div class="dark-ticker-track">
-      <div class="dark-ticker-item">DeCicco &amp; Sons</div>
-      <div class="dark-ticker-item">Ivy Glove Cleaning</div>
-      <div class="dark-ticker-item">bartaco</div>
-      <div class="dark-ticker-item">SPCA Westchester</div>
-      <div class="dark-ticker-item">Marcello's Italian Eatery</div>
-      <div class="dark-ticker-item">Marshall Oil Co.</div>
-      <div class="dark-ticker-item">Love You a Latte of Greenwich</div>
-      <div class="dark-ticker-item">Newport Academy</div>
-      <div class="dark-ticker-item">Splash Car Wash</div>
-      <div class="dark-ticker-item">Constantino's Pizza &amp; Ice Cream</div>
-      <div class="dark-ticker-item">Westchester Community College</div>
-      <div class="dark-ticker-item">NY Firehouse Grille</div>
-      <div class="dark-ticker-item">White Plains Hospital</div>
-      <div class="dark-ticker-item">Roda</div>
-      <div class="dark-ticker-item">DeCicco &amp; Sons</div>
-      <div class="dark-ticker-item">Ivy Glove Cleaning</div>
-      <div class="dark-ticker-item">bartaco</div>
-      <div class="dark-ticker-item">SPCA Westchester</div>
-      <div class="dark-ticker-item">Marcello's Italian Eatery</div>
-      <div class="dark-ticker-item">Marshall Oil Co.</div>
-      <div class="dark-ticker-item">Love You a Latte of Greenwich</div>
-      <div class="dark-ticker-item">Newport Academy</div>
-      <div class="dark-ticker-item">Splash Car Wash</div>
-      <div class="dark-ticker-item">Constantino's Pizza &amp; Ice Cream</div>
-      <div class="dark-ticker-item">Westchester Community College</div>
-      <div class="dark-ticker-item">NY Firehouse Grille</div>
-      <div class="dark-ticker-item">White Plains Hospital</div>
-      <div class="dark-ticker-item">Roda</div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--soft" src="assets/logos/geary-gallery-ticker-logo.png" alt="Geary Gallery" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/benedicts-construction-logo.png" alt="Benedict's Construction" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/marcellos-ticker-logo.png" alt="Marcello's Italian Eatery" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ivy-glove-ticker-logo.png" alt="Ivy Glove" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--soft" src="assets/logos/walter-stewarts-market-ticker-logo.png" alt="Walter Stewart's Market" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/krs-roofing-logo.png" alt="KRS Roofing" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/genesis-jewelers-ticker-logo.png" alt="Genesis Jewelers" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--natural" src="assets/logos/natures-temptations-logo.png" alt="Nature's Temptations" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/curtain-call-logo.png" alt="Curtain Call" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/bartaco-ticker-logo.png" alt="bartaco" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/jamey-gelardi-ticker-logo.png" alt="Jamey Gelardi" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/love-you-a-latte-logo.png" alt="Love You a Latte" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/spca-ticker-logo.png" alt="SPCA" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/lucente-landscaping-logo.png" alt="Lucente Landscaping" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--bright" src="assets/logos/constantinos-ticker-logo.png" alt="Constantino's" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/bonded-lash-bar-ticker-logo.png" alt="Bonded Lash Bar" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/armonk-outdoor-art-show-logo.png" alt="Armonk Outdoor Art Show" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ny-firehouse-grille-logo.png" alt="NY Firehouse Grille" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/horseneck-wines-logo.png" alt="Horseneck Wines" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/the-goose-logo.png" alt="The Goose" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/the-union-bar-provisions-logo.png" alt="The Union Bar &amp; Provisions" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--soft" src="assets/logos/geary-gallery-ticker-logo.png" alt="Geary Gallery" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/benedicts-construction-logo.png" alt="Benedict's Construction" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/marcellos-ticker-logo.png" alt="Marcello's Italian Eatery" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ivy-glove-ticker-logo.png" alt="Ivy Glove" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--soft" src="assets/logos/walter-stewarts-market-ticker-logo.png" alt="Walter Stewart's Market" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/krs-roofing-logo.png" alt="KRS Roofing" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/genesis-jewelers-ticker-logo.png" alt="Genesis Jewelers" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall dark-ticker-logo--natural" src="assets/logos/natures-temptations-logo.png" alt="Nature's Temptations" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/curtain-call-logo.png" alt="Curtain Call" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/bartaco-ticker-logo.png" alt="bartaco" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/jamey-gelardi-ticker-logo.png" alt="Jamey Gelardi" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/love-you-a-latte-logo.png" alt="Love You a Latte" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--muted" src="assets/logos/spca-ticker-logo.png" alt="SPCA" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/lucente-landscaping-logo.png" alt="Lucente Landscaping" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--bright" src="assets/logos/constantinos-ticker-logo.png" alt="Constantino's" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/bonded-lash-bar-ticker-logo.png" alt="Bonded Lash Bar" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/armonk-outdoor-art-show-logo.png" alt="Armonk Outdoor Art Show" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ny-firehouse-grille-logo.png" alt="NY Firehouse Grille" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/horseneck-wines-logo.png" alt="Horseneck Wines" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/the-goose-logo.png" alt="The Goose" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/the-union-bar-provisions-logo.png" alt="The Union Bar &amp; Provisions" /></div>
     </div>
   </div>
 </div>
+
+<section class="packages-section" id="packages">
+  <div class="section-inner">
+    <div class="packages-intro">
+      <span class="section-kicker">Advertising Packages</span>
+      <h2 class="section-h">Packages Tailored For Local Business.</h2>
+      <p class="section-sub">Simple starting points for small businesses that want to build awareness, reach nearby customers, and stay visible in the communities they serve.</p>
+    </div>
+    <div class="packages-list">
+      <article class="package-card">
+        <div class="package-tier">
+          <h3 class="package-name">Silver</h3>
+          <p class="package-summary">A simple way for businesses to get in front of local readers.</p>
+          <div class="package-price"><span class="package-price-value">$199</span><span class="package-price-term">/mo</span></div>
+          <span class="package-price-note">Per Daily Voice local site</span>
+          <div class="package-action">
+            <a href="#contact-form" class="btn-secondary" data-package-interest="Local Business Package - Silver">Choose Silver</a>
+          </div>
+        </div>
+        <div class="package-includes">
+          <span class="package-includes-heading">What's Included:</span>
+          <ul class="package-include-list">
+            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><span class="package-option-list"><span><b><a href="products.html#product-04">Website &amp; Newsletter Banners</a></b></span><span><b><a href="products.html#product-02">Dedicated Email Blast</a></b></span><span><b><a href="products.html#product-03">Branded Article</a></b></span></span></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="package-card">
+        <div class="package-tier">
+          <h3 class="package-name">Gold</h3>
+          <p class="package-summary">A stronger package for steady local visibility and reach.</p>
+          <div class="package-price"><span class="package-price-value">$299</span><span class="package-price-term">/mo</span></div>
+          <span class="package-price-note">Per Daily Voice local site</span>
+          <div class="package-action">
+            <a href="#contact-form" class="btn-secondary" data-package-interest="Local Business Package - Gold">Choose Gold</a>
+          </div>
+        </div>
+        <div class="package-includes">
+          <span class="package-includes-heading">What's Included:</span>
+          <ul class="package-include-list">
+            <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
+            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><span class="package-option-list"><span><b><a href="products.html#product-04">Website &amp; Newsletter Banners</a></b></span><span><b><a href="products.html#product-02">Dedicated Email Blast</a></b></span><span><b><a href="products.html#product-03">Branded Article</a></b></span></span></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="package-card package-card--featured">
+        <div class="package-tier">
+          <span class="package-label">Best Value</span>
+          <h3 class="package-name">Platinum</h3>
+          <p class="package-summary">The complete local advertising package with every major placement included.</p>
+          <div class="package-price"><span class="package-price-value">$599</span><span class="package-price-term">/mo</span></div>
+          <span class="package-price-note">Per Daily Voice local site</span>
+          <div class="package-action">
+            <a href="#contact-form" class="btn-secondary" data-package-interest="Local Business Package - Platinum">Choose Platinum</a>
+          </div>
+        </div>
+        <div class="package-includes">
+          <span class="package-includes-heading">What's Included:</span>
+          <ul class="package-include-list">
+            <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
+            <li class="package-include-divider"><strong>Get All Ad Products (3/3)</strong></li>
+            <li class="package-include-divider package-product-row"><strong><a href="products.html#product-04">Website &amp; Newsletter Banners</a></strong></li>
+            <li class="package-include-divider package-product-row"><strong><a href="products.html#product-02">Dedicated Email Blast</a></strong></li>
+            <li class="package-product-row"><strong><a href="products.html#product-03">Branded Article</a></strong></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="package-card package-card--custom">
+        <span class="package-custom-anchor" id="custom-package" aria-hidden="true"></span>
+        <div class="package-tier">
+          <h3 class="package-name">Custom Package</h3>
+          <p class="package-summary">Not seeing what you're looking for? We can build a package around your goals.</p>
+        </div>
+        <div class="package-action">
+          <a href="#contact-form" class="btn-secondary" data-package-interest="Custom Package">Contact Sales</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section class="interest-section" id="interest">
   <div class="section-inner">
@@ -302,27 +511,18 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <p>Choose the towns you serve so your message reaches people in the right communities. That means nearby customers who can actually visit, call, or book with you.</p>
         <div class="ic-stat">Target by <strong>towns</strong>, counties, regions, or <strong>ZIP codes</strong></div>
       </div>
-      <div class="interest-card">
+      <div class="interest-card interest-card--white">
         <div class="ic-icon"><svg fill="var(--red)" stroke="var(--red)" stroke-width="1.5" width="28" height="28" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><path d="M31.25,7.4a43.79,43.79,0,0,1-6.62-2.35,45,45,0,0,1-6.08-3.21L18,1.5l-.54.35a45,45,0,0,1-6.08,3.21A43.79,43.79,0,0,1,4.75,7.4L4,7.59v8.34c0,13.39,13.53,18.4,13.66,18.45l.34.12.34-.12c.14,0,13.66-5.05,13.66-18.45V7.59ZM30,15.93c0,11-10,15.61-12,16.43-2-.82-12-5.44-12-16.43V9.14a47.54,47.54,0,0,0,6.18-2.25,48.23,48.23,0,0,0,5.82-3,48.23,48.23,0,0,0,5.82,3A47.54,47.54,0,0,0,30,9.14Z"/></svg></div>
         <h3>Trusted Local Platform</h3>
-        <p>For over 15 years, Daily Voice has been the place people in your community go to find out what's happening. We've earned that trust by getting local news right. When your business appears alongside that content, our credibility becomes yours.</p>
+        <p>For over 15 years, Daily Voice has been the trusted place people in your community go to find out what's happening. When your business appears alongside that content, our credibility becomes yours.</p>
         <div class="ic-stat"><strong>15+</strong> years serving local communities</div>
       </div>
-      <div class="interest-card">
+      <div class="interest-card interest-card--white">
         <div class="ic-icon"><svg viewBox="0 0 24 24" fill="var(--red)" width="28" height="28"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
         <h3>Engaged Local Audience</h3>
         <p>Reach locals who are actively reading, not just scrolling. Our audience follows local news and community updates, which helps your business get noticed and remembered.</p>
         <div class="ic-stat">Local readers with <strong>intent</strong></div>
       </div>
-      <div class="interest-card">
-        <div class="ic-icon"><svg viewBox="0 0 24 24" fill="var(--red)" width="28" height="28"><path d="M21.9 8.89l-1.05-4.37c-.22-.9-1.02-1.52-1.94-1.52H5.09c-.92 0-1.72.62-1.94 1.52L2.1 8.89c-.24 1.02-.02 2.06.62 2.88.08.11.19.19.28.29V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6.94c.09-.09.2-.18.28-.29.64-.82.87-1.87.62-2.88zM12 19H5v-5h7v5zm7 0h-5v-5h5v5zM4.08 9.26l.63-2.6c.05-.2.23-.34.44-.34h13.7c.21 0 .39.14.44.34l.63 2.6c.08.35-.19.74-.57.74H4.65c-.38 0-.65-.39-.57-.74z"/></svg></div>
-        <h3>Built for Local Business</h3>
-        <p>Easy to launch and easy to manage. Pick the towns you serve, choose your placements, and start reaching local customers. We'll put together a plan that fits your timeline and budget.</p>
-        <div class="ic-stat">Uniquely powerful <strong style="color: var(--red);">local</strong> marketing</div>
-      </div>
-    </div>
-    <div class="interest-cta-nudge">
-      <a href="audience.html" class="btn-secondary">See Full Audience Data</a>
     </div>
   </div>
 </section>
@@ -335,20 +535,20 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     </div>
     <div class="options-slim-pills">
       <div class="options-pill">
-        <div class="options-pill-name">Branded Article</div>
-        <div class="options-pill-desc">Promoted across our local sites</div>
+        <div class="options-pill-name">Site Sponsorship</div>
+        <div class="options-pill-desc">Premium visibility on the local site homepage</div>
       </div>
       <div class="options-pill">
         <div class="options-pill-name">Email Blast</div>
         <div class="options-pill-desc">Directly to our subscribers' inboxes</div>
       </div>
       <div class="options-pill">
-        <div class="options-pill-name">Website Banners</div>
-        <div class="options-pill-desc">Established presence on our sites</div>
+        <div class="options-pill-name">Branded Article</div>
+        <div class="options-pill-desc">Sponsored local storytelling around your business</div>
       </div>
       <div class="options-pill">
-        <div class="options-pill-name">Newsletter Banners</div>
-        <div class="options-pill-desc">Local newsletter advertising</div>
+        <div class="options-pill-name">Banners</div>
+        <div class="options-pill-desc">Display placements across our local sites and newsletters</div>
       </div>
       <a href="products.html" class="options-pill options-pill--cta">
         <div class="options-pill-name">Product Overview</div>
@@ -377,43 +577,58 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <div class="action-contacts">
           <div class="action-contact-row">
             <div class="acr-icon"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-            <div><div class="acr-label">Email us directly</div><div class="acr-val"><a href="mailto:advertisers@dailyvoice.com" style="color: var(--charcoal); text-decoration: underline;">advertisers@dailyvoice.com</a></div></div>
+            <div><div class="acr-label">Email us directly</div><div class="acr-val"><a href="mailto:advertisers@dailyvoice.com">advertisers@dailyvoice.com</a></div></div>
           </div>
         </div>
       </div>
       <div class="action-form-wrap" id="contact-form">
         <div class="action-form-header">
-          <h3>Get a Free Quote</h3>
+          <h3>Contact Our Team</h3>
           <p>Please provide some basic information and we'll be in touch to build a package and pricing.</p>
           <p>We typically respond the <strong>same day</strong>, often within a few hours.</p>
         </div>
         <form onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="fg req"><label>Your Name</label><input type="text" placeholder="Jane Smith" maxlength="50" required /></div>
-            <div class="fg req"><label>Email Address</label><input type="email" placeholder="jane@yourbusiness.com" maxlength="50" required /></div>
-          </div>
-          <div class="fg req"><label>Your Business &amp; Town</label><input type="text" placeholder="e.g. Smith's Plumbing, Westport CT" maxlength="100" required /></div>
-          <div class="fg"><label>Geographies you are looking to reach</label><div class="fg-textarea-wrap"><textarea placeholder="e.g. Fairfield County, Westport, Greenwich, 06880" style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
-          <div class="fg"><label>What are you trying to accomplish?</label><div class="fg-textarea-wrap"><textarea placeholder="e.g. More foot traffic, more calls, more local awareness." style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
-          <div class="fg">
+          <div class="fg req">
             <label>Interested In</label>
-            <select id="interested-in-select">
+            <select id="interested-in-select" required>
               <option value="" disabled selected></option>
+              <option>Local Business Package - Silver</option>
+              <option>Local Business Package - Gold</option>
+              <option>Local Business Package - Platinum</option>
+              <option>Custom Package</option>
               <option>Not sure yet</option>
-              <option>Branded Article</option>
-              <option>Dedicated Email Blast</option>
-              <option>Website Banners</option>
-              <option>Newsletter Banners</option>
               <option>Legal Notice / Public Notice</option>
               <option>Guest Post / Link Insertion</option>
-              <option>Combination / Multiple Products</option>
             </select>
           </div>
           <div class="fg is-hidden" id="interested-in-custom-wrap">
             <label>Products of Interest</label>
-            <input type="text" id="interested-in-custom" placeholder="e.g. Branded Article + Newsletter Banners" maxlength="100" />
+            <input type="text" id="interested-in-custom" maxlength="100" />
           </div>
-          <div class="fg req">
+          <div class="form-row">
+            <div class="fg req"><label>Your Name</label><input type="text" maxlength="50" required /></div>
+            <div class="fg req"><label>Email Address</label><input type="email" maxlength="50" required /></div>
+          </div>
+          <div class="fg req" id="business-town-wrap"><label id="business-town-label">Your Business &amp; Town</label><input type="text" id="business-town-input" maxlength="100" required /></div>
+          <div class="fg req is-hidden" id="package-sites-wrap">
+            <div class="package-site-label-row">
+              <label>Local site(s) for the package</label>
+              <div class="package-site-help package-site-help--inline">(Any additional sites in each package are 50% off)</div>
+            </div>
+            <div class="package-site-picker">
+              <div class="package-site-selected" id="package-site-selected"></div>
+              <input type="text" id="package-site-search" class="package-site-search" autocomplete="off" />
+            </div>
+            <input type="text" id="package-sites-value" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;padding:0;border:0;" tabindex="-1" aria-hidden="true" />
+            <div class="site-scroll-shell">
+              <div class="package-site-results is-hidden" id="package-site-results"></div>
+              <div class="site-scrollbar" aria-hidden="true"><span class="site-scrollbar-thumb"></span></div>
+            </div>
+          </div>
+          <div class="fg" id="geographies-wrap"><label>Geographies you are looking to reach</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
+          <div class="fg" id="goals-wrap"><label>What are you trying to accomplish?</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
+          <div class="fg is-hidden" id="description-wrap"><label>Description</label><div class="fg-textarea-wrap"><textarea id="description-textarea" style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
+          <div class="fg req" id="monthly-budget-wrap">
             <label>Monthly Budget</label>
             <select required id="monthly-budget-select">
               <option value="" disabled selected></option>
@@ -427,9 +642,13 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           </div>
           <div class="fg is-hidden" id="monthly-budget-custom-wrap">
             <label>Custom Monthly Budget</label>
-            <input type="text" id="monthly-budget-custom" placeholder="e.g. $350 per month" maxlength="50" />
+            <input type="text" id="monthly-budget-custom" maxlength="50" />
           </div>
-          <button type="submit" class="form-submit">Send My Message</button>
+          <div class="fg is-hidden" id="guest-budget-wrap">
+            <label>Monthly Budget</label>
+            <input type="text" id="guest-budget-input" maxlength="50" />
+          </div>
+          <button type="submit" class="form-submit">Submit</button>
           <div class="form-guarantee">By submitting this form you agree that Daily Voice may contact you using the provided information.</div>
         </form>
       </div>
@@ -448,12 +667,12 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <h5>Advertise</h5>
         <a href="advertise.html">Why Daily Voice</a>
         <a href="products.html">Products</a>
-        <a href="audience.html">Our Audience</a>
+        <a href="audience.html">Find Your Site</a>
         <a href="about.html">About Us</a>
       </div>
       <div class="footer-col">
         <h5>Get Started</h5>
-        <a href="#contact-form">Get a Free Quote</a>
+        <a href="#packages">View Packages</a>
         <a href="mailto:advertisers@dailyvoice.com">Email Us Directly</a>
         <a href="https://dailyvoice.com">Back to dailyvoice.com</a>
       </div>
@@ -465,15 +684,66 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </footer>
 
+<script src="assets/data/package-sites.js"></script>
 <script>
 var _lastScroll = 0;
 var _navEl = document.querySelector('nav');
 var _spacerEl = document.getElementById('nav-spacer');
+var _agencyBarEl = document.querySelector('.agency-bar');
+var _agencyBarCloseEl = document.querySelector('.agency-bar-close');
+var _agencyBarDismissed = false;
 var _navLastShownAt = 0;
 var _navLastHiddenAt = 0;
+var _tickerTracks = Array.prototype.slice.call(document.querySelectorAll('.dark-ticker-track'));
+var _tickerDurationMs = 55000;
+var _tickerStartedAt = Date.now();
+function _syncTickerPhase() {
+  if (!_tickerTracks.length) return;
+  var elapsed = (Date.now() - _tickerStartedAt) % _tickerDurationMs;
+  var delay = '-' + (elapsed / 1000) + 's';
+  _tickerTracks.forEach(function(track) {
+    track.style.animation = 'none';
+    void track.offsetWidth;
+    track.style.animationName = 'ticker-scroll';
+    track.style.animationDuration = '55s';
+    track.style.animationTimingFunction = 'linear';
+    track.style.animationIterationCount = 'infinite';
+    track.style.animationDelay = delay;
+  });
+}
+if (_tickerTracks.length) {
+  _syncTickerPhase();
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) requestAnimationFrame(_syncTickerPhase);
+  });
+}
 document.querySelectorAll('.js-current-year').forEach(function(el) {
   el.textContent = new Date().getFullYear();
 });
+try {
+  _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+} catch (e) {}
+if (_agencyBarEl && !_agencyBarDismissed) {
+  setTimeout(function() {
+    if (_agencyBarEl && !_agencyBarDismissed) {
+      _agencyBarEl.classList.add('is-visible');
+      _updateSpacer();
+    }
+  }, 2000);
+} else if (_agencyBarEl) {
+  _agencyBarEl.style.display = 'none';
+}
+if (_agencyBarCloseEl && _agencyBarEl) {
+  _agencyBarCloseEl.addEventListener('click', function() {
+    _agencyBarDismissed = true;
+    _agencyBarEl.classList.remove('is-visible');
+    try { sessionStorage.setItem('agencyBarDismissed', 'true'); } catch (e) {}
+    _updateSpacer();
+    setTimeout(function() {
+      if (_agencyBarEl && _agencyBarDismissed) _agencyBarEl.style.display = 'none';
+    }, 300);
+  });
+}
 document.querySelectorAll('textarea[data-char-count]').forEach(function(textarea) {
   var wrap = textarea.parentElement;
   var counter = wrap.querySelector('.fg-char-count');
@@ -494,11 +764,111 @@ document.querySelectorAll('textarea[data-char-count]').forEach(function(textarea
   if (document.activeElement !== textarea) wrap.classList.add('is-blurred');
   updateCounter();
 });
+document.querySelectorAll('.fg input, .fg select, .fg textarea').forEach(function(field) {
+  var fg = field.closest('.fg');
+  if (!fg) return;
+  field.addEventListener('focus', function() {
+    fg.classList.add('is-active');
+  });
+  field.addEventListener('blur', function() {
+    setTimeout(function() {
+      if (!fg.contains(document.activeElement)) fg.classList.remove('is-active');
+    }, 0);
+  });
+});
 document.querySelectorAll('.fg select').forEach(function(select) {
   select.addEventListener('change', function() {
     select.blur();
   });
 });
+document.addEventListener('pointerdown', function(event) {
+  document.querySelectorAll('.fg.is-active').forEach(function(fg) {
+    if (!fg.contains(event.target)) fg.classList.remove('is-active');
+  });
+  var activeEl = document.activeElement;
+  if (!activeEl || activeEl.tagName !== 'SELECT') return;
+  if (activeEl.contains(event.target)) return;
+  activeEl.blur();
+});
+function _updateSiteScrollbar(scroller) {
+  if (!scroller) return;
+  var shell = scroller.closest('.site-scroll-shell');
+  var track = shell ? shell.querySelector('.site-scrollbar') : null;
+  var thumb = track ? track.querySelector('.site-scrollbar-thumb') : null;
+  if (!shell || !track || !thumb) return;
+  var trackHeight = Math.max(0, track.clientHeight - 2);
+  if (!trackHeight) return;
+  var visibleHeight = scroller.clientHeight;
+  var scrollHeight = scroller.scrollHeight;
+  if (scrollHeight <= visibleHeight + 1) {
+    thumb.style.height = trackHeight + 'px';
+    thumb.style.transform = 'translateY(0)';
+    return;
+  }
+  var thumbHeight = Math.max(24, Math.round(trackHeight * (visibleHeight / scrollHeight)));
+  var maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+  var maxScrollTop = Math.max(1, scrollHeight - visibleHeight);
+  var thumbTop = Math.round((scroller.scrollTop / maxScrollTop) * maxThumbTop);
+  thumb.style.height = thumbHeight + 'px';
+  thumb.style.transform = 'translateY(' + thumbTop + 'px)';
+}
+function _bindSiteScrollbar(scroller) {
+  if (!scroller || scroller._siteScrollbarBound) return;
+  var shell = scroller.closest('.site-scroll-shell');
+  var track = shell ? shell.querySelector('.site-scrollbar') : null;
+  var thumb = track ? track.querySelector('.site-scrollbar-thumb') : null;
+  if (!shell || !track || !thumb) return;
+  scroller._siteScrollbarBound = true;
+  function setScrollFromPointer(pointerY, dragOffset) {
+    var trackRect = track.getBoundingClientRect();
+    var trackHeight = Math.max(0, track.clientHeight - 2);
+    var thumbHeight = Math.max(thumb.offsetHeight || 24, 24);
+    var maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+    var maxScrollTop = Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+    if (!maxThumbTop) {
+      scroller.scrollTop = 0;
+      _updateSiteScrollbar(scroller);
+      return;
+    }
+    var thumbTop = Math.max(0, Math.min(maxThumbTop, pointerY - trackRect.top - 1 - dragOffset));
+    scroller.scrollTop = (thumbTop / maxThumbTop) * maxScrollTop;
+    _updateSiteScrollbar(scroller);
+  }
+  function startDrag(event, dragOffset) {
+    event.preventDefault();
+    shell.classList.add('is-dragging');
+    setScrollFromPointer(event.clientY, dragOffset);
+    function handleMove(moveEvent) {
+      setScrollFromPointer(moveEvent.clientY, dragOffset);
+    }
+    function handleUp() {
+      shell.classList.remove('is-dragging');
+      document.removeEventListener('pointermove', handleMove);
+      document.removeEventListener('pointerup', handleUp);
+      document.removeEventListener('pointercancel', handleUp);
+    }
+    document.addEventListener('pointermove', handleMove);
+    document.addEventListener('pointerup', handleUp);
+    document.addEventListener('pointercancel', handleUp);
+  }
+  track.addEventListener('pointerdown', function(event) {
+    var thumbRect = thumb.getBoundingClientRect();
+    var dragOffset = event.target === thumb ? event.clientY - thumbRect.top : Math.max(12, thumbRect.height / 2);
+    startDrag(event, dragOffset);
+  });
+  scroller.addEventListener('scroll', function() {
+    _updateSiteScrollbar(scroller);
+  }, { passive: true });
+  window.addEventListener('resize', function() {
+    _updateSiteScrollbar(scroller);
+  });
+  window.setInterval(function() {
+    _updateSiteScrollbar(scroller);
+  }, 200);
+  requestAnimationFrame(function() {
+    _updateSiteScrollbar(scroller);
+  });
+}
 var _budgetSelect = document.getElementById('monthly-budget-select');
 var _budgetCustomWrap = document.getElementById('monthly-budget-custom-wrap');
 var _budgetCustomInput = document.getElementById('monthly-budget-custom');
@@ -515,16 +885,167 @@ if (_budgetSelect && _budgetCustomWrap && _budgetCustomInput) {
 var _interestSelect = document.getElementById('interested-in-select');
 var _interestCustomWrap = document.getElementById('interested-in-custom-wrap');
 var _interestCustomInput = document.getElementById('interested-in-custom');
+var _packageSitesWrap = document.getElementById('package-sites-wrap');
+var _packageSiteSearch = document.getElementById('package-site-search');
+var _packageSitesValue = document.getElementById('package-sites-value');
+var _packageSiteResults = document.getElementById('package-site-results');
+var _packageSiteSelected = document.getElementById('package-site-selected');
+var _businessTownWrap = document.getElementById('business-town-wrap');
+var _businessTownLabel = document.getElementById('business-town-label');
+var _businessTownInput = document.getElementById('business-town-input');
+var _geographiesWrap = document.getElementById('geographies-wrap');
+var _goalsWrap = document.getElementById('goals-wrap');
+var _descriptionWrap = document.getElementById('description-wrap');
+var _descriptionTextarea = document.getElementById('description-textarea');
+var _monthlyBudgetWrap = document.getElementById('monthly-budget-wrap');
+var _guestBudgetWrap = document.getElementById('guest-budget-wrap');
+var _guestBudgetInput = document.getElementById('guest-budget-input');
+var _packageSiteChoices = Array.isArray(window.DAILY_VOICE_PACKAGE_SITES) ? window.DAILY_VOICE_PACKAGE_SITES : [];
+var _selectedPackageSites = [];
 if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
+  var _packageInterestOptions = ['Local Business Package - Silver', 'Local Business Package - Gold', 'Local Business Package - Platinum'];
+  function _renderPackageSiteSelections() {
+    if (!_packageSiteSelected || !_packageSiteSearch) return;
+    _packageSiteSelected.innerHTML = '';
+    _selectedPackageSites.forEach(function(siteId) {
+      var site = _packageSiteChoices.find(function(choice) { return choice.id === siteId; });
+      if (!site) return;
+      var selectedIndex = _selectedPackageSites.indexOf(siteId);
+      var chipLabel = site.name + (selectedIndex > 0 ? ' (50% off)' : '');
+      var chip = document.createElement('span');
+      chip.className = 'package-site-chip';
+      chip.innerHTML = '<span>' + chipLabel + '</span><button type="button" aria-label="Remove ' + site.name.replace(/"/g, '&quot;') + '">×</button>';
+      chip.querySelector('button').addEventListener('click', function() {
+        _selectedPackageSites = _selectedPackageSites.filter(function(id) { return id !== siteId; });
+        _renderPackageSiteSelections();
+        _renderPackageSiteResults(_packageSiteSearch.value);
+      });
+      _packageSiteSelected.appendChild(chip);
+    });
+    if (_packageSitesValue) {
+      _packageSitesValue.value = _selectedPackageSites.map(function(siteId) {
+        var site = _packageSiteChoices.find(function(choice) { return choice.id === siteId; });
+        return site ? site.name : '';
+      }).filter(Boolean).join(', ');
+      _packageSitesValue.setCustomValidity(_packageSitesWrap && !_packageSitesWrap.classList.contains('is-hidden') && _selectedPackageSites.length === 0 ? 'Please select at least one local site.' : '');
+    }
+  }
+  function _renderPackageSiteResults(query) {
+    if (!_packageSiteResults) return;
+    var q = (query || '').trim().toLowerCase();
+    var results = _packageSiteChoices.filter(function(choice) {
+      if (_selectedPackageSites.indexOf(choice.id) !== -1) return false;
+      if (!q) return true;
+      return choice.name.toLowerCase().indexOf(q) !== -1 || choice.meta.toLowerCase().indexOf(q) !== -1 || choice.tokens.some(function(token) { return token.indexOf(q) !== -1; });
+    });
+    if (_packageSitesWrap && _packageSitesWrap.classList.contains('is-hidden')) {
+      _packageSiteResults.classList.add('is-hidden');
+      _packageSiteResults.innerHTML = '';
+      _updateSiteScrollbar(_packageSiteResults);
+      return;
+    }
+    _packageSiteResults.classList.remove('is-hidden');
+    if (!results.length) {
+      _packageSiteResults.innerHTML = '<div class="package-site-empty">No matching Daily Voice sites yet. You can still browse every location on the <a href="https://dailyvoice.com/all-sites/" target="_blank" rel="noopener noreferrer">All Sites page</a>.</div>';
+      _updateSiteScrollbar(_packageSiteResults);
+      return;
+    }
+    _packageSiteResults.innerHTML = '';
+    results.forEach(function(choice) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'package-site-result';
+      button.innerHTML = '<span class="package-site-result-name">' + choice.name + '</span><span class="package-site-result-meta">' + choice.meta + '</span>';
+      button.addEventListener('click', function() {
+        _selectedPackageSites.push(choice.id);
+        _packageSiteSearch.value = '';
+        _renderPackageSiteSelections();
+        _renderPackageSiteResults('');
+        _packageSiteSearch.focus();
+      });
+      _packageSiteResults.appendChild(button);
+    });
+    _updateSiteScrollbar(_packageSiteResults);
+  }
+  if (_packageSiteSearch && _packageSiteResults) {
+    _bindSiteScrollbar(_packageSiteResults);
+    _packageSiteSearch.addEventListener('input', function() {
+      _renderPackageSiteResults(_packageSiteSearch.value);
+    });
+    _packageSiteSearch.addEventListener('focus', function() {
+      _renderPackageSiteResults(_packageSiteSearch.value);
+    });
+  }
   function _toggleInterestCustom() {
-    var show = _interestSelect.value === 'Combination / Multiple Products';
+    var value = _interestSelect.value;
+    var isPackage = _packageInterestOptions.indexOf(value) !== -1;
+    var isLegalNotice = value === 'Legal Notice / Public Notice';
+    var isGuestPost = value === 'Guest Post / Link Insertion';
+    var show = _interestSelect.value === 'Custom Package';
     _interestCustomWrap.classList.toggle('is-hidden', !show);
     if (!show) _interestCustomInput.value = '';
+    if (_packageSitesWrap && _packageSiteSearch) {
+      _packageSitesWrap.classList.toggle('is-hidden', !isPackage);
+      if (_packageSitesValue) _packageSitesValue.required = isPackage;
+      if (!isPackage) {
+        _selectedPackageSites = [];
+        _packageSiteSearch.value = '';
+        if (_packageSitesValue) {
+          _packageSitesValue.value = '';
+          _packageSitesValue.setCustomValidity('');
+        }
+        _renderPackageSiteSelections();
+        if (_packageSiteResults) {
+          _packageSiteResults.classList.add('is-hidden');
+          _packageSiteResults.innerHTML = '';
+        }
+      } else {
+        _renderPackageSiteSelections();
+        _renderPackageSiteResults(_packageSiteSearch.value);
+      }
+    }
+    if (_businessTownWrap) _businessTownWrap.classList.toggle('is-hidden', false);
+    if (_businessTownLabel) _businessTownLabel.textContent = isGuestPost ? 'Your Business Name' : 'Your Business & Town';
+    if (_geographiesWrap) _geographiesWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
+    if (_goalsWrap) _goalsWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
+    if (_descriptionWrap) {
+      _descriptionWrap.classList.toggle('is-hidden', !isLegalNotice);
+      if (_descriptionTextarea) _descriptionTextarea.required = isLegalNotice;
+      if (!isLegalNotice && _descriptionTextarea) _descriptionTextarea.value = '';
+    }
+    if (_monthlyBudgetWrap) _monthlyBudgetWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
+    if (_guestBudgetWrap) {
+      _guestBudgetWrap.classList.toggle('is-hidden', !isGuestPost);
+      if (!isGuestPost && _guestBudgetInput) _guestBudgetInput.value = '';
+    }
+    if (_budgetCustomWrap) _budgetCustomWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost || _budgetSelect.value !== 'Other / Custom');
+    if (_budgetSelect) {
+      _budgetSelect.required = !(isPackage || isLegalNotice || isGuestPost);
+      if (isPackage || isLegalNotice || isGuestPost) {
+        _budgetSelect.value = '';
+        if (_budgetCustomInput) _budgetCustomInput.value = '';
+        if (_budgetCustomInput) _budgetCustomInput.required = false;
+      } else if (_budgetCustomWrap && _budgetCustomInput) {
+        _toggleBudgetCustom();
+      }
+    }
   }
   _interestSelect.addEventListener('change', _toggleInterestCustom);
   _toggleInterestCustom();
+  document.querySelectorAll('[data-package-interest]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var packageValue = link.getAttribute('data-package-interest');
+      if (!packageValue) return;
+      _interestSelect.value = packageValue;
+      _toggleInterestCustom();
+    });
+  });
 }
-function _updateSpacer() { if (_spacerEl && _navEl) _spacerEl.style.height = _navEl.offsetHeight + 'px'; }
+function _updateSpacer() {
+  if (!_spacerEl || !_navEl) return;
+  _navEl.style.top = '0px';
+  _spacerEl.style.height = _navEl.offsetHeight + 'px';
+}
 _updateSpacer();
 window.addEventListener('resize', _updateSpacer);
 window.addEventListener('scroll', function () {

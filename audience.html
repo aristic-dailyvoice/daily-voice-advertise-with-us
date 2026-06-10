@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800;900&display=block" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Audience | Daily Voice</title>
+  <title>Find Your Site | Daily Voice</title>
   <link rel="preload" href="assets/images/dv-coverage-map.png" as="image" type="image/png" />
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,6 +36,14 @@ nav.nav-hidden { transform: translateY(calc(-100% - 36px)); }
 .nav-cta { background: var(--red); color: white !important; font-size: 13px; font-weight: 700; padding: 13px 27px; text-decoration: none; transition: background .2s; white-space: nowrap; margin-left: 8px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .nav-cta:hover { background: var(--red-dark) !important; }
 .nav-cta-top { display: none; }
+.agency-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 210; background: rgba(31,31,31,0.85); color: var(--charcoal-text); padding: 12px 5%; opacity: 0; pointer-events: none; transform: translateY(-100%); transition: transform .48s cubic-bezier(.22, 1, .36, 1), opacity .32s ease; }
+.agency-bar.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.agency-bar-inner { max-width: 1160px; margin: 0 auto; padding: 0 34px; display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; font-size: 13.5px; line-height: 1.35; }
+.agency-bar-text strong { color: white; font-weight: 700; }
+.agency-bar-email { color: white; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.agency-bar-email:hover { color: white; }
+.agency-bar-close { position: absolute; top: 50%; right: 16px; transform: translateY(-50%); width: 30px; height: 30px; border: 0; background: transparent; color: rgba(255,255,255,0.68); font-size: 26px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.agency-bar-close:hover { color: white; }
 footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32px 5%; }
 .footer-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .footer-brand { font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.42); }
@@ -50,113 +58,37 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .footer-bottom a:hover { text-decoration: underline; }
 .section-inner { max-width: 1160px; margin: 0 auto; }
 .section-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
-.section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.2; margin-bottom: 12px; }
+.section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.14; margin-bottom: 12px; }
 .btn-primary { background: var(--red); color: white; font-size: 15px; font-weight: 700; padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background .2s; line-height: 1; }
 .btn-primary:hover { background: var(--red-dark); }
-
-/* HERO */
-.aud-hero { background: var(--lighter); border-bottom: 1px solid var(--border); padding: 64px 5% 60px; }
-.aud-hero-inner { max-width: 1160px; margin: 0 auto; }
-.aud-hero h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 12px; }
-.aud-hero h1 em { color: var(--red); font-style: normal; }
-.aud-hero-sub { font-size: 17px; color: var(--body); max-width: 580px; line-height: 1.7; margin-bottom: 48px; }
-.aud-hero-stats { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--charcoal-divider); background: var(--charcoal); }
-.aud-hero-stat { flex: 1; min-width: 160px; padding: 28px 32px; border-right: 1px solid var(--charcoal-divider); }
-.aud-hero-stat:last-child { border-right: none; }
-.aud-hero-stat-n { font-size: clamp(28px, 3vw, 38px); font-weight: 900; color: #9A9A9A; line-height: 1; display: block; }
-.aud-hero-stat-n.highlight { color: var(--red); }
-.aud-hero-stat-l { font-size: 15px; color: var(--charcoal-muted); margin-top: 4px; display: block; }
-
-/* RED RULE */
-.red-rule { height: 4px; background: var(--red); }
-
-/* DEMOGRAPHICS + INTERESTS SPLIT */
-.demo-section { background: white; padding: 72px 5%; border-bottom: 1px solid var(--border); }
-.demo-split { display: grid; grid-template-columns: 1fr; gap: 72px; max-width: 1160px; margin: 0 auto; }
-.demo-col-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
-.demo-col-h { font-size: clamp(22px, 2.5vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.15; margin-bottom: 16px; }
-.demo-intro { font-size: 15px; color: var(--body); line-height: 1.75; margin-bottom: 32px; }
-.demo-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
-.demo-stat-col { display: flex; flex-direction: column; gap: 16px; }
-.demo-stat-cell { display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding: 0 20px 12px 20px; border: 1px solid #e2e0dc; background: #fff; overflow: hidden; }
-.demo-stat-cell-label { display: flex; align-items: center; gap: 8px; font-size: 17px; color: rgba(31,31,31,0.68); line-height: 1.4; font-weight: 900; letter-spacing: -0.2px; background: #FBFBFB; margin: 0 -20px; padding: 18px 20px; width: calc(100% + 40px); border-bottom: 1px solid #e2e0dc; }
-
-.demo-stat-icon { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; flex-shrink: 0; }
-.demo-stat-icon svg { width: 18px; height: 18px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.demo-stat-icon img { width: 18px; height: 18px; display: block; opacity: 0.68; object-fit: contain; }
-.demo-stat-icon img[src*="household-income-icon"] { width: 21px; height: 21px; }
-.demo-stat-icon img[src*="gender-icon"] { width: 17px; height: 17px; }
-.demo-stat-icon img[src*="age-icon"] { width: 18px; height: 18px; }
-.demo-stat-icon img[src*="education-icon"] { width: 21px; height: 21px; }
-.demo-stat-icon img[src*="children-icon"] { width: 18px; height: 18px; }
-.demo-stat-n { font-size: clamp(22px, 2vw, 28px); font-weight: 900; color: var(--red); line-height: 1; }
-.demo-stat-l { font-size: 13px; color: var(--body); margin-top: 6px; line-height: 1.4; }
-.int-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
-.int-row { padding: 14px 0; border-bottom: 1px solid var(--border); }
-.int-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-.int-label { font-size: 14px; color: var(--body); }
-.int-val { font-size: 14px; font-weight: 700; color: var(--charcoal); }
-.int-track { height: 5px; background: linear-gradient(to right, #c0bdb8 50%, #f2f0ed 50%); width: 100%; position: relative; }
-.int-fill { height: 5px; background: var(--red); position: absolute; top: 0; left: 50%; z-index: 1; }
-.int-baseline { position: absolute; top: 50%; transform: translateY(-50%); left: 50%; width: 1px; height: 14px; background: #1f1f1f; z-index: 2; }
-.int-baseline-label { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 400; color: #1f1f1f; white-space: nowrap; letter-spacing: 0.5px; }
-.source-note { font-size: 15px; color: var(--charcoal-muted); margin-top: 24px; }
 
 /* CTA */
 .do-bottom { background: var(--red); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .do-bottom-copy { display: flex; flex-direction: column; gap: 4px; }
 .do-bottom-copy strong { font-size: 16px; font-weight: 700; color: white; }
 .do-bottom-copy span { font-size: 13.5px; color: rgba(255,255,255,.8); }
-
-.demo-stat-rows { display: flex; flex-direction: column; width: 100%; gap: 0; }
-.demo-stat-row { display: flex; flex-direction: row; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #e2e0dc; }
-.demo-stat-row:last-child { border-bottom: none; padding-bottom: 0; }
-.demo-stat-row-label { display: block; font-size: 14px; color: var(--body); letter-spacing: 0; margin-bottom: 0; }
-.demo-stat-row-val { display: block; font-size: 18px; font-weight: 900; color: var(--charcoal); line-height: 1; }
-
-.demo-circle { position: relative; width: 54px; height: 54px; flex-shrink: 0; }
-.demo-circle svg { transform: rotate(-90deg); }
-.demo-circle-bg { fill: none; stroke: var(--border); stroke-width: 3; }
-.demo-circle-fill { fill: none; stroke: var(--red); stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
-.demo-circle-label { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding-left: 3px; font-size: 13px; font-weight: 700; color: var(--charcoal); white-space: nowrap; }
-.geo-section { background: var(--charcoal); padding: 72px 5%; }
-.geo-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.geo-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: block; }
-.geo-h { font-size: clamp(24px, 3vw, 38px); font-weight: 900; color: var(--charcoal-text); line-height: 1.15; margin-bottom: 16px; }
-.geo-sub { font-size: 15px; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 40px; }
-.geo-stats { display: flex; gap: 32px; margin-bottom: 40px; }
-.geo-stat-n { display: block; font-size: 36px; font-weight: 900; color: var(--red); line-height: 1; }
-.geo-stat-l { display: block; font-size: 13px; color: var(--charcoal-muted); margin-top: 4px; }
-.geo-states { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; }
-.geo-dot { color: #fff; font-size: 18px; line-height: 1; }
-.geo-state-name { font-size: 17px; font-weight: 600; color: var(--charcoal-text); white-space: nowrap; }
-.geo-map-wrap { position: relative; }
-.geo-map-wrap img { width: 100%; display: block; opacity: 0.9; }
-
-.geo-stats-row { display: flex; align-items: center; gap: 0; margin-bottom: 48px; flex-wrap: wrap; }
-.geo-stat { display: flex; flex-direction: column; padding: 0 40px 0 0; }
-.geo-stat:first-child { padding-left: 0; }
-.geo-stat-div { width: 1px; height: 48px; background: var(--charcoal-divider); margin-right: 40px; }
+.bottom-cta-section { padding: 0 5% 72px; background: #fff; }
 
 @media (max-width: 960px) {
+  html,
+  body { overflow-x: hidden; }
   nav.nav-hidden { transform: translateY(calc(-100% - 12px)); }
-  nav { padding: 0 20px; }
+  nav { width: 100%; max-width: 100vw; padding: 0 20px; }
   footer { padding-left: 20px; padding-right: 20px; }
-  .nav-links { position: absolute; top: 66px; left: 0; right: 0; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow-x: visible; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
+  .nav-top { min-width: 0; }
+  .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-link { font-size: 13px; padding: 10px 20px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .nav-link { min-width: 0; font-size: 13px; padding: 10px 12px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-cta { display: none; }
   .nav-cta-top { display: inline-flex; flex-shrink: 0; }
+  .agency-bar { padding: 12px 20px; }
+  .agency-bar-inner { padding: 0 28px; flex-direction: column; gap: 4px; font-size: 13.5px; }
+  .agency-bar-close { right: 8px; }
   .about-hero { padding: 64px 20px 42px !important; }
   .about-hero-map { object-position: 78% 48px !important; }
   .about-hero-map { opacity: 0.4 !important; }
-  .demo-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .geo-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .coverage-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .demo-section,
-  .geo-section,
-  .coverage-section { padding-top: 42px !important; padding-bottom: 42px !important; }
-  section[style*="padding: 0 5% 48px"] { padding: 0 20px 42px !important; }
+  .coverage-section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 42px !important; padding-bottom: 42px !important; }
+  section[style*="padding: 72px 5%"] { padding: 42px 20px !important; }
   .about-hero .section-kicker {
     display: inline-flex !important;
     align-items: center;
@@ -173,29 +105,19 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .ah-h { font-size: 32px !important; }
   .ah-copy h1,
   .ah-h { line-height: 1.15 !important; margin-bottom: 20px !important; }
-  .do-bottom-copy strong { font-size: 18px; }
+  .do-bottom-copy strong { font-size: 20px; }
   .do-bottom-copy span { font-size: 14px; }
-  .demo-split { grid-template-columns: 1fr; gap: 48px; }
-  .demo-stat-grid { grid-template-columns: 1fr; }
-  .demo-stat-col { width: 100%; }
-  .int-list { grid-template-columns: 1fr; }
-  .geo-inner { grid-template-columns: 1fr; }
-  .geo-map-wrap { display: none; }
-  .desktop-only { display: none; }
-  .aud-hero-stat { min-width: 50%; }
+  .bottom-cta-section { padding: 0 20px 42px !important; }
   .do-bottom { flex-direction: column; align-items: center; text-align: center; }
   .do-bottom-copy { align-items: center; text-align: center; }
-  .geo-states { flex-direction: column; gap: 8px; align-items: flex-start; }
-  .geo-dot { display: none; }
-  .geo-state-name { font-size: 18px; }
 }
 
-.coverage-section { background: #FAF9F8; padding: 72px 5%; }
-.coverage-sub-row { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 32px; }
-.coverage-sub { font-size: 15px; color: var(--body); line-height: 1.8; max-width: none; margin-bottom: 0; }
+.coverage-section { background: white; padding: 72px 5%; }
+.coverage-sub-row { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 40px; }
+.coverage-sub { font-size: 15px; color: var(--body); line-height: 1.8; max-width: 1000px; margin-bottom: 0; }
 .coverage-sites-link { font-size: 15px; color: #444444; text-decoration: underline; }
 .coverage-sites-link:hover { color: #444444; }
-.states-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.states-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .state-card { background: white; border: 1px solid #e2e0dc; border-top: 4px solid var(--red); padding: 20px 22px; }
 .state-card-head { margin-bottom: 10px; }
 .state-name { font-size: 20px; font-weight: 700; color: var(--charcoal); line-height: 1.3; margin-bottom: 20px; }
@@ -210,27 +132,59 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .about-hero { background: var(--lighter); border-bottom: 1px solid var(--border); padding: 64px 5% 60px; position: relative; overflow: hidden; }
 .about-hero-map { position: absolute; inset: 0; pointer-events: none; width: 100%; height: 100%; object-fit: cover; object-position: 15% top; opacity: 0.55; }
 .about-hero-inner { position: relative; z-index: 1; display: block; }
-.ah-hero-stats { display: flex; flex-direction: column; gap: 20px; margin-top: 0; }
-.ah-hero-stat { display: flex; flex-direction: column; gap: 0; }
-.ah-hero-n { font-size: clamp(48px, 6.5vw, 72px); font-weight: 700; color: var(--charcoal); line-height: 1; font-family: 'Roboto', sans-serif; }
-.ah-hero-label { font-size: 18px; font-weight: 400; letter-spacing: 0; color: #434343; margin-top: 6px; font-family: 'Roboto', sans-serif; }
-.ah-hero-source { font-size: 15px; color: #999999; font-family: 'Roboto', sans-serif; margin-top: -6px; }
 .ah-copy h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 36px; }
 .ah-copy h1 em { color: var(--red); font-style: normal; }
-.ah-lead { font-size: 17px; color: var(--body); line-height: 1.85; max-width: 480px; }
-.ah-stats { display: flex; flex-direction: column; gap: 20px; background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.7); padding: 40px 44px; width: 400px; height: 370px; justify-content: center; }
-.ah-stat { display: flex; flex-direction: column; gap: 2px; }
-.ah-stat-n { font-size: 34px; font-weight: 900; color: var(--red); line-height: 1; }
-.ah-stat-d { font-size: 14px; color: #555; line-height: 1.4; }
-.red-rule { height: 4px; background: var(--red); }
-.ah-slogan-bar { background: #FAF9F8; text-align: center; padding: 6px 5%; font-size: 18px; font-weight: 700; color: #1F1F1F; }
+.site-finder-hero { padding-bottom: 60px; }
+.site-finder-hero .about-hero-map { width: 126%; height: 126%; max-width: none; inset: -11% -11% -15% -11%; object-position: 15% 22px; transform: translate(-118px, 42px); opacity: 0.34; }
+.site-finder-hero .about-hero-inner { display: block; }
+.site-finder-copy { max-width: 860px; display: flex; flex-direction: column; align-items: flex-start; }
+.site-finder-copy .section-kicker { margin-bottom: 16px; }
+.site-finder-copy h1 { max-width: 860px; }
+.site-finder-copy h1 { margin-bottom: 20px; }
+.site-finder-copy p { font-size: 17px; color: var(--body); line-height: 1.85; max-width: 650px; }
+.site-finder-card { margin-top: 32px; width: 100%; max-width: 560px; }
+.site-finder-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 10px; }
+.site-finder-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.site-finder-input { width: 100%; height: 50px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; padding: 0 14px; outline: none; }
+.site-finder-input:focus { border-color: #1f1f1f; box-shadow: none; }
+.site-finder-status { min-height: 20px; margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--red); }
+.site-scroll-shell { position: relative; margin-top: 8px; }
+.site-finder-results { margin-top: 0; background: white; border: 1px solid var(--border); height: 220px; overflow-y: auto; scrollbar-width: none; }
+.site-finder-results::-webkit-scrollbar { width: 0; height: 0; }
+.site-scrollbar { position: absolute; top: 1px; right: 1px; bottom: 1px; width: 11px; background: #f7f6f4; border-left: 1px solid var(--border); cursor: pointer; z-index: 3; touch-action: none; }
+.site-scrollbar-thumb { position: absolute; left: 3px; top: 0; width: 4px; min-height: 24px; background: #aaa39b; border-radius: 2px; cursor: grab; transition: background .15s ease; }
+.site-scroll-shell:hover .site-scrollbar-thumb,
+.site-scroll-shell.is-dragging .site-scrollbar-thumb { background: #8f8880; }
+.site-scroll-shell.is-dragging .site-scrollbar-thumb { cursor: grabbing; }
+.site-finder-empty { padding: 11px 28px 11px 13px; font-size: 13px !important; font-weight: 400; color: var(--gray); line-height: 1.5; }
+.site-finder-empty a { font-size: 13px !important; font-weight: 400; line-height: 1.5; color: inherit; }
+.site-finder-link { width: 100%; border: 0; border-bottom: 1px solid var(--border); background: white; text-align: left; padding: 11px 28px 11px 13px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; color: var(--charcoal); text-decoration: none; font-family: Helvetica, Arial, sans-serif; transition: background .2s; }
+.site-finder-link:last-child { border-bottom: 0; }
+.site-finder-link:hover { background: #faf9f8; }
+.site-finder-link-name { font-size: 13.5px; font-weight: 700; line-height: 1.35; }
+.site-finder-link-area { display: block; font-size: 12px; font-weight: 400; color: var(--gray); line-height: 1.4; }
+.site-finder-link-arrow { display: none; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-.ah-h { animation: fadeUp .45s ease both; }
-.ah-hero-stats { animation: fadeUp .45s ease .08s both; }
+.site-finder-copy .section-kicker { animation: fadeUp .45s ease both; }
+.ah-h { animation: fadeUp .45s ease .07s both; }
+.site-finder-copy p { animation: fadeUp .45s ease .13s both; }
+.site-finder-card { animation: fadeUp .45s ease .17s both; }
+@media (max-width: 960px) {
+  .site-finder-hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: url("assets/images/dv-coverage-map.png"); background-size: cover; background-position: 72% 62%; background-repeat: no-repeat; opacity: 0.34; }
+  .site-finder-hero .about-hero-map { display: none !important; }
+  .site-finder-copy .section-kicker { margin-top: 7px; }
+  .site-finder-copy p { font-size: 17px; }
+}
 </style>
 </head>
 <body>
 <div id="nav-spacer" style="height:66px"></div>
+<div class="agency-bar">
+  <div class="agency-bar-inner">
+    <span class="agency-bar-text"><strong>Are you a larger regional advertiser or an agency?</strong> Contact us for our complete media kit at <a class="agency-bar-email" href="mailto:advertisers@dailyvoice.com">advertisers@dailyvoice.com</a>.</span>
+  </div>
+  <button class="agency-bar-close" type="button" aria-label="Dismiss media kit notice">&times;</button>
+</div>
 <nav>
   <div class="nav-top">
     <a href="advertise.html" class="nav-logo" aria-label="Daily Voice">
@@ -239,128 +193,38 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="nav-links">
       <a href="advertise.html" class="nav-link">Advertise</a>
       <a href="products.html" class="nav-link">Products</a>
-      <a href="audience.html" class="nav-link active">Our Audience</a>
+      <a href="audience.html" class="nav-link active">Find Your Site</a>
       <a href="about.html" class="nav-link">About Us</a>
-      <a href="advertise.html#contact-form" class="nav-cta">Get a Free Quote</a>
+      <a href="advertise.html#packages" class="nav-cta">View Packages</a>
     </div>
-    <a href="advertise.html#contact-form" class="nav-cta nav-cta-top">Get a Free Quote</a>
+    <a href="advertise.html#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
 
 <!-- HERO -->
 
-<section class="about-hero">
+<section class="about-hero site-finder-hero">
   <img class="about-hero-map" src="assets/images/dv-coverage-map.png" alt="" aria-hidden="true" fetchpriority="high" />
   <div class="about-hero-inner section-inner">
-    <div class="ah-copy">
-      <span class="section-kicker">WHO WE REACH</span>
-      <h1 class="ah-h">Rooted in Local Communities.<br><em>Reaching Millions of Engaged Readers<br>Across 7 States.</em></h1>
-      <div class="ah-hero-stats">
-        <div class="ah-hero-stat">
-          <span class="ah-hero-n">600,000+</span>
-          <span class="ah-hero-label">TOTAL SUBSCRIBERS</span>
-          <span class="ah-hero-source">Source: Daily Voice Analytics</span>
+    <div class="ah-copy site-finder-copy">
+      <span class="section-kicker">FIND YOUR SITE</span>
+      <h1 class="ah-h">Find the Daily Voice sites <em>near your customers.</em></h1>
+      <p>Enter an address, town, county, or Daily Voice site name to find matching local sites and open their homepages in a new tab.</p>
+      <form class="site-finder-card" id="site-finder-form">
+        <label class="site-finder-label" for="site-finder-search">Find your site</label>
+        <div class="site-finder-row">
+          <input class="site-finder-input" id="site-finder-search" name="site-search" type="text" autocomplete="off" aria-describedby="site-finder-hint" />
         </div>
-        <div class="ah-hero-stat">
-          <span class="ah-hero-n">7,000,000+</span>
-          <span class="ah-hero-label">MONTHLY USERS</span>
-          <span class="ah-hero-source">Source: Google Analytics</span>
+        <div class="site-finder-status" id="site-finder-status"></div>
+        <div class="site-scroll-shell">
+          <div class="site-finder-results" id="site-finder-results" aria-live="polite"></div>
+          <div class="site-scrollbar" aria-hidden="true"><span class="site-scrollbar-thumb"></span></div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>
 
-
-<!-- DEMOGRAPHICS -->
-<section class="demo-section">
-  <div class="demo-split">
-    <div>
-      <span class="demo-col-kicker">AUDIENCE DEMOGRAPHICS</span>
-      <h2 class="demo-col-h">Real People With Real Spending Power.</h2>
-      <p class="demo-intro">Our readers aren't random internet users. They signed up for Daily Voice because they care about their community. That makes them exactly the customers local businesses need to reach.</p>
-      <div class="demo-stat-grid">
-        <div class="demo-stat-col">
-          <div class="demo-stat-cell">
-            <div class="demo-stat-cell-label"><span class="demo-stat-icon"><img src="assets/icons/household-income-icon.svg" alt="" /></span>Household Income</div>
-            <div class="demo-stat-rows">
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="107.8"/></svg><span class="demo-circle-label">22%</span></div><div><span class="demo-stat-row-label">Earn $150k+</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="111.9"/></svg><span class="demo-circle-label">19%</span></div><div><span class="demo-stat-row-label">Earn $100–$150k</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="94.0"/></svg><span class="demo-circle-label">32%</span></div><div><span class="demo-stat-row-label">Earn $50–$100k</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="100.9"/></svg><span class="demo-circle-label">27%</span></div><div><span class="demo-stat-row-label">Earn under $50k</span></div></div>
-            </div>
-          </div>
-          <div class="demo-stat-cell">
-            <div class="demo-stat-cell-label"><span class="demo-stat-icon"><img src="assets/icons/gender-icon.svg" alt="" /></span>Gender</div>
-            <div class="demo-stat-rows">
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="62.2"/></svg><span class="demo-circle-label">55%</span></div><div><span class="demo-stat-row-label">Female</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="76.0"/></svg><span class="demo-circle-label">45%</span></div><div><span class="demo-stat-row-label">Male</span></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="demo-stat-col">
-          <div class="demo-stat-cell">
-            <div class="demo-stat-cell-label"><span class="demo-stat-icon"><img src="assets/icons/age-icon.svg" alt="" /></span>Age</div>
-            <div class="demo-stat-rows">
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="118.9"/></svg><span class="demo-circle-label">14%</span></div><div><span class="demo-stat-row-label">Ages 65+</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="106.4"/></svg><span class="demo-circle-label">23%</span></div><div><span class="demo-stat-row-label">Ages 55–64</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="102.3"/></svg><span class="demo-circle-label">26%</span></div><div><span class="demo-stat-row-label">Ages 45–54</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="109.2"/></svg><span class="demo-circle-label">21%</span></div><div><span class="demo-stat-row-label">Ages 35–44</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="121.6"/></svg><span class="demo-circle-label">12%</span></div><div><span class="demo-stat-row-label">Ages 25–34</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="132.7"/></svg><span class="demo-circle-label">4%</span></div><div><span class="demo-stat-row-label">Ages 18–24</span></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="demo-stat-col">
-          <div class="demo-stat-cell">
-            <div class="demo-stat-cell-label"><span class="demo-stat-icon"><img src="assets/icons/education-icon.svg" alt="" /></span>Education</div>
-            <div class="demo-stat-rows">
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="110.6"/></svg><span class="demo-circle-label">20%</span></div><div><span class="demo-stat-row-label">Grad school</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="76.0"/></svg><span class="demo-circle-label">45%</span></div><div><span class="demo-stat-row-label">College</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="89.8"/></svg><span class="demo-circle-label">35%</span></div><div><span class="demo-stat-row-label">No college</span></div></div>
-            </div>
-          </div>
-          <div class="demo-stat-cell">
-            <div class="demo-stat-cell-label"><span class="demo-stat-icon"><img src="assets/icons/children-icon.svg" alt="" /></span>Children</div>
-            <div class="demo-stat-rows">
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="73.2"/></svg><span class="demo-circle-label">47%</span></div><div><span class="demo-stat-row-label">Have children</span></div></div>
-              <div class="demo-stat-row"><div class="demo-circle"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="demo-circle-bg" cx="27" cy="27" r="22"/><circle class="demo-circle-fill" cx="27" cy="27" r="22" stroke-dasharray="138.2" stroke-dashoffset="65.0"/></svg><span class="demo-circle-label">53%</span></div><div><span class="demo-stat-row-label">No children</span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="source-note">Source: Quantcast</p>
-    </div>
-  </div>
-</section>
-
-<!-- INTERESTS -->
-<section class="demo-section" style="background: var(--charcoal); border-bottom: none;">
-  <div class="demo-split">
-    <div>
-      <span class="demo-col-kicker" style="color: var(--red);">AUDIENCE INTERESTS</span>
-      <h2 class="demo-col-h" style="color: var(--charcoal-text);">An Audience Invested in Their Community.</h2>
-      <p class="demo-intro" style="color: var(--charcoal-muted);">Index = audience composition vs. internet average. 100 is average. Our readers dramatically over-index on News, Business, and local lifestyle categories.</p>
-      <div class="int-list" style="--int-border: rgba(255,255,255,0.12); --int-track-bg: linear-gradient(to right, #444 50%, var(--charcoal-divider) 50%); --int-baseline-bg: #fff; --int-baseline-label-color: #fff;">
-        <div class="int-row" style="padding-top:20px; border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">News</span><span class="int-val" style="color: var(--charcoal-text);">195</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"><span class="int-baseline-label" style="color: var(--int-baseline-label-color);">Index 100 (average)</span></div><div class="int-fill" style="width:47.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Business</span><span class="int-val" style="color: var(--charcoal-text);">190</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"><span class="int-baseline-label desktop-only" style="color: var(--int-baseline-label-color);">Index 100 (average)</span></div><div class="int-fill" style="width:45.0%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Relationships</span><span class="int-val" style="color: var(--charcoal-text);">181</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:40.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Food &amp; Drink</span><span class="int-val" style="color: var(--charcoal-text);">153</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:26.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Education</span><span class="int-val" style="color: var(--charcoal-text);">150</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:25.0%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Arts &amp; Entertainment</span><span class="int-val" style="color: var(--charcoal-text);">147</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:23.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Health &amp; Fitness</span><span class="int-val" style="color: var(--charcoal-text);">145</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:22.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Personal Finance</span><span class="int-val" style="color: var(--charcoal-text);">144</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:22.0%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Travel</span><span class="int-val" style="color: var(--charcoal-text);">138</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:19.0%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Sports</span><span class="int-val" style="color: var(--charcoal-text);">137</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:18.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Family &amp; Parenting</span><span class="int-val" style="color: var(--charcoal-text);">125</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:12.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Style &amp; Fashion</span><span class="int-val" style="color: var(--charcoal-text);">124</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:12.0%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Real Estate</span><span class="int-val" style="color: var(--charcoal-text);">121</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:10.5%"></div></div></div>
-        <div class="int-row" style="border-bottom-color: transparent;"><div class="int-top"><span class="int-label" style="color: var(--charcoal-muted);">Society</span><span class="int-val" style="color: var(--charcoal-text);">118</span></div><div class="int-track" style="background: var(--int-track-bg);"><div class="int-baseline" style="background: var(--int-baseline-bg);"></div><div class="int-fill" style="width:9.0%"></div></div></div>
-      </div>
-      <p class="source-note" style="color: #666;">Source: Quantcast</p>
-    </div>
-  </div>
-</section>
 
 <!-- COVERAGE -->
 <section class="coverage-section" id="coverage">
@@ -441,14 +305,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 </section>
 
 <!-- CTA -->
-<section style="padding: 0 5% 48px; background: #FAF9F8;">
+<section class="bottom-cta-section">
   <div class="section-inner">
     <div class="do-bottom">
       <div class="do-bottom-copy">
         <strong>Your neighbors are already reading Daily Voice.</strong>
         <span>The only question is whether they see your business when they do.</span>
       </div>
-      <a href="advertise.html#contact-form" class="btn-primary" style="background:white;color:var(--red);">Get a Free Quote</a>
+      <a href="advertise.html#packages" class="btn-primary" style="background:white;color:var(--red);">View Packages</a>
     </div>
   </div>
 </section>
@@ -464,12 +328,12 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <h5>Advertise</h5>
         <a href="advertise.html">Why Daily Voice</a>
         <a href="products.html">Products</a>
-        <a href="audience.html">Our Audience</a>
+        <a href="audience.html">Find Your Site</a>
         <a href="about.html">About Us</a>
       </div>
       <div class="footer-col">
         <h5>Get Started</h5>
-        <a href="advertise.html#contact-form">Get a Free Quote</a>
+        <a href="advertise.html#packages">View Packages</a>
         <a href="mailto:advertisers@dailyvoice.com">Email Us Directly</a>
         <a href="https://dailyvoice.com">Back to dailyvoice.com</a>
       </div>
@@ -481,16 +345,187 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </footer>
 
+<script src="assets/data/package-sites.js"></script>
 <script>
 var _lastScroll = 0;
 var _navEl = document.querySelector('nav');
 var _spacerEl = document.getElementById('nav-spacer');
+var _agencyBarEl = document.querySelector('.agency-bar');
+var _agencyBarCloseEl = document.querySelector('.agency-bar-close');
+var _agencyBarDismissed = false;
 var _navLastShownAt = 0;
 var _navLastHiddenAt = 0;
 document.querySelectorAll('.js-current-year').forEach(function(el) {
   el.textContent = new Date().getFullYear();
 });
-function _updateSpacer() { if (_spacerEl && _navEl) _spacerEl.style.height = _navEl.offsetHeight + 'px'; }
+try {
+  _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+} catch (e) {}
+if (_agencyBarEl && !_agencyBarDismissed) {
+  setTimeout(function() {
+    if (_agencyBarEl && !_agencyBarDismissed) {
+      _agencyBarEl.classList.add('is-visible');
+      _updateSpacer();
+    }
+  }, 2000);
+} else if (_agencyBarEl) {
+  _agencyBarEl.style.display = 'none';
+}
+if (_agencyBarCloseEl && _agencyBarEl) {
+  _agencyBarCloseEl.addEventListener('click', function() {
+    _agencyBarDismissed = true;
+    _agencyBarEl.classList.remove('is-visible');
+    try { sessionStorage.setItem('agencyBarDismissed', 'true'); } catch (e) {}
+    _updateSpacer();
+    setTimeout(function() {
+      if (_agencyBarEl && _agencyBarDismissed) _agencyBarEl.style.display = 'none';
+    }, 300);
+  });
+}
+function updateSiteScrollbar(scroller) {
+  if (!scroller) return;
+  var shell = scroller.closest('.site-scroll-shell');
+  var track = shell ? shell.querySelector('.site-scrollbar') : null;
+  var thumb = track ? track.querySelector('.site-scrollbar-thumb') : null;
+  if (!shell || !track || !thumb) return;
+  var trackHeight = Math.max(0, track.clientHeight - 2);
+  if (!trackHeight) return;
+  var visibleHeight = scroller.clientHeight;
+  var scrollHeight = scroller.scrollHeight;
+  if (scrollHeight <= visibleHeight + 1) {
+    thumb.style.height = trackHeight + 'px';
+    thumb.style.transform = 'translateY(0)';
+    return;
+  }
+  var thumbHeight = Math.max(24, Math.round(trackHeight * (visibleHeight / scrollHeight)));
+  var maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+  var maxScrollTop = Math.max(1, scrollHeight - visibleHeight);
+  var thumbTop = Math.round((scroller.scrollTop / maxScrollTop) * maxThumbTop);
+  thumb.style.height = thumbHeight + 'px';
+  thumb.style.transform = 'translateY(' + thumbTop + 'px)';
+}
+function bindSiteScrollbar(scroller) {
+  if (!scroller || scroller._siteScrollbarBound) return;
+  var shell = scroller.closest('.site-scroll-shell');
+  var track = shell ? shell.querySelector('.site-scrollbar') : null;
+  var thumb = track ? track.querySelector('.site-scrollbar-thumb') : null;
+  if (!shell || !track || !thumb) return;
+  scroller._siteScrollbarBound = true;
+  function setScrollFromPointer(pointerY, dragOffset) {
+    var trackRect = track.getBoundingClientRect();
+    var trackHeight = Math.max(0, track.clientHeight - 2);
+    var thumbHeight = Math.max(thumb.offsetHeight || 24, 24);
+    var maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+    var maxScrollTop = Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+    if (!maxThumbTop) {
+      scroller.scrollTop = 0;
+      updateSiteScrollbar(scroller);
+      return;
+    }
+    var thumbTop = Math.max(0, Math.min(maxThumbTop, pointerY - trackRect.top - 1 - dragOffset));
+    scroller.scrollTop = (thumbTop / maxThumbTop) * maxScrollTop;
+    updateSiteScrollbar(scroller);
+  }
+  function startDrag(event, dragOffset) {
+    event.preventDefault();
+    shell.classList.add('is-dragging');
+    setScrollFromPointer(event.clientY, dragOffset);
+    function handleMove(moveEvent) {
+      setScrollFromPointer(moveEvent.clientY, dragOffset);
+    }
+    function handleUp() {
+      shell.classList.remove('is-dragging');
+      document.removeEventListener('pointermove', handleMove);
+      document.removeEventListener('pointerup', handleUp);
+      document.removeEventListener('pointercancel', handleUp);
+    }
+    document.addEventListener('pointermove', handleMove);
+    document.addEventListener('pointerup', handleUp);
+    document.addEventListener('pointercancel', handleUp);
+  }
+  track.addEventListener('pointerdown', function(event) {
+    var thumbRect = thumb.getBoundingClientRect();
+    var dragOffset = event.target === thumb ? event.clientY - thumbRect.top : Math.max(12, thumbRect.height / 2);
+    startDrag(event, dragOffset);
+  });
+  scroller.addEventListener('scroll', function() {
+    updateSiteScrollbar(scroller);
+  }, { passive: true });
+  window.addEventListener('resize', function() {
+    updateSiteScrollbar(scroller);
+  });
+  window.setInterval(function() {
+    updateSiteScrollbar(scroller);
+  }, 200);
+  requestAnimationFrame(function() {
+    updateSiteScrollbar(scroller);
+  });
+}
+function renderSiteFinderMessage(message) {
+  var results = document.getElementById('site-finder-results');
+  if (!results) return;
+  results.innerHTML = '<div class="site-finder-empty">' + message + '</div>';
+  updateSiteScrollbar(results);
+}
+var DAILY_VOICE_PUBLIC_SITE_COUNT = Array.isArray(window.DAILY_VOICE_PACKAGE_SITES) ? window.DAILY_VOICE_PACKAGE_SITES.length : 1178;
+function renderSiteFinderStatus(query, count) {
+  var status = document.getElementById('site-finder-status');
+  if (!status) return;
+  if (!query) {
+    status.textContent = DAILY_VOICE_PUBLIC_SITE_COUNT + ' Daily Voice sites';
+    return;
+  }
+  status.textContent = count + ' matching site' + (count === 1 ? '' : 's');
+}
+function buildDailyVoiceSiteUrl(site) {
+  return site && site.url ? site.url : 'https://dailyvoice.com/all-sites/';
+}
+function findDailyVoiceSites(query) {
+  var allSites = Array.isArray(window.DAILY_VOICE_PACKAGE_SITES) ? window.DAILY_VOICE_PACKAGE_SITES : [];
+  var normalized = (query || '').trim().toLowerCase();
+  if (!normalized) return allSites;
+  return allSites.filter(function(site) {
+    if (site.name.toLowerCase().indexOf(normalized) !== -1) return true;
+    if ((site.meta || '').toLowerCase().indexOf(normalized) !== -1) return true;
+    return Array.isArray(site.tokens) && site.tokens.some(function(token) {
+      return token.indexOf(normalized) !== -1;
+    });
+  });
+}
+function renderDailyVoiceSites(query, matches) {
+  var results = document.getElementById('site-finder-results');
+  if (!results) return;
+  renderSiteFinderStatus(query, matches.length);
+  if (!matches.length) {
+    renderSiteFinderMessage('No matching Daily Voice sites yet. You can still browse every location on the <a href="https://dailyvoice.com/all-sites/" target="_blank" rel="noopener noreferrer">All Sites page</a>.');
+    return;
+  }
+  var links = matches.map(function(site) {
+    return '<a class="site-finder-link" href="' + buildDailyVoiceSiteUrl(site) + '" target="_blank" rel="noopener noreferrer"><span><span class="site-finder-link-name">' + site.name + '</span><span class="site-finder-link-area">' + site.meta + '</span></span><span class="site-finder-link-arrow" aria-hidden="true">&rarr;</span></a>';
+  }).join('');
+  results.innerHTML = links;
+  updateSiteScrollbar(results);
+}
+var siteFinderForm = document.getElementById('site-finder-form');
+if (siteFinderForm) {
+  var siteFinderInput = document.getElementById('site-finder-search');
+  bindSiteScrollbar(document.getElementById('site-finder-results'));
+  siteFinderForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    if (siteFinderInput) renderDailyVoiceSites(siteFinderInput.value.trim(), findDailyVoiceSites(siteFinderInput.value));
+  });
+  if (siteFinderInput) {
+    siteFinderInput.addEventListener('input', function() {
+      renderDailyVoiceSites(siteFinderInput.value.trim(), findDailyVoiceSites(siteFinderInput.value));
+    });
+    renderDailyVoiceSites('', findDailyVoiceSites(''));
+  }
+}
+function _updateSpacer() {
+  if (!_spacerEl || !_navEl) return;
+  _navEl.style.top = '0px';
+  _spacerEl.style.height = _navEl.offsetHeight + 'px';
+}
 _updateSpacer();
 window.addEventListener('resize', _updateSpacer);
 window.addEventListener('scroll', function () {

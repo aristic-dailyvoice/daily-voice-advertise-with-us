@@ -34,6 +34,14 @@ nav.nav-hidden { transform: translateY(calc(-100% - 36px)); }
 .nav-cta { background: var(--red); color: white !important; font-size: 13px; font-weight: 700; padding: 13px 27px; text-decoration: none; transition: background .2s; white-space: nowrap; margin-left: 8px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .nav-cta:hover { background: var(--red-dark) !important; }
 .nav-cta-top { display: none; }
+.agency-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 210; background: rgba(31,31,31,0.85); color: var(--charcoal-text); padding: 12px 5%; opacity: 0; pointer-events: none; transform: translateY(-100%); transition: transform .48s cubic-bezier(.22, 1, .36, 1), opacity .32s ease; }
+.agency-bar.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.agency-bar-inner { max-width: 1160px; margin: 0 auto; padding: 0 34px; display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; font-size: 13.5px; line-height: 1.35; }
+.agency-bar-text strong { color: white; font-weight: 700; }
+.agency-bar-email { color: white; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.agency-bar-email:hover { color: white; }
+.agency-bar-close { position: absolute; top: 50%; right: 16px; transform: translateY(-50%); width: 30px; height: 30px; border: 0; background: transparent; color: rgba(255,255,255,0.68); font-size: 26px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.agency-bar-close:hover { color: white; }
 footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32px 5%; }
 .footer-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .footer-brand { font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.42); }
@@ -50,13 +58,18 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .section-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
 .btn-primary { background: var(--red); color: white; font-size: 15px; font-weight: 700; padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background .2s; line-height: 1; }
 .btn-primary:hover { background: var(--red-dark); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
 /* HERO */
 .prod-hero { background: #faf9f8; border-bottom: 1px solid var(--border); padding: 64px 5% 60px; }
 .prod-hero-inner { max-width: 1160px; margin: 0 auto; }
-.prod-hero h1 { font-size: clamp(32px, 4.5vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 16px; max-width: 860px; }
+.prod-hero-copy { min-width: 0; }
+.prod-hero .section-kicker { animation: fadeUp .45s ease both; margin-bottom: 16px; }
+.prod-hero h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 20px; max-width: 860px; }
+.prod-hero h1 { animation: fadeUp .45s ease .07s both; }
 .prod-hero h1 em { color: var(--red); font-style: normal; }
-.prod-hero-sub { font-size: 17px; color: var(--body); max-width: 560px; line-height: 1.7; margin-bottom: 32px; }
+.prod-hero-sub { font-size: 17px; color: var(--body); max-width: 650px; line-height: 1.85; margin-bottom: 32px; }
+.prod-hero-sub { animation: fadeUp .45s ease .13s both; }
 
 /* PRODUCT SUMMARY BAR */
 .prod-summary { margin-top: 0; }
@@ -64,21 +77,35 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .prod-summary-item { padding: 28px 32px; border-right: 1px solid var(--charcoal-divider); text-decoration: none; display: block; transition: background .2s ease, color .2s ease; }
 .prod-summary-item:last-child { border-right: none; }
 .prod-summary-item:hover { background: var(--charcoal-hover); }
-.prod-summary-num { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(237,33,42,0.9); margin-bottom: 0; }
 .prod-summary-name { font-size: 18px; font-weight: 700; color: var(--charcoal-text); margin-bottom: 4px; }
 .prod-summary-desc { font-size: 14px; color: var(--charcoal-muted); line-height: 1.5; }
 
 /* PRODUCT SECTIONS */
-.prod-section { padding: 72px 5%; border-bottom: 1px solid var(--border); }
+.prod-section { padding: 72px 5% 0; border-bottom: 1px solid var(--border); }
 .prod-section.alt { background: var(--lighter); }
-.prod-section--no-bottom { padding-bottom: 0; }
-.prod-section-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-.prod-section-inner--bottom { align-items: start; }
+.prod-section-inner { width: min(100%, 1160px); margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: stretch; min-height: 657px; height: 657px; }
+.prod-section-inner--bottom { align-items: stretch; }
 .prod-section-inner.flip { direction: rtl; }
-.prod-section-inner.flip.prod-section-inner--bottom { align-items: end; }
+.prod-section-inner.flip.prod-section-inner--bottom { align-items: stretch; }
 .prod-section-inner.flip > * { direction: ltr; }
+.prod-copy { display: flex; flex-direction: column; justify-content: center; min-height: 100%; width: 100%; max-width: 544px; padding: 20px 0 72px; }
+.prod-section-inner > .prod-copy { margin-right: auto; }
+.prod-section-inner.flip > .prod-copy { margin-left: auto; margin-right: 0; }
+.prod-copy > .section-kicker,
+.prod-copy > .prod-name,
+.prod-copy > .prod-tagline,
+.prod-copy > .prod-best-for,
+.prod-copy > .prod-bullets,
+.prod-copy > .prod-actions { width: 100%; max-width: none; }
+.prod-copy > .section-kicker { display: block; margin-bottom: 14px; }
+.prod-copy > .prod-name { margin-bottom: 12px; }
+.prod-copy > .prod-tagline { margin-bottom: 16px; }
+.prod-copy > .prod-best-for { margin-bottom: 24px; }
+.prod-copy > .prod-bullets { margin-bottom: 0; }
+.prod-copy > .prod-actions { margin-top: 24px; }
 .prod-number { font-size: 72px; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: 8px; }
-.prod-name { font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 8px; }
+.prod-name { font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--charcoal); line-height: 1.14; margin-bottom: 8px; }
+.compare-heading, .faq-heading { line-height: 1.14; }
 .prod-tagline { font-size: 17px; color: var(--gray); margin-bottom: 10px; }
 .prod-bullets { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 14px; }
 .prod-bullets li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--body); line-height: 1.6; }
@@ -87,100 +114,49 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 
 /* BEST FOR TAG */
 .prod-best-for { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
-.prod-best-for-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); }
-.prod-best-for-tag { font-size: 13px; font-weight: 600; color: #f6f4f1; background: var(--charcoal); border: 1px solid var(--charcoal); padding: 6px 14px; }
+.prod-best-for-tag { font-size: 13px; font-weight: 600; color: white; background: var(--charcoal); border: 1px solid var(--charcoal); padding: 6px 14px; }
+.prod-actions { margin-top: 24px; padding-top: 0; }
 
-/* SPECS */
-.prod-specs { border-top: 1px solid var(--border); margin-top: 28px; padding-top: 20px; display: flex; flex-direction: column; gap: 8px; }
-.prod-spec-row { display: flex; gap: 12px; font-size: 15px; }
-.prod-spec-label { color: var(--gray); min-width: 120px; flex-shrink: 0; }
-.prod-spec-val { color: var(--charcoal); }
-
-/* NOT SURE SECTION */
-.prod-notsure { background: var(--charcoal); padding: 56px 5%; }
-.prod-notsure-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
-.prod-notsure h3 { font-size: clamp(20px, 2.5vw, 28px); font-weight: 900; color: var(--charcoal-text); margin-bottom: 8px; }
-.prod-notsure p { font-size: 15px; color: var(--charcoal-muted); max-width: 480px; line-height: 1.7; }
-.prod-visual { background: var(--charcoal); overflow: hidden; aspect-ratio: 4/3; display: flex; align-items: stretch; }
-.prod-visual--screenshot { background: transparent; overflow: visible; aspect-ratio: auto; align-items: flex-end; justify-content: flex-end; position: relative; padding-top: 0; }
-.prod-visual--mockup { background: transparent; overflow: visible; aspect-ratio: auto; align-items: center; justify-content: center; }
-.prod-visual--mockup-large { justify-content: flex-end; }
-.prod-visual--mockup-large .prod-image-frame { width: 100%; max-width: none; }
-.prod-visual--mockup-large .prod-image-frame img { width: min(137%, 780px); max-width: none; }
-.prod-visual--mockup-large .prod-image-frame { transform: translateX(40px); }
-#product-02 .prod-visual--mockup { align-items: flex-end; }
-#product-02 .prod-visual--mockup .prod-image-frame { align-items: flex-end; }
-#product-02 .prod-visual--mockup { margin-bottom: -72px; }
-#product-01 .prod-visual--screenshot { margin-bottom: -88px; }
-#product-01 .prod-visual--screenshot .prod-image-frame { width: min(154%, 730px); }
-#product-01 .prod-visual--screenshot .prod-image-frame img { transform: translateY(10px); }
-#product-04 .prod-visual--mockup { align-items: flex-end; }
-#product-04 .prod-visual--mockup .prod-image-frame { align-items: flex-end; }
-#product-04 .prod-visual--mockup { margin-bottom: -107px; }
-.prod-image-frame { width: 100%; height: 100%; padding: 18px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #20242d 0%, #15181f 100%); }
-.prod-image-frame img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,0.3); }
-.prod-visual--screenshot .prod-image-frame { width: min(160%, 760px); max-width: none; padding: 0; margin-right: calc(50% - 50vw + 316px); background: transparent; justify-content: flex-end; flex-shrink: 0; }
-.prod-visual--screenshot .prod-image-frame img { height: auto; border-radius: 0; box-shadow: none; }
-.prod-visual--intro .prod-image-frame { animation: branded-slide-in 1.75s cubic-bezier(.22,1,.36,1) .06s both; will-change: transform, opacity; }
-.prod-visual--mockup .prod-image-frame { padding: 0; background: transparent; }
-.prod-visual--mockup .prod-image-frame img { height: auto; border-radius: 0; box-shadow: none; }
-
-@keyframes branded-slide-in {
-  from { opacity: 0.08; transform: translateX(320px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-.prod-hero h1 { animation: fadeUp .45s ease both; }
-.prod-hero-sub { animation: fadeUp .45s ease .07s both; }
-.prod-summary { animation: fadeUp .45s ease .13s both; }
-
-/* BANNER VISUAL */
-.banner-mock { width: 100%; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
-.banner-mock-top { background: var(--red); height: 52px; width: 100%; display: flex; align-items: center; justify-content: center; }
-.banner-mock-top span { color: white; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-.banner-mock-nav { background: rgba(255,255,255,0.08); height: 28px; width: 100%; }
-.banner-mock-content { display: grid; grid-template-columns: 1fr 200px; gap: 10px; flex: 1; }
-.banner-mock-articles { display: flex; flex-direction: column; gap: 8px; }
-.banner-mock-article { background: rgba(255,255,255,0.06); height: 40px; }
-.banner-mock-sidebar { display: flex; flex-direction: column; gap: 8px; }
-.banner-mock-ad { background: var(--red); opacity: 0.8; flex: 1; display: flex; align-items: center; justify-content: center; }
-.banner-mock-ad span { color: white; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-.banner-mock-ad-small { background: rgba(237,33,42,0.4); height: 60px; display: flex; align-items: center; justify-content: center; }
-.banner-mock-ad-small span { color: rgba(255,255,255,0.6); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-
-/* EMAIL VISUAL */
-.email-mock { width: 100%; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
-.email-mock-topbar { background: rgba(255,255,255,0.06); height: 32px; display: flex; align-items: center; padding: 0 12px; gap: 6px; }
-.email-mock-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
-.email-mock-search { flex: 1; background: rgba(255,255,255,0.08); height: 18px; margin-left: 8px; }
-.email-mock-list { display: flex; flex-direction: column; gap: 1px; flex: 1; }
-.email-mock-item { background: rgba(255,255,255,0.06); height: 48px; padding: 0 12px; display: flex; align-items: center; gap: 10px; }
-.email-mock-item.highlight { background: rgba(237,33,42,0.15); border-left: 3px solid var(--red); }
-.email-mock-avatar { width: 28px; height: 28px; background: var(--red); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.email-mock-avatar span { color: white; font-size: 9px; font-weight: 700; }
-.email-mock-lines { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.email-mock-line-1 { background: rgba(255,255,255,0.2); height: 10px; width: 70%; }
-.email-mock-line-2 { background: rgba(255,255,255,0.08); height: 8px; width: 50%; }
-.email-mock-avatar-gray { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; flex-shrink: 0; }
-
+.prod-visual { background: transparent; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; position: relative; min-height: 100%; height: 100%; }
+.prod-visual--mockup { justify-content: center; }
+.prod-image-frame { width: 100%; height: 100%; padding: 0; display: flex; align-items: flex-end; justify-content: center; background: transparent; }
+.prod-image-frame img { width: auto; height: auto; max-width: 100%; max-height: none; object-fit: contain; display: block; border-radius: 0; box-shadow: none; }
+.prod-branded-shot { align-self: end; justify-self: end; display: block; width: auto; height: 660px; max-width: none; transform: translate(176px, -3px); }
+#product-01 .prod-visual--mockup .prod-image-frame img { width: min(100%, 470px); }
+#product-02 .prod-visual--mockup .prod-image-frame img { width: min(108%, 560px); transform: translateY(56px); }
+#product-03 .prod-section-inner { grid-template-columns: 544px 544px; justify-content: center; }
 /* CTA BAR */
-.prod-cta { background: #faf9f8; padding: 0 5% 48px; }
+.prod-cta { background: #faf9f8; padding: 0 5% 72px; }
 .do-bottom { background: var(--red); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; max-width: 1160px; margin: 0 auto; }
 .do-bottom-copy { display: flex; flex-direction: column; gap: 4px; }
 .do-bottom-copy strong { font-size: 16px; font-weight: 700; color: white; }
 .do-bottom-copy span { font-size: 13.5px; color: rgba(255,255,255,.8); }
+.compare-scroll-hint { display: none; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin: 0 0 10px; }
+.compare-table-wrap { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 4px; margin-top: 8px; }
+.compare-table-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.compare-table-fade { display: none; }
+.compare-checkbox { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #dedede; border-radius: 3px; background: white; vertical-align: middle; }
+.compare-checkbox--checked { background: var(--red); border-color: var(--red); }
+.compare-checkbox--checked::after { content: ""; width: 11px; height: 7px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg) translate(1px, -1px); }
 
 .faq-columns { gap: 48px; }
 @media (max-width: 960px) {
+  html,
+  body { overflow-x: hidden; }
   nav.nav-hidden { transform: translateY(calc(-100% - 12px)); }
-  nav { padding: 0 20px; }
+  nav { width: 100%; max-width: 100vw; padding: 0 20px; }
   footer { padding-left: 20px; padding-right: 20px; }
-  .nav-links { position: absolute; top: 66px; left: 0; right: 0; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow-x: visible; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
+  .nav-top { min-width: 0; }
+  .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-link { font-size: 13px; padding: 10px 20px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .nav-link { min-width: 0; font-size: 13px; padding: 10px 12px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-cta { display: none; }
   .nav-cta-top { display: inline-flex; flex-shrink: 0; }
+  .agency-bar { padding: 12px 20px; }
+  .agency-bar-inner { padding: 0 28px; flex-direction: column; gap: 4px; font-size: 13.5px; }
+  .agency-bar-close { right: 8px; }
   .prod-hero { padding: 64px 20px 42px; }
+  .prod-hero-inner { display: block; }
   .prod-hero .section-kicker {
     display: inline-flex;
     align-items: center;
@@ -195,26 +171,30 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   }
   .prod-hero h1 { font-size: 32px; }
   .prod-hero h1 { line-height: 1.15; margin-bottom: 20px; }
-  .prod-hero-sub { max-width: 520px; line-height: 1.85; margin-bottom: 32px; }
-  .do-bottom-copy strong { font-size: 18px; }
+  .prod-hero-sub { max-width: 650px; line-height: 1.85; margin-bottom: 32px; }
+  .do-bottom-copy strong { font-size: 20px; }
   .do-bottom-copy span { font-size: 14px; }
+  .compare-scroll-hint { display: block; }
+  .compare-table-fade { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 28px; pointer-events: none; background: linear-gradient(to right, rgba(250,249,248,0), rgba(250,249,248,0.88)); }
+  .compare-table-scroll table { min-width: 950px !important; }
+  .compare-table-scroll th:first-child,
+  .compare-table-scroll td:first-child { width: 210px; min-width: 210px; }
   .prod-hero,
   .prod-section,
-  .prod-notsure,
   .prod-cta,
   footer { overflow-x: clip; }
   .prod-summary-inner { grid-template-columns: 1fr; }
-  .prod-summary-item { border-right: none; border-bottom: 1px solid var(--charcoal-divider); }
-  .prod-section-inner { grid-template-columns: 1fr; gap: 40px; }
+  .prod-summary-item { min-height: auto; padding: 28px 32px; border-right: none; border-bottom: 1px solid var(--charcoal-divider); display: block; }
+  .prod-summary-item:last-child { border-bottom: none; }
+  .prod-section-inner { grid-template-columns: 1fr; gap: 40px; min-height: auto; height: auto; }
+  #product-03 .prod-section-inner { grid-template-columns: 1fr; justify-content: stretch; }
   .prod-section-inner.flip { direction: ltr; }
-  .prod-visual--screenshot { padding-top: 0; overflow: hidden; }
-  .prod-visual--screenshot .prod-image-frame { width: 100%; margin-right: 0; }
-  .prod-visual--mockup,
-  .prod-visual--mockup-large { overflow: hidden; }
-  #product-02 .prod-visual--mockup { margin-bottom: 0; }
-  #product-04 .prod-visual--mockup { margin-bottom: 0; }
-  .prod-visual--mockup-large .prod-image-frame { transform: none; }
-  .prod-visual--mockup-large .prod-image-frame img { width: 100%; max-width: 100%; }
+  .prod-copy { min-height: auto; padding: 0; }
+  .prod-visual,
+  .prod-visual--mockup { min-height: 0; height: auto; overflow: hidden; }
+  .prod-branded-shot { width: 100%; height: auto; max-width: 100%; transform: none; justify-self: stretch; }
+  #product-01 .prod-visual--mockup .prod-image-frame img,
+  #product-02 .prod-visual--mockup .prod-image-frame img,
   .prod-section-inner--bottom { align-items: center; }
   .faq-columns { flex-direction: column; gap: 0; }
   .faq-columns > div:first-child .faq-item:last-child { border-bottom: none; }
@@ -224,31 +204,30 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 @media (max-width: 640px) {
   html, body { overflow-x: hidden; }
   .prod-section { padding: 42px 20px; }
-  .prod-section--no-bottom { padding-bottom: 0; }
   section[style*="padding: 72px 5%"] { padding: 42px 20px !important; }
-  .prod-notsure { padding-left: 20px; padding-right: 20px; }
   .prod-cta { padding: 0 20px 42px; }
   .prod-number { font-size: 56px; }
-  .prod-spec-row { flex-direction: column; gap: 2px; }
-  .prod-spec-label { min-width: 0; }
   .prod-visual { aspect-ratio: auto; min-height: 0; }
-  #product-01 { padding-bottom: 0; }
-  #product-01 .prod-visual--screenshot { width: calc(100% + 20px); margin-right: -20px; margin-bottom: 0; overflow: visible; }
-  #product-01 .prod-visual--screenshot .prod-image-frame { width: 100%; margin-right: 0; }
-  #product-02 { padding-bottom: 0; margin-top: 0; }
-  #product-02 .prod-visual--mockup { margin-bottom: 0; align-items: flex-end; }
-  #product-02 .prod-visual--mockup .prod-image-frame { align-items: flex-end; }
-  #product-04 { padding-bottom: 0; }
-  #product-04 .prod-visual--mockup { margin-bottom: 0; align-items: flex-end; }
-  #product-04 .prod-visual--mockup .prod-image-frame { align-items: flex-end; }
+  #product-02 { padding-bottom: 0; }
+  #product-02 .prod-section-inner { gap: 0; }
+  #product-02 .prod-copy { padding-bottom: 0; }
+  #product-02 .prod-visual--mockup .prod-image-frame img { transform: translateY(60px); }
+  #product-03 { padding-bottom: 0; }
+  #product-03 .prod-section-inner { gap: 60px; }
+  #product-03 .prod-copy { padding-bottom: 0; }
+  #product-03 .prod-branded-shot { width: calc(100% + 22px); max-width: none; transform: none; }
   .faq-heading { margin-bottom: 22px !important; }
-  .prod-visual--intro .prod-image-frame { animation: none; }
-  .banner-mock-content { grid-template-columns: 1fr; }
 }
   </style>
 </head>
 <body>
 <div id="nav-spacer" style="height:66px"></div>
+<div class="agency-bar">
+  <div class="agency-bar-inner">
+    <span class="agency-bar-text"><strong>Are you a larger regional advertiser or an agency?</strong> Contact us for our complete media kit at <a class="agency-bar-email" href="mailto:advertisers@dailyvoice.com">advertisers@dailyvoice.com</a>.</span>
+  </div>
+  <button class="agency-bar-close" type="button" aria-label="Dismiss media kit notice">&times;</button>
+</div>
 <nav>
   <div class="nav-top">
     <a href="advertise.html" class="nav-logo" aria-label="Daily Voice">
@@ -257,78 +236,65 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="nav-links">
       <a href="advertise.html" class="nav-link">Advertise</a>
       <a href="products.html" class="nav-link active">Products</a>
-      <a href="audience.html" class="nav-link">Our Audience</a>
+      <a href="audience.html" class="nav-link">Find Your Site</a>
       <a href="about.html" class="nav-link">About Us</a>
-      <a href="advertise.html#contact-form" class="nav-cta">Get a Free Quote</a>
+      <a href="advertise.html#packages" class="nav-cta">View Packages</a>
     </div>
-    <a href="advertise.html#contact-form" class="nav-cta nav-cta-top">Get a Free Quote</a>
+    <a href="advertise.html#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="prod-hero">
   <div class="prod-hero-inner">
-    <span class="section-kicker">OUR PRODUCTS</span>
-    <h1>The Right Format for <em>Every Goal.</em></h1>
-    <p class="prod-hero-sub">From high-impact display ads to branded editorial content, direct email blasts and newsletter banners, Daily Voice gives you the tools to reach local audiences where it matters most.</p>
+    <div class="prod-hero-copy">
+      <span class="section-kicker">OUR PRODUCTS</span>
+      <h1>The Right Format for <em>Every Goal.</em></h1>
+      <p class="prod-hero-sub">From site sponsorships and high-impact display ads to branded editorial content and direct email blasts, Daily Voice gives you the tools to reach local audiences where it matters most.</p>
+    </div>
     <div class="prod-summary">
       <div class="prod-summary-inner">
         <a href="#product-01" class="prod-summary-item">
-          <div class="prod-summary-num">01</div>
-          <div class="prod-summary-name">Branded Article</div>
-          <div class="prod-summary-desc">Promoted across our local sites</div>
+          <div class="prod-summary-name">Site Sponsorship</div>
+          <div class="prod-summary-desc">Own a steady local presence</div>
         </a>
         <a href="#product-02" class="prod-summary-item">
-          <div class="prod-summary-num">02</div>
           <div class="prod-summary-name">Email Blast</div>
-          <div class="prod-summary-desc">Directly to our subscribers' inboxes</div>
+          <div class="prod-summary-desc">Drive immediate attention</div>
         </a>
         <a href="#product-03" class="prod-summary-item">
-          <div class="prod-summary-num">03</div>
-          <div class="prod-summary-name">Website Banners</div>
-          <div class="prod-summary-desc">Established presence across our sites</div>
+          <div class="prod-summary-name">Branded Article</div>
+          <div class="prod-summary-desc">Tell your business story</div>
         </a>
         <a href="#product-04" class="prod-summary-item">
-          <div class="prod-summary-num">04</div>
-          <div class="prod-summary-name">Newsletter Banners</div>
-          <div class="prod-summary-desc">High visibility in our local newsletters</div>
+          <div class="prod-summary-name">Website &amp; Newsletter Banners</div>
+          <div class="prod-summary-desc">Stay visible across channels</div>
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCT 01: BRANDED CONTENT -->
+<!-- PRODUCT 01: LOCAL SPONSORSHIP -->
 <section class="prod-section" id="product-01" style="background:#fff;">
-  <div class="prod-section-inner prod-section-inner--bottom">
-    <div>
+  <div class="prod-section-inner">
+    <div class="prod-copy">
       <div class="prod-number">01</div>
-      <span class="section-kicker">Editorial Advertising</span>
-      <h2 class="prod-name">Branded Article</h2>
-      <p class="prod-tagline">Promote Your Article on the Daily Voice Local Homepage</p>
+      <span class="section-kicker">Always-On Local Presence</span>
+      <h2 class="prod-name">Site Sponsorship</h2>
+      <p class="prod-tagline">Become a Recognized Sponsor in the Community You Serve</p>
       <div class="prod-best-for">
-        
-        <span class="prod-best-for-tag">Driving Traffic</span>
-        <span class="prod-best-for-tag">SEO &amp; Discoverability</span>
-        <span class="prod-best-for-tag">Community Engagement</span>
+        <span class="prod-best-for-tag">Brand Trust</span>
+        <span class="prod-best-for-tag">Consistent Visibility</span>
+        <span class="prod-best-for-tag">Local Awareness</span>
       </div>
       <ul class="prod-bullets">
-        <li><span><strong>Post your article</strong> on the Daily Voice sites you choose.</span></li>
-        <li><span>Each article gets <strong>actively promoted</strong> on our sites, reaching many more readers than a regular news story.</span></li>
-        <li><span>Each article gets indexed by <strong>Google</strong> and gets posted to the local Daily Voice <strong>Facebook</strong> page.</span></li>
+        <li><span>Site Sponsorship includes a local sponsor ad at the top of the local site and a native banner on the homepage.</span></li>
+        <li><span>Fast and simple way to achieve extraordinary results and reach the local community.</span></li>
+        <li><span>Local sponsor banner lives on every single page on the site.</span></li>
       </ul>
-      <div class="prod-specs">
-        <div class="prod-spec-row"><span class="prod-spec-label">Geo-Targeting</span><span class="prod-spec-val">Town / county / state</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Distribution</span><span class="prod-spec-val">Local site(s) and Facebook</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Perks</span><span class="prod-spec-val">SEO; Stays live after campaign ends</span></div>
-      </div>
-      <div style="margin-top: 28px;">
-        <a href="advertise.html#contact-form" class="btn-primary">Get a Free Quote</a>
-      </div>
-    </div>
-    <div class="prod-visual prod-visual--screenshot prod-visual--intro">
-      <div class="prod-image-frame">
-        <img src="assets/images/branded-content-product.png" alt="Branded article example shown on a Daily Voice page" width="1964" height="1822" fetchpriority="high" />
+      <div class="prod-actions">
+        <a href="advertise.html#packages" class="btn-primary">View Packages</a>
       </div>
     </div>
   </div>
@@ -337,7 +303,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 <!-- PRODUCT 02: EMAIL BLASTS -->
 <section class="prod-section alt" id="product-02">
   <div class="prod-section-inner flip prod-section-inner--bottom">
-    <div>
+    <div class="prod-copy">
       <div class="prod-number">02</div>
       <span class="section-kicker">Email Marketing</span>
       <h2 class="prod-name">Dedicated Email Blasts</h2>
@@ -353,13 +319,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <li><span>US white-collar workers say they spend <strong>6.3 hours per day</strong> checking their email. <em style="font-size:13px;color:var(--gray);">Source: Reuters</em></span></li>
         <li><span>60 percent of consumers say they <strong>have made a purchase</strong> as the result of a marketing email they received. <em style="font-size:13px;color:var(--gray);">Source: Constant Contact</em></span></li>
       </ul>
-      <div class="prod-specs">
-        <div class="prod-spec-row"><span class="prod-spec-label">Geo-Targeting</span><span class="prod-spec-val">Town / county / state</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Distribution</span><span class="prod-spec-val">Subscriber inbox</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Perks</span><span class="prod-spec-val">Advanced demographic targeting <span style="color: var(--gray); font-weight: 400;">(Income, age, gender, home ownership and more)</span></span></div>
-      </div>
-      <div style="margin-top: 28px;">
-        <a href="advertise.html#contact-form" class="btn-primary">Get a Free Quote</a>
+      <div class="prod-actions">
+        <a href="advertise.html#packages" class="btn-primary">View Packages</a>
       </div>
     </div>
     <div class="prod-visual prod-visual--mockup">
@@ -370,13 +331,39 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </section>
 
-<!-- PRODUCT 03: HIGH-IMPACT BANNERS -->
+<!-- PRODUCT 03: BRANDED CONTENT -->
 <section class="prod-section" id="product-03" style="background:#fff;">
-  <div class="prod-section-inner">
-    <div>
+  <div class="prod-section-inner prod-section-inner--bottom">
+    <div class="prod-copy">
       <div class="prod-number">03</div>
+      <span class="section-kicker">Editorial Advertising</span>
+      <h2 class="prod-name">Branded Article</h2>
+      <p class="prod-tagline">Promote Your Article on the Daily Voice Local Homepage</p>
+      <div class="prod-best-for">
+        <span class="prod-best-for-tag">Driving Traffic</span>
+        <span class="prod-best-for-tag">SEO &amp; Discoverability</span>
+        <span class="prod-best-for-tag">Community Engagement</span>
+      </div>
+      <ul class="prod-bullets">
+        <li><span><strong>Post your article</strong> on the Daily Voice sites you choose.</span></li>
+        <li><span>Each article gets <strong>actively promoted</strong> on our sites, reaching many more readers than a regular news story.</span></li>
+        <li><span>Each article gets <strong>indexed by Google</strong> and gets posted to the local Daily Voice <strong>Facebook</strong> page.</span></li>
+      </ul>
+      <div class="prod-actions">
+        <a href="advertise.html#packages" class="btn-primary">View Packages</a>
+      </div>
+    </div>
+    <img class="prod-branded-shot" src="assets/images/branded-content-product.png" alt="Branded article example shown on a Daily Voice page" width="1964" height="1822" fetchpriority="high" />
+  </div>
+</section>
+
+<!-- PRODUCT 04: HIGH-IMPACT BANNERS -->
+<section class="prod-section alt" id="product-04">
+  <div class="prod-section-inner flip">
+    <div class="prod-copy">
+      <div class="prod-number">04</div>
       <span class="section-kicker">Display Advertising</span>
-      <h2 class="prod-name">Website Banners</h2>
+      <h2 class="prod-name">Website &amp; Newsletter Banners</h2>
       <p class="prod-tagline">Campaigns Designed To Make an Impression in Your Community</p>
       <div class="prod-best-for">
         
@@ -385,58 +372,12 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <span class="prod-best-for-tag">High Visibility</span>
       </div>
       <ul class="prod-bullets">
-        <li><span>Specify your location(s) and we build a geo-targeted campaign to reach <strong style="color: var(--red);">readers in your local area</strong>.</span></li>
-        <li><span>Short-term flights <strong>make a big splash</strong> for a one-time event, sale, or announcement.</span></li>
-        <li><span>Ongoing flights <strong>establish your brand</strong> as an essential part of the community.</span></li>
+        <li><span>Choose our local site(s) that match the <strong style="color: var(--red);">communities your business serves</strong>.</span></li>
+        <li><span>Place your message across <strong style="color: var(--red);">local sites and newsletters</strong> where those readers already get their news.</span></li>
+        <li><span>Build recognition for your brand, offers, events, and services with <strong style="color: var(--red);">consistent visibility over time</strong>.</span></li>
       </ul>
-      <div class="prod-specs">
-        <div class="prod-spec-row"><span class="prod-spec-label">Geo-Targeting</span><span class="prod-spec-val">Town / county / state</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Distribution</span><span class="prod-spec-val">Local site(s)</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Perks</span><span class="prod-spec-val">Advanced demographic targeting <span style="color: var(--gray); font-weight: 400;">(Income, age, gender, home ownership and more)</span></span></div>
-      </div>
-      <div style="margin-top: 28px;">
-        <a href="advertise.html#contact-form" class="btn-primary">Get a Free Quote</a>
-      </div>
-    </div>
-    <div class="prod-visual prod-visual--mockup prod-visual--mockup-large">
-      <div class="prod-image-frame">
-        <img src="assets/images/website-banners-product.png" alt="Website banners example shown across desktop and mobile Daily Voice pages" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCT 04: NEWSLETTER BANNERS -->
-<section class="prod-section alt" id="product-04">
-  <div class="prod-section-inner flip">
-    <div>
-      <div class="prod-number">04</div>
-      <span class="section-kicker">Newsletter Advertising</span>
-      <h2 class="prod-name">Newsletter Banners</h2>
-      <p class="prod-tagline">Place Your Ad Inside Our Local Newsletter</p>
-      <div class="prod-best-for">
-        
-        <span class="prod-best-for-tag">Consistent Exposure</span>
-        <span class="prod-best-for-tag">Local Awareness</span>
-        <span class="prod-best-for-tag">Budget-Friendly Reach</span>
-      </div>
-      <ul class="prod-bullets">
-        <li><span>Put your business in front of a <strong>highly engaged local audience</strong>.</span></li>
-        <li><span>Your ad appears directly in our local newsletter(s), delivered <strong style="color: var(--red);">straight to our subscribers' inboxes</strong>.</span></li>
-        <li><span>Designed to <strong>build local awareness</strong> and keep your business top of mind in your community.</span></li>
-      </ul>
-      <div class="prod-specs">
-        <div class="prod-spec-row"><span class="prod-spec-label">Geo-Targeting</span><span class="prod-spec-val">Town / county / state</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Distribution</span><span class="prod-spec-val">Local newsletter(s)</span></div>
-        <div class="prod-spec-row"><span class="prod-spec-label">Perks</span><span class="prod-spec-val">Advanced demographic targeting <span style="color: var(--gray); font-weight: 400;">(Income, age, gender, home ownership and more)</span></span></div>
-      </div>
-      <div style="margin-top: 28px;">
-        <a href="advertise.html#contact-form" class="btn-primary">Get a Free Quote</a>
-      </div>
-    </div>
-    <div class="prod-visual prod-visual--mockup">
-      <div class="prod-image-frame">
-        <img src="assets/images/newsletter-banner-product.svg" alt="Newsletter banner example shown inside a Daily Voice newsletter" />
+      <div class="prod-actions">
+        <a href="advertise.html#packages" class="btn-primary">View Packages</a>
       </div>
     </div>
   </div>
@@ -446,33 +387,35 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 <section style="padding: 72px 5%; background: #fff;">
   <div class="section-inner">
     <span class="section-kicker">Side by Side</span>
-    <h2 style="font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--charcoal); margin-bottom: 8px;">Which Option is Right for You?</h2>
-    <p style="font-size: 15px; color: #444444; margin-bottom: 0; max-width: 820px; line-height: 1.7;">Every goal is different. Use this table to see which product or combination works best for what you're trying to accomplish.</p>
-    <p style="font-size: 15px; color: #444444; margin-bottom: 40px; max-width: 720px; line-height: 1.7;">Not sure which to choose? <a href="advertise.html#contact-form" style="color: inherit; text-decoration: underline;">Just reach out</a> and we'll figure it out together.</p>
+    <h2 class="compare-heading" style="font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); margin-bottom: 12px;">Compare the Products</h2>
+    <p style="font-size: 15px; color: #444444; margin-bottom: 8px; max-width: 1000px; line-height: 1.8;">Every goal is different. Use this table to see which product or combination works best for what you're trying to accomplish.</p>
+    <p style="font-size: 15px; color: #444444; margin-bottom: 40px; max-width: 1000px; line-height: 1.8;">Not sure which to choose? <a href="advertise.html#contact-form" style="color: inherit; text-decoration: underline;">Just reach out</a> and we'll figure it out together.</p>
 
-    <div style="overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: 4px; margin-top: 8px;">
-      <table style="width: 100%; border-collapse: collapse; min-width: 640px;">
+    <div class="compare-scroll-hint">Swipe to compare &rarr;</div>
+    <div class="compare-table-wrap">
+      <div class="compare-table-scroll">
+      <table style="width: 100%; border-collapse: collapse; min-width: 860px;">
         <thead>
           <tr style="background: var(--charcoal);">
             <th style="text-align: left; padding: 16px 24px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); background: var(--red);">Feature</th>
-            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 200px;">Branded Article</th>
-            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 200px;">Email Blast</th>
-            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 200px;">Website Banners</th>
-            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; width: 200px;">Newsletter Banners</th>
+            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 180px;">Site Sponsorship</th>
+            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 180px;">Email Blast</th>
+            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; border-right: 1px solid rgba(255,255,255,0.15); width: 180px;">Branded Article</th>
+            <th style="text-align: center; padding: 16px 12px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: white; border-bottom: 0; width: 180px;">Banners</th>
           </tr>
         </thead>
         <tbody>
 
           <tr style="border-bottom: 1px solid var(--border); background: #fff;">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Distribution</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s) and FB</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local sponsorship placement</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Subscriber inbox</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s) and FB</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s)</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local newsletter(s)</td>
           </tr>
 
           <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Turnaround Time</td>
+            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Launch Time</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">1 day</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">1 day</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">1 day</td>
@@ -488,71 +431,65 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           </tr>
 
           <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Advanced Demographic Targeting</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">–</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Income, age, gender,<br>home ownership and more</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Income, age, gender,<br>home ownership and more</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Income, age, gender,<br>home ownership and more</td>
+            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Brand Awareness</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
           </tr>
 
           <tr style="border-bottom: 1px solid var(--border); background: #fff;">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Awareness</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-          </tr>
-
-          <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Driving Traffic</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
           </tr>
 
-          <tr style="border-bottom: 1px solid var(--border); background: #fff;">
+          <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Direct Response</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-          </tr>
-
-          <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Time-Sensitive Campaigns</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
           </tr>
 
           <tr style="border-bottom: 1px solid var(--border); background: #fff;">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">High-Frequency Exposure</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Instant Reach</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
           </tr>
 
           <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
-            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">SEO Benefit</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
+            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">High-Frequency Exposure</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
           </tr>
 
-          <tr style="background: #fff;">
+          <tr style="border-bottom: 1px solid var(--border); background: #fff;">
+            <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">SEO Benefit</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+          </tr>
+
+          <tr style="background: var(--lighter);">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Stays Live After Campaign Ends</td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="#ED212A" stroke="#ED212A" stroke-width="1.5"/><polyline points="4,10 8,14 16,6" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
-            <td style="text-align: center; padding: 16px 12px;"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="18" height="18" rx="2" fill="none" stroke="#ddd" stroke-width="1.5"/></svg></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
           </tr>
 
         </tbody>
       </table>
+      </div>
+      <div class="compare-table-fade" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -560,17 +497,17 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 <!-- FAQ -->
 <section style="padding: 72px 5%; background: var(--lighter); border-top: 1px solid var(--border);">
   <div class="section-inner">
-    <h2 class="faq-heading" style="font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--charcoal); margin-bottom: 48px; text-align: center;">Things People Ask Us</h2>
+    <h2 class="faq-heading" style="font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); margin-bottom: 40px; text-align: center;">Things People Ask Us</h2>
     <div style="display: flex; max-width: 1160px; margin: 0 auto;" class="faq-columns">
 
       <div style="flex: 1; display: flex; flex-direction: column;">
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
           <div class="faq-q" style="font-size: 15px; font-weight: 700; color: var(--charcoal); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            Can I run more than one product at the same time?
+            Can I run more than one ad product at the same time?
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            You can run as many products as you'd like. A lot of advertisers mix and match based on their goals, combining a Branded Article for long-term visibility with an Email Blast for an immediate push, for example. We'll help you figure out what makes the most sense for your budget and timeline.
+            Yes. If you want to run multiple ad products together, our <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Platinum package</a> is the best fit because it includes all of our products in one package. <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Silver</a> and <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Gold</a> are better suited for advertisers who want to focus on a smaller mix of placements. If you need a different combination, we can also build a <a href="advertise.html#custom-package" style="color: var(--red); text-decoration: underline;">custom package</a> around your goals.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
@@ -579,25 +516,25 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            Once we have everything we need from you, we can typically get your campaign live within 1 business day. If you have a specific date in mind for a sale or event, just let us know and we'll plan around it.
+            Once we have everything we need from you, we can typically get your campaign live within 1 business day.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
           <div class="faq-q" style="font-size: 15px; font-weight: 700; color: var(--charcoal); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            How do I know which product is right for my budget?
+            How do I know which package is right for my budget?
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            We work with businesses of all sizes. <a href="advertise.html#contact-form" style="color: inherit; text-decoration: underline;">Just reach out</a> and tell us a bit about what you're trying to accomplish and we'll put together a recommendation that fits your goals and your budget.
+            We offer <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Silver</a>, <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Gold</a>, and <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">Platinum</a> packages designed for different goals and budgets. Silver is a great entry point, Gold adds more visibility, and Platinum gives you the most complete package. If you're not sure which one is right, <a href="advertise.html#contact-form" style="color: var(--red); text-decoration: underline;">reach out</a> and we'll help you choose the best fit.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
           <div class="faq-q" style="font-size: 15px; font-weight: 700; color: var(--charcoal); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            Do I need to provide the content or creative, or do you help with that?
+            Can I change or upgrade my package later?
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            You provide the content or creative and we take care of the rest. That said, we do offer creative services for advertisers who need help putting something together, particularly for longer campaigns. Just ask and we'll let you know what's available.
+            Yes. You can start with the package that fits your current goals and upgrade when you're ready for more visibility.
           </div>
         </div>
       </div>
@@ -605,11 +542,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div style="flex: 1; display: flex; flex-direction: column;">
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
           <div class="faq-q" style="font-size: 15px; font-weight: 700; color: var(--charcoal); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            Do you offer packages for local businesses?
+            Do I need to provide the content or creative, or do you help with that?
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            Yes. We offer a range of packages tailored to different goals and budgets. Whether you're looking to build awareness, drive traffic, or promote a specific offer, there's likely a package that fits. <a href="advertise.html#contact-form" style="color: inherit; text-decoration: underline;">Reach out</a> and we'll walk you through the options.
+            You provide the content, creative, and general direction, and we take care of the rest. Our packages include creative support with one round of revisions, so we can help get everything ready for your campaign.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
@@ -618,7 +555,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            Yes. All of our products can be targeted by town, county, or state. You choose exactly which <a href="audience.html#coverage-glide" style="color: inherit; text-decoration: underline;">Daily Voice geo's</a> you want to reach, so you're never paying to advertise outside your service area.
+            Yes. Our packages are available by <a href="audience.html" style="color: var(--red); text-decoration: underline;">Daily Voice local site</a>, so you can choose the town or area that matters most to your business. This helps you stay focused on the readers you actually want to reach.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
@@ -627,7 +564,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            Absolutely. You can target multiple towns, a full county, or an entire state. Daily Voice reaches communities <a href="audience.html#coverage-glide" style="color: inherit; text-decoration: underline;">across a wide network</a>, so if your business serves a broader area we can make sure your campaign covers it.
+            Absolutely. You can add additional towns or Daily Voice local sites if your business serves more than one community. Each additional town is available at 50% off, making it easy to expand your reach while keeping your campaign local.
           </div>
         </div>
         <div class="faq-item" style="border-bottom: 1px solid var(--border); padding: 20px 0;">
@@ -636,7 +573,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <span class="faq-icon" style="color: var(--red); flex-shrink: 0; line-height: 1; display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; transition: transform .2s ease; transform: rotate(180deg);"><img src="assets/images/down-arrow.svg" alt="" aria-hidden="true" style="width: 22px; height: 22px; display: block;" /></span>
           </div>
           <div class="faq-a" style="display: none; font-size: 15px; color: var(--body); line-height: 1.7;">
-            The easiest way is to fill out our <a href="advertise.html#contact-form" style="color: var(--red);">contact form</a> and someone from our team will get back to you shortly. You can also email us directly at <a href="mailto:advertisers@dailyvoice.com" style="color: var(--red);">advertisers@dailyvoice.com</a>.
+            The easiest way to get started is to <a href="advertise.html#packages" style="color: var(--red); text-decoration: underline;">choose the package</a> that best fits your goals and fill out our contact form. Someone from our team will get back to you shortly. You can also email us directly at <a href="mailto:advertisers@dailyvoice.com" style="color: var(--red);">advertisers@dailyvoice.com</a>.
           </div>
         </div>
       </div>
@@ -691,7 +628,7 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
         <strong>Your neighbors are already reading Daily Voice.</strong>
         <span>The only question is whether they see your business when they do.</span>
       </div>
-      <a href="advertise.html#contact-form" class="btn-primary" style="background:white;color:var(--red);">Get a Free Quote</a>
+      <a href="advertise.html#packages" class="btn-primary" style="background:white;color:var(--red);">View Packages</a>
     </div>
   </div>
 </section>
@@ -707,12 +644,12 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
         <h5>Advertise</h5>
         <a href="advertise.html">Why Daily Voice</a>
         <a href="products.html">Products</a>
-        <a href="audience.html">Our Audience</a>
+        <a href="audience.html">Find Your Site</a>
         <a href="about.html">About Us</a>
       </div>
       <div class="footer-col">
         <h5>Get Started</h5>
-        <a href="advertise.html#contact-form">Get a Free Quote</a>
+        <a href="advertise.html#packages">View Packages</a>
         <a href="mailto:advertisers@dailyvoice.com">Email Us Directly</a>
         <a href="https://dailyvoice.com">Back to dailyvoice.com</a>
       </div>
@@ -728,12 +665,43 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
 var _lastScroll = 0;
 var _navEl = document.querySelector('nav');
 var _spacerEl = document.getElementById('nav-spacer');
+var _agencyBarEl = document.querySelector('.agency-bar');
+var _agencyBarCloseEl = document.querySelector('.agency-bar-close');
+var _agencyBarDismissed = false;
 var _navLastShownAt = 0;
 var _navLastHiddenAt = 0;
 document.querySelectorAll('.js-current-year').forEach(function(el) {
   el.textContent = new Date().getFullYear();
 });
-function _updateSpacer() { if (_spacerEl && _navEl) _spacerEl.style.height = _navEl.offsetHeight + 'px'; }
+try {
+  _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+} catch (e) {}
+if (_agencyBarEl && !_agencyBarDismissed) {
+  setTimeout(function() {
+    if (_agencyBarEl && !_agencyBarDismissed) {
+      _agencyBarEl.classList.add('is-visible');
+      _updateSpacer();
+    }
+  }, 2000);
+} else if (_agencyBarEl) {
+  _agencyBarEl.style.display = 'none';
+}
+if (_agencyBarCloseEl && _agencyBarEl) {
+  _agencyBarCloseEl.addEventListener('click', function() {
+    _agencyBarDismissed = true;
+    _agencyBarEl.classList.remove('is-visible');
+    try { sessionStorage.setItem('agencyBarDismissed', 'true'); } catch (e) {}
+    _updateSpacer();
+    setTimeout(function() {
+      if (_agencyBarEl && _agencyBarDismissed) _agencyBarEl.style.display = 'none';
+    }, 300);
+  });
+}
+function _updateSpacer() {
+  if (!_spacerEl || !_navEl) return;
+  _navEl.style.top = '0px';
+  _spacerEl.style.height = _navEl.offsetHeight + 'px';
+}
 _updateSpacer();
 window.addEventListener('resize', _updateSpacer);
 window.addEventListener('scroll', function () {
