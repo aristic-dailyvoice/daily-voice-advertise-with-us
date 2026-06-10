@@ -1042,11 +1042,17 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
   });
 }
 var _mobileAnchorScrollFrame = 0;
+var _mobileAnchorScrollBehaviorRestore = null;
+function _restoreMobileAnchorScrollBehavior() {
+  if (_mobileAnchorScrollBehaviorRestore === null) return;
+  document.documentElement.style.scrollBehavior = _mobileAnchorScrollBehaviorRestore;
+  _mobileAnchorScrollBehaviorRestore = null;
+}
 function _isMobileAnchorScroll() {
   return window.matchMedia('(max-width: 960px)').matches;
 }
 function _easeMobileAnchorScroll(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  return 0.5 - Math.cos(Math.PI * t) / 2;
 }
 function _scrollToAnchorPosition(top) {
   top = Math.max(top, 0);
@@ -1054,10 +1060,16 @@ function _scrollToAnchorPosition(top) {
     window.scrollTo({ top: top, behavior: 'smooth' });
     return;
   }
-  if (_mobileAnchorScrollFrame) cancelAnimationFrame(_mobileAnchorScrollFrame);
+  if (_mobileAnchorScrollFrame) {
+    cancelAnimationFrame(_mobileAnchorScrollFrame);
+    _mobileAnchorScrollFrame = 0;
+    _restoreMobileAnchorScrollBehavior();
+  }
+  _mobileAnchorScrollBehaviorRestore = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = 'auto';
   var start = window.pageYOffset;
   var distance = top - start;
-  var duration = Math.min(1400, Math.max(900, Math.abs(distance) * 0.55));
+  var duration = Math.min(1300, Math.max(850, Math.abs(distance) * 0.38));
   var startedAt = null;
 
   function step(timestamp) {
@@ -1069,6 +1081,7 @@ function _scrollToAnchorPosition(top) {
       _mobileAnchorScrollFrame = requestAnimationFrame(step);
     } else {
       _mobileAnchorScrollFrame = 0;
+      _restoreMobileAnchorScrollBehavior();
     }
   }
 
