@@ -1041,6 +1041,56 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
     });
   });
 }
+var _mobileAnchorScrollFrame = 0;
+function _isMobileAnchorScroll() {
+  return window.matchMedia('(max-width: 960px)').matches;
+}
+function _easeMobileAnchorScroll(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+function _scrollToAnchorPosition(top) {
+  top = Math.max(top, 0);
+  if (!_isMobileAnchorScroll()) {
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    return;
+  }
+  if (_mobileAnchorScrollFrame) cancelAnimationFrame(_mobileAnchorScrollFrame);
+  var start = window.pageYOffset;
+  var distance = top - start;
+  var duration = Math.min(1400, Math.max(900, Math.abs(distance) * 0.55));
+  var startedAt = null;
+
+  function step(timestamp) {
+    if (startedAt === null) startedAt = timestamp;
+    var progress = Math.min((timestamp - startedAt) / duration, 1);
+    var eased = _easeMobileAnchorScroll(progress);
+    window.scrollTo({ top: start + distance * eased, left: 0, behavior: 'auto' });
+    if (progress < 1) {
+      _mobileAnchorScrollFrame = requestAnimationFrame(step);
+    } else {
+      _mobileAnchorScrollFrame = 0;
+    }
+  }
+
+  _mobileAnchorScrollFrame = requestAnimationFrame(step);
+}
+function _getAnchorScrollTop(target) {
+  var styles = window.getComputedStyle(target);
+  var marginTop = parseFloat(styles.scrollMarginTop) || 0;
+  return target.getBoundingClientRect().top + window.pageYOffset - marginTop;
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(event) {
+    if (!_isMobileAnchorScroll()) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash.length <= 1) return;
+    var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    event.preventDefault();
+    history.pushState(null, '', hash);
+    _scrollToAnchorPosition(_getAnchorScrollTop(target));
+  });
+});
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
   _navEl.style.top = '0px';
@@ -1100,7 +1150,7 @@ function handleSubmit(e) {
       };
       section.addEventListener('transitionend', clearSectionHeight);
     }
-    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+    _scrollToAnchorPosition(top);
   });
 }
 </script>
