@@ -72,13 +72,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .prod-hero-sub { animation: fadeUp .45s ease .13s both; }
 
 /* PRODUCT SUMMARY BAR */
-.prod-summary { margin-top: 0; }
-.prod-summary-inner { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--charcoal); border: 1px solid var(--charcoal-divider); box-shadow: 0 14px 36px rgba(0,0,0,0.08); }
-.prod-summary-item { padding: 28px 32px; border-right: 1px solid var(--charcoal-divider); text-decoration: none; display: block; transition: background .2s ease, color .2s ease; }
-.prod-summary-item:last-child { border-right: none; }
+.prod-summary { margin-top: 0; background: transparent; padding: 0; }
+.prod-summary-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; background: transparent; border: 1px solid var(--charcoal-divider); box-shadow: none; }
+.prod-summary-item { background: var(--charcoal); border-right: 1px solid var(--charcoal-divider); padding: 28px 32px; min-height: 110px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background .2s ease; }
+.prod-summary-item:last-child { border-right: 0; }
 .prod-summary-item:hover { background: var(--charcoal-hover); }
-.prod-summary-name { font-size: 18px; font-weight: 700; color: var(--charcoal-text); margin-bottom: 4px; }
-.prod-summary-desc { font-size: 14px; color: var(--charcoal-muted); line-height: 1.5; }
+.prod-summary-name { font-size: 18px; font-weight: 700; color: var(--charcoal-text); margin-bottom: 5px; }
+.product-new-badge { display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; padding: 0; background: transparent; color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; line-height: 1; vertical-align: 1px; }
+.prod-summary-desc { font-size: 14px; color: var(--charcoal-muted); line-height: 1.4; }
 
 /* PRODUCT SECTIONS */
 .prod-section { padding: 72px 5% 0; border-bottom: 1px solid var(--border); }
@@ -190,9 +191,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .prod-section,
   .prod-cta,
   footer { overflow-x: clip; }
-  .prod-summary-inner { grid-template-columns: 1fr; }
-  .prod-summary-item { min-height: auto; padding: 28px 32px; border-right: none; border-bottom: 1px solid var(--charcoal-divider); display: block; }
-  .prod-summary-item:last-child { border-bottom: none; }
+  .prod-summary-item { display: flex; }
+  .prod-summary-name { font-size: 18px; }
+  .prod-summary-desc { font-size: 14px; line-height: 1.45; }
   .prod-section-inner { grid-template-columns: 1fr; gap: 40px; min-height: auto; height: auto; }
   #product-03 .prod-section-inner { grid-template-columns: 1fr; justify-content: stretch; }
   .prod-section-inner.flip { direction: ltr; }
@@ -224,6 +225,18 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   #product-03 .prod-copy { padding-bottom: 0; }
   #product-03 .prod-branded-shot { width: calc(100% + 22px); max-width: none; transform: none; }
   .faq-heading { margin-bottom: 22px !important; }
+}
+@media (max-width: 860px) {
+  .prod-summary-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prod-summary-item { min-height: 118px; display: flex; border-right: 1px solid var(--charcoal-divider); border-bottom: 1px solid var(--charcoal-divider); }
+  .prod-summary-item:nth-child(2n) { border-right: 0; }
+  .prod-summary-item:nth-last-child(-n+2) { border-bottom: 0; }
+}
+@media (max-width: 480px) {
+  .prod-summary-inner { grid-template-columns: 1fr; }
+  .prod-summary-item { min-height: 110px; padding: 28px 32px; border-right: 0; border-bottom: 1px solid var(--charcoal-divider); }
+  .prod-summary-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--charcoal-divider); }
+  .prod-summary-item:last-child { border-bottom: 0; }
 }
   </style>
 </head>
@@ -262,7 +275,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="prod-summary">
       <div class="prod-summary-inner">
         <a href="#product-01" class="prod-summary-item">
-          <div class="prod-summary-name">Site Sponsorship</div>
+          <div class="prod-summary-name">Site Sponsorship <span class="product-new-badge">NEW</span></div>
           <div class="prod-summary-desc">Own a steady local presence</div>
         </a>
         <a href="#product-02" class="prod-summary-item">
@@ -274,8 +287,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <div class="prod-summary-desc">Tell your business story</div>
         </a>
         <a href="#product-04" class="prod-summary-item">
-          <div class="prod-summary-name">Website &amp; Newsletter Banners</div>
-          <div class="prod-summary-desc">Stay visible across channels</div>
+          <div class="prod-summary-name">Banner Ads</div>
+          <div class="prod-summary-desc">Stay visible across our channels</div>
         </a>
       </div>
     </div>
