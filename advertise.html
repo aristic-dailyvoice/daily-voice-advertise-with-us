@@ -1104,6 +1104,36 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     _scrollToAnchorPosition(_getAnchorScrollTop(target));
   });
 });
+function _consumeDeferredAnchorHash() {
+  var hash = '';
+  try {
+    hash = sessionStorage.getItem('dailyVoiceDeferredAnchor') || '';
+    sessionStorage.removeItem('dailyVoiceDeferredAnchor');
+  } catch (e) {}
+  if (!hash && window.location.search) {
+    var params = new URLSearchParams(window.location.search);
+    var scrollTo = params.get('scrollTo') || '';
+    if (scrollTo) hash = scrollTo.charAt(0) === '#' ? scrollTo : '#' + scrollTo;
+  }
+  return hash;
+}
+function _runDeferredAnchorScroll() {
+  if (!_isMobileAnchorScroll()) return;
+  var hash = _consumeDeferredAnchorHash();
+  if (!hash || hash.length <= 1) return;
+  var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+  if (!target) return;
+  history.replaceState(null, '', window.location.pathname + hash);
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      _scrollToAnchorPosition(_getAnchorScrollTop(target));
+    });
+  });
+}
+window.addEventListener('load', function() {
+  setTimeout(_runDeferredAnchorScroll, 80);
+});
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
   _navEl.style.top = '0px';
