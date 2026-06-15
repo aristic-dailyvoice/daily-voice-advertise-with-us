@@ -663,7 +663,6 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
   var item = q.closest('.faq-item');
   var answer = item.querySelector('.faq-a');
   var icon = q.querySelector('.faq-icon');
-  var isMobileFaq = window.matchMedia('(max-width: 640px)').matches;
 
   answer.style.display = 'block';
   answer.style.maxHeight = '0px';
@@ -672,10 +671,8 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
   answer.style.paddingTop = '0px';
   answer.style.willChange = 'max-height, padding-top';
   answer.style.transform = 'translateZ(0)';
-  answer.style.transition = isMobileFaq
-    ? 'max-height .24s cubic-bezier(.22,1,.36,1), padding-top .24s cubic-bezier(.22,1,.36,1)'
-    : 'max-height .3s ease, padding-top .3s ease';
-  icon.style.transition = isMobileFaq ? 'transform .22s ease' : 'transform .3s ease';
+  answer.style.transition = 'max-height .3s ease, padding-top .3s ease';
+  icon.style.transition = 'transform .3s ease';
   icon.style.transform = 'rotate(0deg)';
 
   q.addEventListener('click', function() {
