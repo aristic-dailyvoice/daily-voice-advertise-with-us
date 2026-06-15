@@ -663,15 +663,16 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
   var item = q.closest('.faq-item');
   var answer = item.querySelector('.faq-a');
   var icon = q.querySelector('.faq-icon');
+  var isMobileFaq = window.matchMedia('(max-width: 640px)').matches;
 
   answer.style.display = 'block';
   answer.style.maxHeight = '0px';
   answer.style.opacity = '0';
   answer.style.overflow = 'hidden';
   answer.style.paddingTop = '0px';
-  answer.style.willChange = 'max-height, padding-top';
+  answer.style.willChange = isMobileFaq ? 'auto' : 'max-height, padding-top';
   answer.style.transform = 'translateZ(0)';
-  answer.style.transition = 'max-height .3s ease, padding-top .3s ease';
+  answer.style.transition = isMobileFaq ? 'none' : 'max-height .3s ease, padding-top .3s ease';
   icon.style.transition = 'transform .3s ease';
   icon.style.transform = 'rotate(0deg)';
 
@@ -683,9 +684,10 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
       answer.style.opacity = '0';
       answer.style.paddingTop = '0px';
     } else {
+      var targetHeight = answer.scrollHeight + 8;
       answer.style.opacity = '1';
       answer.style.paddingTop = '8px';
-      answer.style.maxHeight = (answer.scrollHeight + 8) + 'px';
+      answer.style.maxHeight = targetHeight + 'px';
     }
 
     icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
