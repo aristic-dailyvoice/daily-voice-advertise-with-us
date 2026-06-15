@@ -22,9 +22,10 @@ nav {
   border-bottom: 1px solid var(--border); border-top: 5px solid var(--red);
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   display: flex; flex-direction: column; padding: 0 5%; overflow: visible;
+  --nav-hide-shift: calc(-100% - 36px);
   transition: top .48s cubic-bezier(.22, 1, .36, 1), transform .42s ease;
 }
-nav.nav-hidden { transform: translateY(calc(-100% - 36px)); }
+nav.nav-hidden { transform: translateY(var(--nav-hide-shift)); }
 #nav-spacer { transition: height .48s cubic-bezier(.22, 1, .36, 1); }
 .nav-top { display: flex; align-items: center; justify-content: space-between; height: 66px; width: 100%; }
 .nav-logo { text-decoration: none; line-height: 0; flex-shrink: 0; }
@@ -134,15 +135,25 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .package-complimentary-feature { --feature-check-offset: 0px; display: block; position: relative; padding-left: 24px; }
 .package-complimentary-feature::before { content: "\2713"; position: absolute; left: 0; top: calc(var(--feature-check-offset) + 1px); color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
 .package-complimentary-feature + .package-complimentary-feature { --feature-check-offset: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-.package-product-options { margin-top: 2px; padding-top: 0; border-top: 0; color: var(--gray) !important; }
+.package-product-options { margin-top: 2px; padding-top: 0; border-top: 0; color: var(--body) !important; }
 .package-product-options::before { content: "\2713"; top: 1px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; background: transparent; }
 .package-product-options > strong { width: calc(100% + 24px); margin-left: -24px; padding-left: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
 .package-product-options > strong { color: var(--charcoal); font-size: 14px; }
 .package-option-list { width: 100%; display: grid; gap: 12px; margin-top: 12px; }
-.package-option-list span { display: block; font-size: 14px; color: #b9b5ae; line-height: 1.45; padding: 0; border-top: 0; margin-left: 18px; }
-.package-option-list span:not(:last-child) { width: calc(100% + 6px); margin-left: -6px; padding-left: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-.package-option-list b { display: block; color: #b9b5ae; font-size: 14px; line-height: 1.25; margin-bottom: 1px; }
-.package-option-list b,
+.package-option { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 34px; padding: 0 0 12px; font-family: Helvetica, Arial, sans-serif; text-align: left; cursor: default; }
+.package-option:not(:last-child) { border-bottom: 1px solid var(--border); }
+.package-option-box { width: 18px; height: 18px; border: 1px solid #cbc6be; border-radius: 3px; background: white; padding: 0; appearance: none; -webkit-appearance: none; flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.package-option-box::after { content: ""; width: 11px; height: 7px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.package-option .package-option-link { color: var(--charcoal); font-size: 14px; font-weight: 500; line-height: 1.35; text-decoration: none; }
+.package-option .package-option-link:hover { color: var(--charcoal); text-decoration: underline; text-underline-offset: 2px; }
+.package-option-box:hover { border-color: var(--red); }
+.package-option-box:focus-visible { outline: 2px solid rgba(237,33,42,0.22); outline-offset: 3px; }
+.package-option.is-selected .package-option-box,
+.package-option[aria-pressed="true"] .package-option-box { background: var(--red); border-color: var(--red); }
+.package-option.is-selected .package-option-box::after,
+.package-option[aria-pressed="true"] .package-option-box::after { opacity: 1; }
+.package-option--included { cursor: default; }
+.package-option--included .package-option-box { cursor: default; }
 .package-product-row strong { font-weight: 400; }
 .package-action { width: 100%; margin-top: 6px; white-space: nowrap; }
 .package-action .btn-secondary { width: 100%; text-align: center; background: white; }
@@ -260,7 +271,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 @media (max-width: 960px) {
   html,
   body { overflow-x: hidden; }
-  nav.nav-hidden { transform: translateY(calc(-100% - 12px)); }
+  nav.nav-hidden { --nav-hide-shift: -71px; }
   nav { width: 100%; max-width: 100vw; padding: 0 20px; }
   footer { padding-left: 20px; padding-right: 20px; }
   .nav-top { min-width: 0; }
@@ -435,7 +446,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <div class="package-includes">
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
-            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><span class="package-option-list"><span><b><a href="products.html#product-04">Website &amp; Newsletter Banners</a></b></span><span><b><a href="products.html#product-02">Dedicated Email Blast</a></b></span><span><b><a href="products.html#product-03">Branded Article</a></b></span></span></li>
+            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><div class="package-option-list" data-package-choice-group="silver"><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Website &amp; Newsletter Banners"></button><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Dedicated Email Blast"></button><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Branded Article"></button><a href="products.html#product-03" class="package-option-link">Branded Article</a></div></div></li>
             <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
           </ul>
         </div>
@@ -455,7 +466,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
             <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
-            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><span class="package-option-list"><span><b><a href="products.html#product-04">Website &amp; Newsletter Banners</a></b></span><span><b><a href="products.html#product-02">Dedicated Email Blast</a></b></span><span><b><a href="products.html#product-03">Branded Article</a></b></span></span></li>
+            <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><div class="package-option-list" data-package-choice-group="gold"><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Website &amp; Newsletter Banners"></button><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Dedicated Email Blast"></button><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Branded Article"></button><a href="products.html#product-03" class="package-option-link">Branded Article</a></div></div></li>
             <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
           </ul>
         </div>
@@ -476,10 +487,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
             <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
-            <li class="package-include-divider"><strong>Get All Ad Products (3/3)</strong></li>
-            <li class="package-include-divider package-product-row"><strong><a href="products.html#product-04">Website &amp; Newsletter Banners</a></strong></li>
-            <li class="package-include-divider package-product-row"><strong><a href="products.html#product-02">Dedicated Email Blast</a></strong></li>
-            <li class="package-product-row"><strong><a href="products.html#product-03">Branded Article</a></strong></li>
+            <li class="package-product-options"><strong>Get All Ad Products (3/3)</strong><div class="package-option-list"><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-03" class="package-option-link">Branded Article</a></span></div></li>
             <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
           </ul>
         </div>
@@ -536,22 +544,22 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <h2 class="options-slim-h">Whatever your goal, we have a way to get you in front of the right people.</h2>
     </div>
     <div class="options-slim-pills">
-      <div class="options-pill">
+      <a href="products.html#product-01" class="options-pill">
         <div class="options-pill-name">Site Sponsorship <span class="product-new-badge">NEW</span></div>
         <div class="options-pill-desc">Own a steady local presence</div>
-      </div>
-      <div class="options-pill">
+      </a>
+      <a href="products.html#product-02" class="options-pill">
         <div class="options-pill-name">Email Blast</div>
         <div class="options-pill-desc">Drive immediate attention</div>
-      </div>
-      <div class="options-pill">
+      </a>
+      <a href="products.html#product-03" class="options-pill">
         <div class="options-pill-name">Branded Article</div>
         <div class="options-pill-desc">Tell your business story</div>
-      </div>
-      <div class="options-pill">
+      </a>
+      <a href="products.html#product-04" class="options-pill">
         <div class="options-pill-name">Banner Ads</div>
         <div class="options-pill-desc">Stay visible across our channels</div>
-      </div>
+      </a>
       <a href="products.html" class="options-pill options-pill--cta">
         <div class="options-pill-name">Product Overview</div>
         <div class="options-pill-desc">Detailed overview of all ad options</div>
@@ -611,8 +619,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <div class="fg req"><label>Your Name</label><input type="text" maxlength="50" required /></div>
             <div class="fg req"><label>Email Address</label><input type="email" maxlength="50" required /></div>
           </div>
-          <div class="fg req" id="business-town-wrap"><label id="business-town-label">Your Business &amp; Town</label><input type="text" id="business-town-input" maxlength="100" required /></div>
-          <div class="fg req is-hidden" id="package-sites-wrap">
+          <div class="form-row">
+            <div class="fg req" id="business-name-wrap"><label>Your Business Name</label><input type="text" id="business-name-input" maxlength="100" required /></div>
+            <div class="fg req" id="business-location-wrap"><label>Your Town / Location</label><input type="text" id="business-location-input" maxlength="100" required /></div>
+          </div>
+          <div class="fg is-hidden" id="package-sites-wrap">
             <div class="package-site-label-row">
               <label>Local site(s) for the package</label>
               <div class="package-site-help package-site-help--inline">(Any additional sites in each package are 50% off)</div>
@@ -628,7 +639,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             </div>
           </div>
           <div class="fg" id="geographies-wrap"><label>Geographies you are looking to reach</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
-          <div class="fg" id="goals-wrap"><label>What are you trying to accomplish?</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
+          <div class="fg" id="goals-wrap"><label>What are your advertising goals?</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
           <div class="fg is-hidden" id="description-wrap"><label>Description</label><div class="fg-textarea-wrap"><textarea id="description-textarea" style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
           <div class="fg req" id="monthly-budget-wrap">
             <label>Monthly Budget</label>
@@ -892,9 +903,6 @@ var _packageSiteSearch = document.getElementById('package-site-search');
 var _packageSitesValue = document.getElementById('package-sites-value');
 var _packageSiteResults = document.getElementById('package-site-results');
 var _packageSiteSelected = document.getElementById('package-site-selected');
-var _businessTownWrap = document.getElementById('business-town-wrap');
-var _businessTownLabel = document.getElementById('business-town-label');
-var _businessTownInput = document.getElementById('business-town-input');
 var _geographiesWrap = document.getElementById('geographies-wrap');
 var _goalsWrap = document.getElementById('goals-wrap');
 var _descriptionWrap = document.getElementById('description-wrap');
@@ -929,7 +937,7 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
         var site = _packageSiteChoices.find(function(choice) { return choice.id === siteId; });
         return site ? site.name : '';
       }).filter(Boolean).join(', ');
-      _packageSitesValue.setCustomValidity(_packageSitesWrap && !_packageSitesWrap.classList.contains('is-hidden') && _selectedPackageSites.length === 0 ? 'Please select at least one local site.' : '');
+      _packageSitesValue.setCustomValidity('');
     }
   }
   function _renderPackageSiteResults(query) {
@@ -988,7 +996,7 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
     if (!show) _interestCustomInput.value = '';
     if (_packageSitesWrap && _packageSiteSearch) {
       _packageSitesWrap.classList.toggle('is-hidden', !isPackage);
-      if (_packageSitesValue) _packageSitesValue.required = isPackage;
+      if (_packageSitesValue) _packageSitesValue.required = false;
       if (!isPackage) {
         _selectedPackageSites = [];
         _packageSiteSearch.value = '';
@@ -1006,8 +1014,6 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
         _renderPackageSiteResults(_packageSiteSearch.value);
       }
     }
-    if (_businessTownWrap) _businessTownWrap.classList.toggle('is-hidden', false);
-    if (_businessTownLabel) _businessTownLabel.textContent = isGuestPost ? 'Your Business Name' : 'Your Business & Town';
     if (_geographiesWrap) _geographiesWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
     if (_goalsWrap) _goalsWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
     if (_descriptionWrap) {
@@ -1040,6 +1046,21 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
       if (!packageValue) return;
       _interestSelect.value = packageValue;
       _toggleInterestCustom();
+    });
+  });
+  document.querySelectorAll('[data-package-choice-group]').forEach(function(group) {
+    var options = Array.prototype.slice.call(group.querySelectorAll('.package-option-selectable'));
+    options.forEach(function(option) {
+      var checkbox = option.querySelector('.package-option-box');
+      if (!checkbox) return;
+      checkbox.addEventListener('click', function() {
+        options.forEach(function(item) {
+          var selected = item === option;
+          var itemCheckbox = item.querySelector('.package-option-box');
+          item.classList.toggle('is-selected', selected);
+          if (itemCheckbox) itemCheckbox.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
     });
   });
 }
@@ -1149,7 +1170,20 @@ window.addEventListener('load', function() {
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
   var agencyOffset = _agencyBarEl && _agencyBarEl.classList.contains('is-visible') && _agencyBarEl.style.display !== 'none' ? _agencyBarEl.offsetHeight : 0;
+  var linksEl = _navEl.querySelector('.nav-links');
+  var isMobile = window.matchMedia('(max-width: 960px)').matches;
+  var linksOverflow = 0;
+  var linksAreMobileRow = linksEl && window.getComputedStyle(linksEl).position === 'absolute';
+  if (linksAreMobileRow) {
+    linksOverflow = Math.max(0, linksEl.offsetTop + linksEl.offsetHeight - _navEl.offsetHeight);
+  }
+  var hideBuffer = isMobile ? 12 : 36;
+  var hideShift = agencyOffset + _navEl.offsetHeight + linksOverflow + hideBuffer;
+  if (isMobile && linksAreMobileRow) {
+    hideShift = Math.max(0, Math.round(linksEl.getBoundingClientRect().top - _navEl.getBoundingClientRect().top));
+  }
   _navEl.style.top = agencyOffset + 'px';
+  _navEl.style.setProperty('--nav-hide-shift', '-' + hideShift + 'px');
   _spacerEl.style.height = (_navEl.offsetHeight + agencyOffset) + 'px';
 }
 _updateSpacer();
