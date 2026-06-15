@@ -1077,7 +1077,7 @@ function _isMobileAnchorScroll() {
 function _easeMobileAnchorScroll(t) {
   return 0.5 - Math.cos(Math.PI * t) / 2;
 }
-function _scrollToAnchorPosition(top) {
+function _scrollToAnchorPosition(top, targetId) {
   top = Math.max(top, 0);
   if (!_isMobileAnchorScroll()) {
     window.scrollTo({ top: top, behavior: 'smooth' });
@@ -1092,7 +1092,9 @@ function _scrollToAnchorPosition(top) {
   document.documentElement.style.scrollBehavior = 'auto';
   var start = window.pageYOffset;
   var distance = top - start;
-  var duration = Math.min(1300, Math.max(850, Math.abs(distance) * 0.38));
+  var duration = targetId === 'packages'
+    ? Math.min(780, Math.max(520, Math.abs(distance) * 0.28))
+    : Math.min(1300, Math.max(850, Math.abs(distance) * 0.38));
   var startedAt = null;
 
   function step(timestamp) {
@@ -1124,7 +1126,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     if (!target) return;
     event.preventDefault();
     history.pushState(null, '', hash);
-    _scrollToAnchorPosition(_getAnchorScrollTop(target));
+    _scrollToAnchorPosition(_getAnchorScrollTop(target), target.id);
   });
 });
 document.querySelectorAll('a[href^="products.html#"]').forEach(function(link) {
@@ -1160,7 +1162,7 @@ function _runDeferredAnchorScroll() {
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
-      _scrollToAnchorPosition(_getAnchorScrollTop(target));
+      _scrollToAnchorPosition(_getAnchorScrollTop(target), target.id);
     });
   });
 }
