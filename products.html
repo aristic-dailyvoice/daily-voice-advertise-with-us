@@ -778,7 +778,7 @@ document.querySelectorAll('a[href^="advertise.html#"]').forEach(function(link) {
     if (!hash) return;
     event.preventDefault();
     try { sessionStorage.setItem('dailyVoiceDeferredAnchor', '#' + hash); } catch (e) {}
-    window.location.href = 'advertise.html?scrollTo=' + encodeURIComponent(hash);
+    window.location.href = 'advertise.html?scrollTo=' + encodeURIComponent(hash) + '&scrollv=' + Date.now();
   });
 });
 var _mobileProductScrollFrame = 0;
