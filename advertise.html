@@ -1166,8 +1166,18 @@ function _runDeferredAnchorScroll() {
     });
   });
 }
+function _scheduleDeferredAnchorScroll(delay) {
+  setTimeout(_runDeferredAnchorScroll, delay);
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    _scheduleDeferredAnchorScroll(20);
+  }, { once: true });
+} else {
+  _scheduleDeferredAnchorScroll(20);
+}
 window.addEventListener('load', function() {
-  setTimeout(_runDeferredAnchorScroll, 80);
+  _scheduleDeferredAnchorScroll(80);
 });
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
