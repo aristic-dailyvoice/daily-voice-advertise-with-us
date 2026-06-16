@@ -31,6 +31,7 @@ nav.nav-hidden { transform: translateY(var(--nav-hide-shift)); }
 .nav-logo { text-decoration: none; line-height: 0; flex-shrink: 0; }
 .nav-logo img { width: 66px; height: 66px; display: block; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.14)); }
 .nav-links { display: flex; align-items: center; gap: 4px; height: 66px; margin-left: auto; }
+.nav-scrollbar { display: none; }
 .nav-link { font-size: 13px; font-weight: 600; color: var(--gray); text-decoration: none; padding: 6px 12px; transition: color .2s; white-space: nowrap; }
 .nav-link:hover { color: var(--red); }
 .nav-link.active { color: var(--red); border-bottom: 2px solid var(--red); }
@@ -213,10 +214,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .action-form-header h3 { font-size: 20px; font-weight: 900; color: var(--charcoal); margin-bottom: 4px; }
 .action-form-header p { font-size: 13px; color: var(--gray); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row .fg.is-full-row { grid-column: 1 / -1; }
 .fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
 .fg label { font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--gray); }
 .fg.req label::after { content: ' *'; color: var(--red); }
 .fg input, .fg select, .fg textarea { background: white; border: 1px solid var(--border); color: var(--charcoal); padding: 11px 13px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
+.fg input[type="file"] { padding: 9px 10px; cursor: pointer; color: var(--gray); }
+.fg input[type="file"]::file-selector-button { border: 1px solid var(--border); background: #f7f6f4; color: var(--charcoal); font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 8px 12px; margin-right: 12px; cursor: pointer; transition: border-color .2s, background .2s; }
+.fg input[type="file"]::file-selector-button:hover { border-color: #b5b3af; background: #f1efec; }
 .fg select { cursor: pointer; }
 .fg.is-hidden { display: none; }
 .fg select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 22px 22px; padding-right: 44px; }
@@ -224,6 +229,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .fg.is-active input, .fg.is-active select, .fg.is-active textarea { border-color: #1f1f1f; background: white; }
 .fg input::placeholder, .fg textarea::placeholder { color: #c0c0c0; }
 .fg textarea { resize: vertical; min-height: 160px; }
+.legal-notice-fields.is-hidden { display: none; }
 .package-site-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 5px; flex-wrap: wrap; }
 .package-site-picker { background: white; border: 1px solid var(--border); padding: 11px 13px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; transition: border-color .2s, background .2s; }
 .package-site-picker:focus-within { border-color: #1f1f1f; background: white; }
@@ -275,9 +281,12 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   nav { width: 100%; max-width: 100vw; padding: 0 20px; }
   footer { padding-left: 20px; padding-right: 20px; }
   .nav-top { min-width: 0; }
-  .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0; border-top: 1px solid var(--border); background: white; overflow: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: stretch; align-items: stretch; }
+  .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0 6px; border-top: 1px solid var(--border); background: white; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: flex; justify-content: flex-start; align-items: stretch; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-link { min-width: 0; font-size: 13px; padding: 10px 12px; white-space: nowrap; text-align: center; height: auto; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .nav-scrollbar { position: absolute; left: 0; right: 0; top: 106px; display: block; height: 4px; background: #d6d6d6; opacity: 0; pointer-events: none; transition: opacity .16s ease; z-index: 3; }
+  .nav-scrollbar.is-visible { opacity: 1; }
+  .nav-scrollbar-thumb { position: absolute; top: 0; left: 0; height: 100%; width: 120px; background: #8f8f8f; transform: translateX(0); }
+  .nav-link { flex: 0 0 auto; min-width: max-content; font-size: 13px; padding: 10px 14px; white-space: nowrap; text-align: center; height: auto; width: auto; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-cta { display: none; }
   .nav-cta-top { display: inline-flex; flex-shrink: 0; }
   .agency-bar { padding: 13px 20px; }
@@ -347,10 +356,12 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="nav-links">
       <a href="advertise.html" class="nav-link active">Advertise</a>
       <a href="products.html" class="nav-link">Products</a>
-      <a href="audience.html" class="nav-link">Find Your Site</a>
+      <a href="find-your-site.html" class="nav-link">Find Your Site</a>
+      <a href="legal-notices.html" class="nav-link">Legal Notices</a>
       <a href="about.html" class="nav-link">About Us</a>
       <a href="#packages" class="nav-cta">View Packages</a>
     </div>
+    <div class="nav-scrollbar" aria-hidden="true"><span class="nav-scrollbar-thumb"></span></div>
     <a href="#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
@@ -597,7 +608,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <p>Please provide some basic information and we'll be in touch to build a package and pricing.</p>
           <p>We typically respond the <strong>same day</strong>, often within a few hours.</p>
         </div>
-        <form onsubmit="handleSubmit(event)">
+        <form onsubmit="handleSubmit(event)" enctype="multipart/form-data">
           <div class="fg req">
             <label>Interested In</label>
             <select id="interested-in-select" required>
@@ -623,6 +634,20 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <div class="fg req" id="business-name-wrap"><label>Your Business Name</label><input type="text" id="business-name-input" maxlength="100" required /></div>
             <div class="fg req" id="business-location-wrap"><label>Your Town / Location</label><input type="text" id="business-location-input" maxlength="100" required /></div>
           </div>
+          <div class="legal-notice-fields is-hidden" id="legal-notice-fields">
+            <div class="form-row">
+              <div class="fg"><label>County(s) Where Your Notice Will Run</label><input type="text" id="legal-notice-counties" maxlength="200" data-legal-notice-field /></div>
+              <div class="fg"><label>Duration of Your Order</label><input type="text" id="legal-notice-duration" maxlength="100" data-legal-notice-field /></div>
+            </div>
+            <div class="fg">
+              <label>Attach Your Notice</label>
+              <input type="file" id="legal-notice-file" name="legal_notice_file" accept=".pdf,.doc,.docx,.rtf,.txt,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" data-legal-notice-field />
+            </div>
+            <div class="form-row">
+              <div class="fg"><label>Billing Contact Name</label><input type="text" id="legal-billing-name" maxlength="100" data-legal-notice-field /></div>
+              <div class="fg"><label>Billing Contact Email</label><input type="email" id="legal-billing-email" maxlength="100" data-legal-notice-field /></div>
+            </div>
+          </div>
           <div class="fg is-hidden" id="package-sites-wrap">
             <div class="package-site-label-row">
               <label>Local site(s) for the package</label>
@@ -640,7 +665,6 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           </div>
           <div class="fg" id="geographies-wrap"><label>Geographies you are looking to reach</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
           <div class="fg" id="goals-wrap"><label>What are your advertising goals?</label><div class="fg-textarea-wrap"><textarea style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
-          <div class="fg is-hidden" id="description-wrap"><label>Description</label><div class="fg-textarea-wrap"><textarea id="description-textarea" style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div></div>
           <div class="fg req" id="monthly-budget-wrap">
             <label>Monthly Budget</label>
             <select required id="monthly-budget-select">
@@ -658,8 +682,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
             <input type="text" id="monthly-budget-custom" maxlength="50" />
           </div>
           <div class="fg is-hidden" id="guest-budget-wrap">
-            <label>Monthly Budget</label>
-            <input type="text" id="guest-budget-input" maxlength="50" />
+            <label>Additional Information</label>
+            <div class="fg-textarea-wrap"><textarea id="guest-budget-input" style="min-height:80px; max-height:280px;" maxlength="1000" data-char-count></textarea><span class="fg-char-count">0/1000</span></div>
           </div>
           <button type="submit" class="form-submit">Submit</button>
           <div class="form-guarantee">By submitting this form you agree that Daily Voice may contact you using the provided information.</div>
@@ -680,12 +704,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <h5>Advertise</h5>
         <a href="advertise.html">Why Daily Voice</a>
         <a href="products.html">Products</a>
-        <a href="audience.html">Find Your Site</a>
+        <a href="find-your-site.html">Find Your Site</a>
+        <a href="legal-notices.html">Legal Notices</a>
         <a href="about.html">About Us</a>
       </div>
       <div class="footer-col">
         <h5>Get Started</h5>
         <a href="#packages">View Packages</a>
+        <a href="advertise.html?interest=legal&scrollTo=contact-form#contact-form">Submit Legal Notice</a>
         <a href="mailto:advertisers@dailyvoice.com">Email Us Directly</a>
         <a href="https://dailyvoice.com">Back to dailyvoice.com</a>
       </div>
@@ -903,10 +929,14 @@ var _packageSiteSearch = document.getElementById('package-site-search');
 var _packageSitesValue = document.getElementById('package-sites-value');
 var _packageSiteResults = document.getElementById('package-site-results');
 var _packageSiteSelected = document.getElementById('package-site-selected');
+var _businessNameWrap = document.getElementById('business-name-wrap');
+var _businessLocationWrap = document.getElementById('business-location-wrap');
+var _businessNameInput = document.getElementById('business-name-input');
+var _businessLocationInput = document.getElementById('business-location-input');
+var _legalNoticeFieldsWrap = document.getElementById('legal-notice-fields');
+var _legalNoticeFields = Array.prototype.slice.call(document.querySelectorAll('[data-legal-notice-field]'));
 var _geographiesWrap = document.getElementById('geographies-wrap');
 var _goalsWrap = document.getElementById('goals-wrap');
-var _descriptionWrap = document.getElementById('description-wrap');
-var _descriptionTextarea = document.getElementById('description-textarea');
 var _monthlyBudgetWrap = document.getElementById('monthly-budget-wrap');
 var _guestBudgetWrap = document.getElementById('guest-budget-wrap');
 var _guestBudgetInput = document.getElementById('guest-budget-input');
@@ -994,6 +1024,29 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
     var show = _interestSelect.value === 'Custom Package';
     _interestCustomWrap.classList.toggle('is-hidden', !show);
     if (!show) _interestCustomInput.value = '';
+    if (_businessNameWrap && _businessNameInput) {
+      _businessNameWrap.classList.toggle('is-hidden', isLegalNotice);
+      _businessNameInput.required = !(isLegalNotice || isGuestPost);
+      _businessNameWrap.classList.toggle('req', !(isLegalNotice || isGuestPost));
+      _businessNameWrap.classList.toggle('is-full-row', isGuestPost);
+      if (isLegalNotice) _businessNameInput.value = '';
+    }
+    if (_businessLocationWrap && _businessLocationInput) {
+      _businessLocationWrap.classList.toggle('is-hidden', isLegalNotice || isGuestPost);
+      _businessLocationInput.required = !(isLegalNotice || isGuestPost);
+      _businessLocationWrap.classList.toggle('req', !(isLegalNotice || isGuestPost));
+      if (isLegalNotice || isGuestPost) _businessLocationInput.value = '';
+    }
+    if (_legalNoticeFieldsWrap) {
+      _legalNoticeFieldsWrap.classList.toggle('is-hidden', !isLegalNotice);
+      _legalNoticeFields.forEach(function(field) {
+        field.required = false;
+        if (!isLegalNotice) {
+          field.value = '';
+          field.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    }
     if (_packageSitesWrap && _packageSiteSearch) {
       _packageSitesWrap.classList.toggle('is-hidden', !isPackage);
       if (_packageSitesValue) _packageSitesValue.required = false;
@@ -1016,11 +1069,6 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
     }
     if (_geographiesWrap) _geographiesWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
     if (_goalsWrap) _goalsWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
-    if (_descriptionWrap) {
-      _descriptionWrap.classList.toggle('is-hidden', !isLegalNotice);
-      if (_descriptionTextarea) _descriptionTextarea.required = isLegalNotice;
-      if (!isLegalNotice && _descriptionTextarea) _descriptionTextarea.value = '';
-    }
     if (_monthlyBudgetWrap) _monthlyBudgetWrap.classList.toggle('is-hidden', isPackage || isLegalNotice || isGuestPost);
     if (_guestBudgetWrap) {
       _guestBudgetWrap.classList.toggle('is-hidden', !isGuestPost);
@@ -1040,6 +1088,13 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
   }
   _interestSelect.addEventListener('change', _toggleInterestCustom);
   _toggleInterestCustom();
+  try {
+    var _interestParam = new URLSearchParams(window.location.search).get('interest');
+    if (_interestParam === 'legal') {
+      _interestSelect.value = 'Legal Notice / Public Notice';
+      _toggleInterestCustom();
+    }
+  } catch (e) {}
   document.querySelectorAll('[data-package-interest]').forEach(function(link) {
     link.addEventListener('click', function() {
       var packageValue = link.getAttribute('data-package-interest');
@@ -1153,12 +1208,20 @@ function _consumeDeferredAnchorHash() {
   return hash;
 }
 function _runDeferredAnchorScroll() {
-  if (!_isMobileAnchorScroll()) return;
+  var hasScrollTo = false;
+  try {
+    hasScrollTo = !!new URLSearchParams(window.location.search).get('scrollTo');
+  } catch (e) {}
+  if (!_isMobileAnchorScroll() && !hasScrollTo) return;
   var hash = _consumeDeferredAnchorHash();
   if (!hash || hash.length <= 1) return;
   var target = document.getElementById(decodeURIComponent(hash.slice(1)));
   if (!target) return;
   history.replaceState(null, '', window.location.pathname + hash);
+  if (!_isMobileAnchorScroll()) {
+    _scrollToAnchorPosition(_getAnchorScrollTop(target), target.id);
+    return;
+  }
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
@@ -1199,7 +1262,85 @@ function _updateSpacer() {
   _spacerEl.style.height = (_navEl.offsetHeight + agencyOffset) + 'px';
 }
 _updateSpacer();
-window.addEventListener('resize', _updateSpacer);
+function _showActiveNavLink() {
+  if (!_navEl || !window.matchMedia('(max-width: 960px)').matches) return;
+  var linksEl = _navEl.querySelector('.nav-links');
+  var activeLink = linksEl ? linksEl.querySelector('.nav-link.active') : null;
+  if (!linksEl || !activeLink) return;
+  requestAnimationFrame(function() {
+    var activeLeft = activeLink.offsetLeft;
+    var activeRight = activeLeft + activeLink.offsetWidth;
+    var visibleLeft = linksEl.scrollLeft;
+    var visibleRight = visibleLeft + linksEl.clientWidth;
+    if (activeLeft < visibleLeft || activeRight > visibleRight) {
+      linksEl.scrollTo({ left: Math.max(0, activeLeft - (linksEl.clientWidth - activeLink.offsetWidth) / 2), behavior: 'auto' });
+    }
+  });
+}
+_showActiveNavLink();
+var _navScrollHintHideTimer = 0;
+function _updateNavScrollHint() {
+  if (!_navEl) return false;
+  var linksEl = _navEl.querySelector('.nav-links');
+  var barEl = _navEl.querySelector('.nav-scrollbar');
+  var thumbEl = barEl ? barEl.querySelector('.nav-scrollbar-thumb') : null;
+  if (!linksEl || !barEl || !thumbEl) return false;
+  var isMobile = window.matchMedia('(max-width: 960px)').matches;
+  var maxScroll = linksEl.scrollWidth - linksEl.clientWidth;
+  if (!isMobile || maxScroll <= 1) {
+    barEl.classList.remove('is-visible');
+    barEl.style.opacity = '0';
+    return false;
+  }
+  var maxThumbWidth = Math.min(180, Math.round(linksEl.clientWidth * 0.38));
+  var proportionalWidth = Math.round((linksEl.clientWidth / linksEl.scrollWidth) * linksEl.clientWidth);
+  var thumbWidth = Math.max(72, Math.min(proportionalWidth, maxThumbWidth));
+  var maxThumbLeft = linksEl.clientWidth - thumbWidth;
+  var thumbLeft = Math.round((linksEl.scrollLeft / maxScroll) * maxThumbLeft);
+  barEl.style.top = (linksEl.offsetTop + linksEl.offsetHeight) + 'px';
+  thumbEl.style.width = thumbWidth + 'px';
+  thumbEl.style.transform = 'translateX(' + thumbLeft + 'px)';
+  return true;
+}
+function _showNavScrollHint() {
+  if (!_updateNavScrollHint()) return;
+  clearTimeout(_navScrollHintHideTimer);
+  var barEl = _navEl.querySelector('.nav-scrollbar');
+  barEl.classList.add('is-visible');
+  barEl.style.opacity = '1';
+}
+function _hideNavScrollHintSoon() {
+  clearTimeout(_navScrollHintHideTimer);
+  _navScrollHintHideTimer = setTimeout(function() {
+    var barEl = _navEl ? _navEl.querySelector('.nav-scrollbar') : null;
+    if (barEl) {
+      barEl.classList.remove('is-visible');
+      barEl.style.opacity = '0';
+    }
+  }, 500);
+}
+function _bindNavScrollHint() {
+  if (!_navEl) return;
+  var linksEl = _navEl.querySelector('.nav-links');
+  if (!linksEl) return;
+  linksEl.addEventListener('pointerdown', _showNavScrollHint);
+  linksEl.addEventListener('touchstart', _showNavScrollHint, { passive: true });
+  linksEl.addEventListener('mousedown', _showNavScrollHint);
+  linksEl.addEventListener('scroll', function() {
+    _showNavScrollHint();
+    _hideNavScrollHintSoon();
+  }, { passive: true });
+  ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel', 'mouseup'].forEach(function(eventName) {
+    linksEl.addEventListener(eventName, _hideNavScrollHintSoon, { passive: true });
+  });
+  window.addEventListener('resize', _updateNavScrollHint);
+  _updateNavScrollHint();
+}
+_bindNavScrollHint();
+window.addEventListener('resize', function() {
+  _updateSpacer();
+  _showActiveNavLink();
+});
 window.addEventListener('scroll', function () {
   var cur = window.pageYOffset;
   var isMobile = window.matchMedia('(max-width: 960px)').matches;

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800;900&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us | Daily Voice</title>
+  <title>Legal Notices | Daily Voice</title>
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --red: #ED212A; --red-dark: #c41820;
   --charcoal: #1f1f1f; --body: #444; --gray: #777;
   --light: #f7f6f4; --lighter: #faf9f8; --border: #e2e0dc; --white: #fff;
-  --charcoal-text: #f6f4f1; --charcoal-muted: rgba(255,255,255,0.68); --charcoal-divider: #333; --charcoal-hover: #262626;
+  --charcoal-text: #f6f4f1; --charcoal-muted: rgba(255,255,255,0.68); --charcoal-divider: #333;
 }
+html { scroll-behavior: smooth; }
 body { font-family: Helvetica, Arial, sans-serif; color: var(--body); background: #FAF9F8; font-size: 15px; line-height: 1.6; }
 a { color: inherit; }
+img { display: block; max-width: 100%; }
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: white;
   border-bottom: 1px solid var(--border); border-top: 5px solid var(--red);
@@ -60,22 +60,38 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .section-inner { max-width: 1160px; margin: 0 auto; }
 .section-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
 .section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.14; margin-bottom: 12px; }
+.section-sub { font-size: 15px; color: var(--body); line-height: 1.8; max-width: 1000px; }
+.btn-primary { background: var(--red); color: white; font-size: 15px; font-weight: 700; padding: 14px 28px; text-decoration: none; transition: background .2s; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.btn-primary:hover { background: var(--red-dark); }
+.btn-secondary { background: white; border: 1px solid #b5b3af; color: #525252; font-size: 14px; font-weight: 700; padding: 13px 24px; text-decoration: none; transition: all .2s; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.btn-secondary:hover { border-color: var(--charcoal); color: var(--charcoal); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-/* WHO WE ARE */
-.who-section { background: #FAF9F8; padding: 72px 5%; border-bottom: 1px solid var(--border); }
-.who-inner { display: block; }
-.who-copy p { font-size: 15px; color: var(--body); line-height: 1.85; margin-bottom: 16px; max-width: 1000px; }
-.who-copy p:last-child { margin-bottom: 0; }
-/* CTA BAR */
+.legal-hero { background: var(--lighter); border-bottom: 1px solid var(--border); padding: 64px 5% 60px; }
+.legal-hero-inner { max-width: 1160px; margin: 0 auto; }
+.legal-hero .section-kicker { animation: fadeUp .45s ease both; margin-bottom: 16px; }
+.legal-hero h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 20px; animation: fadeUp .45s ease .07s both; }
+.legal-hero h1 em { color: var(--red); font-style: normal; }
+.legal-hero-sub { font-size: 17px; color: var(--body); max-width: 650px; line-height: 1.85; margin-bottom: 30px; animation: fadeUp .45s ease .13s both; }
+.legal-actions { display: flex; flex-wrap: wrap; gap: 14px; animation: fadeUp .45s ease .18s both; }
+.legal-section { background: white; padding: 72px 5%; border-bottom: 1px solid var(--border); }
+.legal-section--no-divider { border-bottom: 0; }
+.legal-intro { max-width: 1000px; margin-bottom: 40px; }
+.notice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.notice-card { background: white; border: 1px solid var(--red); padding: 22px 24px 24px; }
+.notice-card h3 { font-size: 20px; font-weight: 800; color: var(--charcoal); line-height: 1.25; margin-bottom: 10px; }
+.notice-card p { font-size: 15px; color: var(--body); line-height: 1.75; }
+.legal-note { font-size: 15px; color: var(--body); line-height: 1.8; max-width: 1000px; margin-top: 22px; }
+.legal-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.details-panel { background: white; border: 1px solid var(--border); padding: 28px 30px; max-width: 860px; }
+.details-panel ul { list-style: none; display: grid; gap: 12px; }
+.details-panel li { position: relative; padding-left: 24px; font-size: 15px; line-height: 1.75; color: var(--body); }
+.details-panel li::before { content: "\2713"; position: absolute; left: 0; top: 2px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
+.bottom-cta-section { padding: 0 5% 72px; background: #fff; }
 .do-bottom { background: var(--red); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .do-bottom-copy { display: flex; flex-direction: column; gap: 4px; }
 .do-bottom-copy strong { font-size: 16px; font-weight: 700; color: white; }
 .do-bottom-copy span { font-size: 13.5px; color: rgba(255,255,255,.8); }
-.bottom-cta-section { padding: 0 5% 72px; background: #fff; }
-.btn-primary { background: var(--red); color: white; font-size: 15px; font-weight: 700; padding: 14px 28px; text-decoration: none; transition: background .2s; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
-.btn-primary:hover { background: var(--red-dark); }
-
 
 @media (max-width: 960px) {
   html,
@@ -95,40 +111,23 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .agency-bar { padding: 13px 20px; }
   .agency-bar-inner { padding: 0 28px; flex-direction: column; gap: 4px; font-size: 15px; }
   .agency-bar-close { right: 8px; }
-  .aud-hero { padding: 64px 20px 42px !important; }
-  .who-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .who-section { padding-top: 42px !important; padding-bottom: 42px !important; }
-  section[style*="padding: 72px 5%"] { padding: 42px 20px !important; }
-  .aud-hero .section-kicker {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--red);
-    line-height: 1;
-    margin-bottom: 12px !important;
-  }
-  .aud-hero h1 { font-size: 32px !important; }
-  .aud-hero h1 { line-height: 1.15 !important; margin-bottom: 20px !important; }
-  .do-bottom-copy strong { font-size: 20px; }
-  .do-bottom-copy span { font-size: 14px; }
-  .bottom-cta-section { padding: 0 20px 42px !important; }
-  .who-inner { grid-template-columns: 1fr; }
+  .legal-hero { padding: 64px 20px 42px; }
+  .legal-hero .section-kicker { margin-bottom: 12px; }
+  .legal-hero h1 { font-size: 32px; line-height: 1.15; margin-bottom: 20px; }
+  .legal-hero-sub { margin-bottom: 26px; max-width: none; }
+  .legal-actions { flex-direction: column; align-items: stretch; }
+  .legal-section { padding: 42px 20px; }
+  .legal-intro { margin-bottom: 28px; }
+  .notice-grid { grid-template-columns: 1fr; gap: 16px; }
+  .notice-card,
+  .details-panel { padding: 22px; }
+  .bottom-cta-section { padding: 0 20px 42px; }
   .do-bottom { flex-direction: column; align-items: center; text-align: center; }
   .do-bottom-copy { align-items: center; text-align: center; }
+  .do-bottom-copy strong { font-size: 20px; }
+  .do-bottom-copy span { font-size: 14px; }
 }
-.aud-hero { background: var(--lighter); border-bottom: 1px solid var(--border); padding: 64px 5% 60px; }
-.aud-hero-inner { max-width: 1160px; margin: 0 auto; }
-.aud-hero .section-kicker { animation: fadeUp .45s ease both; margin-bottom: 16px; }
-.aud-hero h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 20px; }
-.aud-hero h1 { animation: fadeUp .45s ease .07s both; }
-.aud-hero h1 em { color: var(--red); font-style: normal; }
-.aud-hero-sub { font-size: 17px; color: var(--body); max-width: 650px; line-height: 1.85; margin-bottom: 0; }
-.aud-hero-sub { animation: fadeUp .45s ease .13s both; }
-</style>
+  </style>
 </head>
 <body>
 <div id="nav-spacer" style="height:66px"></div>
@@ -147,8 +146,8 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <a href="advertise.html" class="nav-link">Advertise</a>
       <a href="products.html" class="nav-link">Products</a>
       <a href="find-your-site.html" class="nav-link">Find Your Site</a>
-      <a href="legal-notices.html" class="nav-link">Legal Notices</a>
-      <a href="about.html" class="nav-link active">About Us</a>
+      <a href="legal-notices.html" class="nav-link active">Legal Notices</a>
+      <a href="about.html" class="nav-link">About Us</a>
       <a href="advertise.html#packages" class="nav-cta">View Packages</a>
     </div>
     <div class="nav-scrollbar" aria-hidden="true"><span class="nav-scrollbar-thumb"></span></div>
@@ -156,47 +155,57 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </nav>
 
-<!-- HERO: OUR STORY -->
-
-<section class="aud-hero">
-  <div class="aud-hero-inner">
-    <span class="section-kicker">ABOUT DAILY VOICE</span>
-    <h1>Fast. Trusted. Local.<br><em>Built for the Communities We Serve.</em></h1>
-    <p class="aud-hero-sub">Daily Voice is where the Northeast turns for local news, accurate, apolitical, and focused entirely on the communities we cover.</p>
-
-  </div>
-</section>
-
-<!-- ABOUT / OWNERSHIP / TEAM -->
-<section class="who-section" style="background:#fff;">
-  <div class="section-inner who-inner">
-    <div class="who-copy">
-      <span class="section-kicker">ABOUT US</span>
-      <h2 class="section-h">Who We Are.</h2>
-      <p>Daily Voice is a local news organization. Our mission is to report on need-to-know local information and up-to-the-minute breaking news. We bridge the "news desert" between national and hyper-local, covering town, city, county, and state.</p>
-      <p>We are apolitical, non-partisan, and as fair and complete as possible. Readers know we don't take sides. We do not publish editorials or opinion pieces, nor do we endorse political candidates.</p>
-      <p>Our reporting is accurate, confirmed, and trustworthy. We report what needs reporting, including from multiple perspectives if possible.</p>
+<section class="legal-hero">
+  <div class="legal-hero-inner">
+    <span class="section-kicker">Legal Notices</span>
+    <h1>Place Legal Notices Across <em>Daily Voice.</em></h1>
+    <p class="legal-hero-sub">Daily Voice helps businesses, agencies, attorneys, and individuals publish required legal notices across trusted local news sites.</p>
+    <div class="legal-actions">
+      <a href="advertise.html?interest=legal&scrollTo=contact-form#contact-form" class="btn-primary">Submit a Legal Notice</a>
+      <a href="mailto:advertisers@dailyvoice.com" class="btn-secondary">Email Us Directly</a>
     </div>
   </div>
 </section>
 
-<section class="who-section" style="background:#fff;">
-  <div class="section-inner who-inner">
-    <div class="who-copy">
-      <span class="section-kicker">OWNERSHIP</span>
-      <h2 class="section-h">Independently Owned & Operated.</h2>
-      <p>We are independently owned and operated by Cantata Media LLC. Our leadership team, <a href="https://www.linkedin.com/in/travishardman/" target="_blank" rel="noopener noreferrer">Travis Hardman</a> (CEO), <a href="https://www.linkedin.com/in/tedsensei/" target="_blank" rel="noopener noreferrer">Ted Yang</a> (President), and <a href="https://www.linkedin.com/in/lawrencewandrea/" target="_blank" rel="noopener noreferrer">Larry Andrea</a> (General Counsel), are also the majority owners of the company.</p>
+<section class="legal-section">
+  <div class="section-inner">
+    <div class="legal-intro">
+      <span class="section-kicker">What We Offer</span>
+      <h2 class="section-h">Fast, Trusted, and Reliable Service.</h2>
+      <p class="section-sub">We can get your notice posted in the counties of your choice within 24 hours.</p>
+      <p class="section-sub" style="margin-top: 8px;"><a href="find-your-site.html?scrollTo=coverage" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">See our coverage area here.</a></p>
     </div>
+    <div class="notice-grid">
+      <article class="notice-card">
+        <h3>County-Wide Reach</h3>
+        <p>Publish notices across Daily Voice local sites that cover the county(s) required for your notice.</p>
+      </article>
+      <article class="notice-card">
+        <h3>24-Hour Turnaround</h3>
+        <p>Once we have all the required details, we can typically post your notice within 24 hours.</p>
+      </article>
+      <article class="notice-card">
+        <h3>Affidavit Available</h3>
+        <p>If your notice requires proof of publication, we can provide an affidavit when needed.</p>
+      </article>
+    </div>
+    <p class="legal-note">To purchase legal notices in bulk or discuss specific requirements, please <a href="mailto:advertisers@dailyvoice.com">email us</a>.</p>
   </div>
 </section>
 
-<section class="who-section" style="background:#fff; border-bottom:none;">
-  <div class="section-inner who-inner">
-    <div class="who-copy">
-      <span class="section-kicker">TEAM</span>
-      <h2 class="section-h">Professional Journalists. High Standards.</h2>
-      <p>We are a company of professional, full-time reporters, always observing high journalistic standards. Every story on Daily Voice is originally reported by journalists, not aggregated, not repurposed. Our team works remotely, but that does not change our commitment to professionalism and collaboration.</p>
-      <p>We believe that a positive environment is essential to produce quality news. We do not tolerate discrimination, harassment, or misconduct of any kind.</p>
+<section class="legal-section legal-section--no-divider">
+  <div class="section-inner">
+    <div class="legal-intro">
+      <span class="section-kicker">What to Send</span>
+      <h2 class="section-h">A Few Details Help Us Move Quickly.</h2>
+    </div>
+    <div class="details-panel">
+      <ul>
+        <li>The county or counties where your notice will run</li>
+        <li>The duration of your order</li>
+        <li>A document containing your notice</li>
+        <li>The name and email address of your billing contact</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -205,10 +214,10 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   <div class="section-inner">
     <div class="do-bottom">
       <div class="do-bottom-copy">
-        <strong>Your neighbors are already reading Daily Voice.</strong>
-        <span>The only question is whether they see your business when they do.</span>
+        <strong>Need to publish a legal notice?</strong>
+        <span>Send us the details and our team will confirm next steps.</span>
       </div>
-      <a href="advertise.html#packages" class="btn-primary" style="background:white;color:var(--red);">View Packages</a>
+      <a href="advertise.html?interest=legal&scrollTo=contact-form#contact-form" class="btn-primary" style="background:white;color:var(--red);">Submit a Notice</a>
     </div>
   </div>
 </section>
@@ -279,16 +288,6 @@ if (_agencyBarCloseEl && _agencyBarEl) {
     }, 520);
   });
 }
-document.querySelectorAll('a[href^="advertise.html#"]').forEach(function(link) {
-  link.addEventListener('click', function(event) {
-    if (!window.matchMedia('(max-width: 960px)').matches) return;
-    var hash = link.getAttribute('href').split('#')[1];
-    if (!hash) return;
-    event.preventDefault();
-    try { sessionStorage.setItem('dailyVoiceDeferredAnchor', '#' + hash); } catch (e) {}
-    window.location.href = 'advertise.html?scrollTo=' + encodeURIComponent(hash) + '&scrollv=' + Date.now();
-  });
-});
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
   var agencyOffset = _agencyBarEl && _agencyBarEl.classList.contains('is-visible') && _agencyBarEl.style.display !== 'none' ? _agencyBarEl.offsetHeight : 0;
@@ -387,6 +386,13 @@ _bindNavScrollHint();
 window.addEventListener('resize', function() {
   _updateSpacer();
   _showActiveNavLink();
+});
+document.querySelectorAll('a[href^="find-your-site.html?scrollTo=coverage"]').forEach(function(link) {
+  link.addEventListener('click', function(event) {
+    if (!window.matchMedia('(max-width: 960px)').matches) return;
+    event.preventDefault();
+    window.location.href = 'find-your-site.html?scrollTo=coverage&scrollv=' + Date.now();
+  });
 });
 window.addEventListener('scroll', function () {
   var cur = window.pageYOffset;
