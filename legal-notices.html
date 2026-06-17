@@ -30,7 +30,6 @@ nav.nav-hidden { transform: translateY(var(--nav-hide-shift)); }
 .nav-logo { text-decoration: none; line-height: 0; flex-shrink: 0; }
 .nav-logo img { width: 66px; height: 66px; display: block; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.14)); }
 .nav-links { display: flex; align-items: center; gap: 4px; height: 66px; margin-left: auto; }
-.nav-scrollbar { display: none; }
 .nav-link { font-size: 13px; font-weight: 600; color: var(--gray); text-decoration: none; padding: 6px 12px; transition: color .2s; white-space: nowrap; }
 .nav-link:hover { color: var(--red); }
 .nav-link.active { color: var(--red); border-bottom: 2px solid var(--red); }
@@ -102,9 +101,6 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .nav-top { min-width: 0; }
   .nav-links { position: absolute; top: 66px; left: 0; right: 0; width: 100%; height: auto; margin-left: 0; gap: 0; padding: 0 6px; border-top: 1px solid var(--border); background: white; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); display: flex; justify-content: flex-start; align-items: stretch; }
   .nav-links::-webkit-scrollbar { display: none; }
-  .nav-scrollbar { position: absolute; left: 0; right: 0; top: 106px; display: block; height: 4px; background: #d6d6d6; opacity: 0; pointer-events: none; transition: opacity .16s ease; z-index: 3; }
-  .nav-scrollbar.is-visible { opacity: 1; }
-  .nav-scrollbar-thumb { position: absolute; top: 0; left: 0; height: 100%; width: 120px; background: #8f8f8f; transform: translateX(0); }
   .nav-link { flex: 0 0 auto; min-width: max-content; font-size: 13px; padding: 10px 14px; white-space: nowrap; text-align: center; height: auto; width: auto; display: flex; align-items: center; justify-content: center; }
   .nav-links .nav-cta { display: none; }
   .nav-cta-top { display: inline-flex; flex-shrink: 0; }
@@ -150,7 +146,6 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <a href="about.html" class="nav-link">About Us</a>
       <a href="advertise.html#packages" class="nav-cta">View Packages</a>
     </div>
-    <div class="nav-scrollbar" aria-hidden="true"><span class="nav-scrollbar-thumb"></span></div>
     <a href="advertise.html#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
@@ -324,65 +319,6 @@ function _showActiveNavLink() {
   });
 }
 _showActiveNavLink();
-var _navScrollHintHideTimer = 0;
-function _updateNavScrollHint() {
-  if (!_navEl) return false;
-  var linksEl = _navEl.querySelector('.nav-links');
-  var barEl = _navEl.querySelector('.nav-scrollbar');
-  var thumbEl = barEl ? barEl.querySelector('.nav-scrollbar-thumb') : null;
-  if (!linksEl || !barEl || !thumbEl) return false;
-  var isMobile = window.matchMedia('(max-width: 960px)').matches;
-  var maxScroll = linksEl.scrollWidth - linksEl.clientWidth;
-  if (!isMobile || maxScroll <= 1) {
-    barEl.classList.remove('is-visible');
-    barEl.style.opacity = '0';
-    return false;
-  }
-  var maxThumbWidth = Math.min(180, Math.round(linksEl.clientWidth * 0.38));
-  var proportionalWidth = Math.round((linksEl.clientWidth / linksEl.scrollWidth) * linksEl.clientWidth);
-  var thumbWidth = Math.max(72, Math.min(proportionalWidth, maxThumbWidth));
-  var maxThumbLeft = linksEl.clientWidth - thumbWidth;
-  var thumbLeft = Math.round((linksEl.scrollLeft / maxScroll) * maxThumbLeft);
-  barEl.style.top = (linksEl.offsetTop + linksEl.offsetHeight) + 'px';
-  thumbEl.style.width = thumbWidth + 'px';
-  thumbEl.style.transform = 'translateX(' + thumbLeft + 'px)';
-  return true;
-}
-function _showNavScrollHint() {
-  if (!_updateNavScrollHint()) return;
-  clearTimeout(_navScrollHintHideTimer);
-  var barEl = _navEl.querySelector('.nav-scrollbar');
-  barEl.classList.add('is-visible');
-  barEl.style.opacity = '1';
-}
-function _hideNavScrollHintSoon() {
-  clearTimeout(_navScrollHintHideTimer);
-  _navScrollHintHideTimer = setTimeout(function() {
-    var barEl = _navEl ? _navEl.querySelector('.nav-scrollbar') : null;
-    if (barEl) {
-      barEl.classList.remove('is-visible');
-      barEl.style.opacity = '0';
-    }
-  }, 500);
-}
-function _bindNavScrollHint() {
-  if (!_navEl) return;
-  var linksEl = _navEl.querySelector('.nav-links');
-  if (!linksEl) return;
-  linksEl.addEventListener('pointerdown', _showNavScrollHint);
-  linksEl.addEventListener('touchstart', _showNavScrollHint, { passive: true });
-  linksEl.addEventListener('mousedown', _showNavScrollHint);
-  linksEl.addEventListener('scroll', function() {
-    _showNavScrollHint();
-    _hideNavScrollHintSoon();
-  }, { passive: true });
-  ['pointerup', 'pointercancel', 'pointerleave', 'touchend', 'touchcancel', 'mouseup'].forEach(function(eventName) {
-    linksEl.addEventListener(eventName, _hideNavScrollHintSoon, { passive: true });
-  });
-  window.addEventListener('resize', _updateNavScrollHint);
-  _updateNavScrollHint();
-}
-_bindNavScrollHint();
 window.addEventListener('resize', function() {
   _updateSpacer();
   _showActiveNavLink();
