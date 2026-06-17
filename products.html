@@ -125,9 +125,13 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .prod-image-frame { width: 100%; height: 100%; padding: 0; display: flex; align-items: flex-end; justify-content: center; background: transparent; }
 .prod-image-frame img { width: auto; height: auto; max-width: 100%; max-height: none; object-fit: contain; display: block; border-radius: 0; box-shadow: none; }
 .prod-branded-shot { align-self: end; justify-self: end; display: block; width: auto; height: 660px; max-width: none; transform: translate(176px, -3px); }
-#product-01 .prod-visual--mockup .prod-image-frame img { width: min(100%, 470px); }
+#product-01 .prod-visual--mockup .prod-image-frame img,
 #product-02 .prod-visual--mockup .prod-image-frame img { width: min(108%, 560px); transform: translateY(56px); }
 #product-03 .prod-section-inner { grid-template-columns: 544px 544px; justify-content: center; }
+#product-04 .prod-section-inner { align-items: center; }
+#product-04 .prod-visual,
+#product-04 .prod-image-frame { align-items: center; overflow: visible; }
+#product-04 .prod-visual--mockup .prod-image-frame img { width: min(146%, 780px); max-width: none; transform: translate(-70px, 62px); }
 /* CTA BAR */
 .prod-cta { background: #fff; padding: 0 5% 72px; }
 .do-bottom { background: var(--red); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; max-width: 1160px; margin: 0 auto; }
@@ -220,10 +224,15 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .prod-cta { padding: 0 20px 42px; }
   .prod-number { font-size: 56px; }
   .prod-visual { aspect-ratio: auto; min-height: 0; }
+  #product-01 { padding-bottom: 0; }
+  #product-01 .prod-section-inner { gap: 0; }
+  #product-01 .prod-copy { padding-bottom: 0; }
+  #product-01 .prod-visual--mockup .prod-image-frame img { transform: translateY(60px); }
   #product-02 { padding-bottom: 0; }
   #product-02 .prod-section-inner { gap: 0; }
   #product-02 .prod-copy { padding-bottom: 0; }
   #product-02 .prod-visual--mockup .prod-image-frame img { transform: translateY(60px); }
+  #product-04 .prod-visual--mockup .prod-image-frame img { width: min(114%, 428px); max-width: none; transform: translate(-18px, 24px); }
   #product-03 { padding-bottom: 0; }
   #product-03 .prod-section-inner { gap: 60px; }
   #product-03 .prod-copy { padding-bottom: 0; }
@@ -302,7 +311,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 
 <!-- PRODUCT 01: LOCAL SPONSORSHIP -->
 <section class="prod-section" id="product-01" style="background:#fff;">
-  <div class="prod-section-inner">
+  <div class="prod-section-inner prod-section-inner--bottom">
     <div class="prod-copy">
       <div class="prod-number">01</div>
       <span class="section-kicker">Always-On Local Presence</span>
@@ -320,6 +329,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       </ul>
       <div class="prod-actions">
         <a href="advertise.html#packages" class="btn-primary">View Packages</a>
+      </div>
+    </div>
+    <div class="prod-visual prod-visual--mockup">
+      <div class="prod-image-frame">
+        <img src="assets/images/site-sponsorship-product.png" alt="Site sponsorship ad example shown on a Daily Voice local site" />
       </div>
     </div>
   </div>
@@ -403,6 +417,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       </ul>
       <div class="prod-actions">
         <a href="advertise.html#packages" class="btn-primary">View Packages</a>
+      </div>
+    </div>
+    <div class="prod-visual prod-visual--mockup">
+      <div class="prod-image-frame">
+        <img src="assets/images/website-and-newsletter-banners-product.png" alt="Website and newsletter banner ad examples shown in Daily Voice placements" />
       </div>
     </div>
   </div>
