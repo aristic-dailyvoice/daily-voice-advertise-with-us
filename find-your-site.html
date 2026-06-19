@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800;900&display=block" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Your Site | Daily Voice</title>
@@ -17,6 +14,7 @@
   --charcoal-text: #f6f4f1; --charcoal-muted: rgba(255,255,255,0.68); --charcoal-divider: #333; --charcoal-hover: #262626;
 }
 body { font-family: Helvetica, Arial, sans-serif; color: var(--body); background: #FAF9F8; font-size: 15px; line-height: 1.6; }
+html { scroll-behavior: smooth; }
 a { color: inherit; }
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: white;
@@ -350,6 +348,54 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </footer>
 
+<script>
+var _desktopCoverageScrollStarted = false;
+function _glideToCoverageOnLoad() {
+  var isMobileCoverageScroll = window.matchMedia('(max-width: 960px)').matches;
+  var shouldScrollToCoverage = window.location.hash === '#coverage-glide' || (isMobileCoverageScroll && window.location.hash === '#coverage');
+  try {
+    shouldScrollToCoverage = shouldScrollToCoverage || new URLSearchParams(window.location.search).get('scrollTo') === 'coverage';
+  } catch (e) {}
+  if (!shouldScrollToCoverage) return;
+  var target = document.getElementById('coverage');
+  if (!target) return;
+  history.replaceState(null, '', window.location.pathname + '#coverage');
+  if (!isMobileCoverageScroll) {
+    if (_desktopCoverageScrollStarted) return;
+    _desktopCoverageScrollStarted = true;
+    var desktopTop = target.getBoundingClientRect().top + window.pageYOffset;
+    var desktopStart = window.pageYOffset;
+    var desktopDistance = Math.max(desktopTop, 0) - desktopStart;
+    var desktopDuration = Math.min(780, Math.max(520, Math.abs(desktopDistance) * 0.28));
+    var desktopStartedAt = null;
+    function desktopStep(timestamp) {
+      if (desktopStartedAt === null) desktopStartedAt = timestamp;
+      var progress = Math.min((timestamp - desktopStartedAt) / desktopDuration, 1);
+      var eased = 0.5 - Math.cos(Math.PI * progress) / 2;
+      window.scrollTo({ top: desktopStart + desktopDistance * eased, left: 0, behavior: 'auto' });
+      if (progress < 1) requestAnimationFrame(desktopStep);
+    }
+    requestAnimationFrame(desktopStep);
+    return;
+  }
+  window.scrollTo(0, 0);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      var nav = document.querySelector('nav');
+      var navOffset = nav ? nav.offsetHeight : 0;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - navOffset - 8;
+      window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+    });
+  });
+}
+if (!window.matchMedia('(max-width: 960px)').matches && document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _glideToCoverageOnLoad);
+} else if (!window.matchMedia('(max-width: 960px)').matches) {
+  _glideToCoverageOnLoad();
+}
+window.addEventListener('load', _glideToCoverageOnLoad);
+window.addEventListener('pageshow', _glideToCoverageOnLoad);
+</script>
 <script src="assets/data/package-sites.js"></script>
 <script>
 var _lastScroll = 0;
@@ -607,27 +653,6 @@ window.addEventListener('scroll', function () {
   }
   _lastScroll = cur;
 }, { passive: true });
-function _glideToCoverageOnLoad() {
-  var shouldScrollToCoverage = window.location.hash === '#coverage' || window.location.hash === '#coverage-glide';
-  try {
-    shouldScrollToCoverage = shouldScrollToCoverage || new URLSearchParams(window.location.search).get('scrollTo') === 'coverage';
-  } catch (e) {}
-  if (!shouldScrollToCoverage) return;
-  var target = document.getElementById('coverage');
-  if (!target) return;
-  history.replaceState(null, '', window.location.pathname + '#coverage');
-  window.scrollTo(0, 0);
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      var nav = document.querySelector('nav');
-      var navOffset = nav ? nav.offsetHeight : 0;
-      var top = target.getBoundingClientRect().top + window.pageYOffset - navOffset - 8;
-      window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-    });
-  });
-}
-window.addEventListener('load', _glideToCoverageOnLoad);
-window.addEventListener('pageshow', _glideToCoverageOnLoad);
 </script>
 
 </body>

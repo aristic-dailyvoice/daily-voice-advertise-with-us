@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Legal Notices | Daily Voice</title>
+  <link rel="prefetch" href="find-your-site.html" />
+  <link rel="prefetch" href="assets/images/dv-coverage-map.png" as="image" />
   <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -168,7 +170,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <span class="section-kicker">What We Offer</span>
       <h2 class="section-h">Fast, Trusted, and Reliable Service.</h2>
       <p class="section-sub">We can get your notice posted in the counties of your choice within 24 hours.</p>
-      <p class="section-sub" style="margin-top: 8px;"><a href="find-your-site.html?scrollTo=coverage" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">See our coverage area here.</a></p>
+      <p class="section-sub" style="margin-top: 8px;"><a href="find-your-site.html#coverage" class="coverage-area-link" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">See our coverage area here.</a></p>
     </div>
     <div class="notice-grid">
       <article class="notice-card">
@@ -323,7 +325,7 @@ window.addEventListener('resize', function() {
   _updateSpacer();
   _showActiveNavLink();
 });
-document.querySelectorAll('a[href^="find-your-site.html?scrollTo=coverage"]').forEach(function(link) {
+document.querySelectorAll('.coverage-area-link').forEach(function(link) {
   link.addEventListener('click', function(event) {
     if (!window.matchMedia('(max-width: 960px)').matches) return;
     event.preventDefault();
