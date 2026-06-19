@@ -134,7 +134,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .about-hero-inner { position: relative; z-index: 1; display: block; }
 .ah-copy h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--charcoal); line-height: 1.1; margin-bottom: 36px; }
 .ah-copy h1 em { color: var(--red); font-style: normal; }
-.site-finder-hero { padding-bottom: 60px; --site-finder-bg-shift: 0px; }
+.site-finder-hero { padding-bottom: 60px; }
 .site-finder-hero .about-hero-map { width: 126%; height: 126%; max-width: none; inset: -11% -11% -15% -11%; object-position: 15% 22px; transform: translate(-118px, 42px); opacity: 0.34; }
 .site-finder-hero .about-hero-inner { display: block; }
 .site-finder-copy { max-width: 860px; display: flex; flex-direction: column; align-items: flex-start; }
@@ -170,7 +170,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .site-finder-copy p { animation: fadeUp .45s ease .13s both; }
 .site-finder-card { animation: fadeUp .45s ease .17s both; }
 @media (max-width: 960px) {
-  .site-finder-hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: url("assets/images/dv-coverage-map.png"); background-size: cover; background-position: 72% calc(62% - var(--site-finder-bg-shift, 0px)); background-repeat: no-repeat; opacity: 0.34; transition: background-position .48s cubic-bezier(.22, 1, .36, 1); }
+  .site-finder-hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: url("assets/images/dv-coverage-map.png"); background-size: cover; background-position: 72% 62%; background-repeat: no-repeat; opacity: 0.34; }
   .site-finder-hero .about-hero-map { display: none !important; }
   .site-finder-copy .section-kicker { margin-top: 7px; }
   .site-finder-copy p { font-size: 17px; }
@@ -201,6 +201,52 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <a href="advertise.html#packages" class="nav-cta nav-cta-top">View Packages</a>
   </div>
 </nav>
+
+<script>
+(function() {
+  var spacer = document.getElementById('nav-spacer');
+  var nav = document.querySelector('nav');
+  var agencyBar = document.querySelector('.agency-bar');
+  var agencyDismissed = false;
+  try {
+    agencyDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+  } catch (e) {}
+  if (agencyBar && agencyDismissed) {
+    agencyBar.style.display = 'none';
+  } else if (agencyBar) {
+    agencyBar.classList.add('is-visible');
+  }
+  var spacerTransition = spacer ? spacer.style.transition : '';
+  var navTransition = nav ? nav.style.transition : '';
+  if (spacer) spacer.style.transition = 'none';
+  if (nav) nav.style.transition = 'none';
+  function syncTopSpace() {
+    if (!spacer || !nav) return;
+    var agencyOffset = agencyBar && agencyBar.classList.contains('is-visible') && agencyBar.style.display !== 'none' ? agencyBar.offsetHeight : 0;
+    var linksEl = nav.querySelector('.nav-links');
+    var isMobile = window.matchMedia('(max-width: 960px)').matches;
+    var linksOverflow = 0;
+    var linksAreMobileRow = linksEl && window.getComputedStyle(linksEl).position === 'absolute';
+    if (linksAreMobileRow) {
+      linksOverflow = Math.max(0, linksEl.offsetTop + linksEl.offsetHeight - nav.offsetHeight);
+    }
+    var hideBuffer = isMobile ? 12 : 36;
+    var hideShift = agencyOffset + nav.offsetHeight + linksOverflow + hideBuffer;
+    if (isMobile && linksAreMobileRow) {
+      hideShift = Math.max(0, Math.round(linksEl.getBoundingClientRect().top - nav.getBoundingClientRect().top));
+    }
+    nav.style.top = agencyOffset + 'px';
+    nav.style.setProperty('--nav-hide-shift', '-' + hideShift + 'px');
+    spacer.style.height = (nav.offsetHeight + agencyOffset) + 'px';
+  }
+  syncTopSpace();
+  if (spacer) void spacer.offsetHeight;
+  requestAnimationFrame(function() {
+    if (spacer) spacer.style.transition = spacerTransition;
+    if (nav) nav.style.transition = navTransition;
+  });
+})();
+</script>
 
 <!-- HERO -->
 
@@ -537,7 +583,6 @@ if (siteFinderForm) {
 function _updateSpacer() {
   if (!_spacerEl || !_navEl) return;
   var agencyOffset = _agencyBarEl && _agencyBarEl.classList.contains('is-visible') && _agencyBarEl.style.display !== 'none' ? _agencyBarEl.offsetHeight : 0;
-  var siteFinderHero = document.querySelector('.site-finder-hero');
   var linksEl = _navEl.querySelector('.nav-links');
   var isMobile = window.matchMedia('(max-width: 960px)').matches;
   var linksOverflow = 0;
@@ -552,7 +597,6 @@ function _updateSpacer() {
   }
   _navEl.style.top = agencyOffset + 'px';
   _navEl.style.setProperty('--nav-hide-shift', '-' + hideShift + 'px');
-  if (siteFinderHero) siteFinderHero.style.setProperty('--site-finder-bg-shift', agencyOffset + 'px');
   _spacerEl.style.height = (_navEl.offsetHeight + agencyOffset) + 'px';
 }
 _updateSpacer();
