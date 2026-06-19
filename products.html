@@ -74,13 +74,13 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .prod-hero-sub { animation: fadeUp .45s ease .13s both; }
 
 /* PRODUCT SUMMARY BAR */
-.prod-summary { margin-top: 0; background: transparent; padding: 0; }
+.prod-summary { margin-top: 0; background: transparent; padding: 0; animation: fadeUp .45s ease .19s both; }
 .prod-summary-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; background: transparent; border: 1px solid var(--charcoal-divider); box-shadow: none; }
 .prod-summary-item { background: var(--charcoal); border-right: 1px solid var(--charcoal-divider); padding: 28px 32px; min-height: 110px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background .2s ease; }
 .prod-summary-item:last-child { border-right: 0; }
 .prod-summary-item:hover { background: var(--charcoal-hover); }
 .prod-summary-name { font-size: 18px; font-weight: 700; color: var(--charcoal-text); margin-bottom: 5px; }
-.product-new-badge { display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; padding: 0; background: transparent; color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; line-height: 1; vertical-align: 1px; }
+.product-new-badge { display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; padding: 0; background: transparent; color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; line-height: 1; vertical-align: 3px; }
 .prod-summary-desc { font-size: 14px; color: var(--charcoal-muted); line-height: 1.4; }
 
 /* PRODUCT SECTIONS */
@@ -320,7 +320,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div class="prod-best-for">
         <span class="prod-best-for-tag">Brand Trust</span>
         <span class="prod-best-for-tag">Consistent Visibility</span>
-        <span class="prod-best-for-tag">Local Awareness</span>
+        <span class="prod-best-for-tag">Local Presence</span>
       </div>
       <ul class="prod-bullets">
         <li><span>Site Sponsorship includes a <strong>local sponsor ad</strong> at the top of the local site and a <strong>native banner</strong> on the homepage.</span></li>
@@ -452,7 +452,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 
           <tr style="border-bottom: 1px solid var(--border); background: #fff;">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Distribution</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local sponsorship placement</td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s)</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Subscriber inbox</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s) and FB</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--body);">Local site(s)</td>
@@ -477,7 +477,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Brand Awareness</td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
           </tr>
@@ -492,7 +492,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 
           <tr style="border-bottom: 1px solid var(--border); background: var(--lighter);">
             <td style="padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--charcoal);">Best for Direct Response</td>
-            <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
+            <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; font-weight: 700; color: var(--red);"><span class="compare-checkbox compare-checkbox--checked" role="img" aria-label="Yes"></span></td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
             <td style="text-align: center; padding: 16px 12px; font-size: 13px; color: var(--gray);"><span class="compare-checkbox compare-checkbox--empty" role="img" aria-label="No"></span></td>
