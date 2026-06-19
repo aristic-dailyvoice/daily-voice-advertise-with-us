@@ -148,9 +148,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .compare-table-slider-thumb:active { background: #8f8880; }
 .compare-table-slider-thumb:active { cursor: grabbing; }
 .compare-table-fade { display: none; }
-.compare-checkbox { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #dedede; border-radius: 3px; background: white; vertical-align: middle; }
+.compare-checkbox { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #dedede; border-radius: 3px; background: white; vertical-align: middle; }
 .compare-checkbox--checked { background: var(--red); border-color: var(--red); }
-.compare-checkbox--checked::after { content: ""; width: 11px; height: 7px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg) translate(1px, -1px); }
+.compare-checkbox--checked::after { content: ""; position: absolute; left: 50%; top: 47%; width: 9px; height: 5px; border-left: 2px solid white; border-bottom: 2px solid white; transform: translate(-50%, -50%) rotate(-45deg); }
 
 .faq-columns { gap: 48px; }
 @media (max-width: 960px) {
@@ -315,7 +315,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
     <div class="prod-copy">
       <div class="prod-number">01</div>
       <span class="section-kicker">Always-On Local Presence</span>
-      <h2 class="prod-name">Site Sponsorship</h2>
+      <h2 class="prod-name">Local Site Sponsorship</h2>
       <p class="prod-tagline">Become a Recognized Sponsor in the Community You Serve</p>
       <div class="prod-best-for">
         <span class="prod-best-for-tag">Brand Trust</span>
@@ -323,9 +323,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <span class="prod-best-for-tag">Local Awareness</span>
       </div>
       <ul class="prod-bullets">
-        <li><span>Site Sponsorship includes a local sponsor ad at the top of the local site and a native banner on the homepage.</span></li>
-        <li><span>Fast and simple way to achieve extraordinary results and reach the local community.</span></li>
-        <li><span>Local sponsor banner lives on every single page on the site.</span></li>
+        <li><span>Site Sponsorship includes a <strong>local sponsor ad</strong> at the top of the local site and a <strong>native banner</strong> on the homepage.</span></li>
+        <li><span>Local sponsor banner lives on <strong>every single page</strong> on the site.</span></li>
+        <li><span>Fast and simple way to achieve extraordinary results and <strong>reach the local community</strong>.</span></li>
       </ul>
       <div class="prod-actions">
         <a href="advertise.html#packages" class="btn-primary">View Packages</a>

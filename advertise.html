@@ -107,6 +107,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .package-card--featured { position: relative; background: #FEF5F5; border-color: #ed212a; border-radius: 0 0 6px 6px; box-shadow: 0 16px 36px rgba(31,31,31,0.1); overflow: visible; }
 .package-card--featured .package-label { position: absolute; top: -41px; left: -1px; right: -1px; height: 41px; display: flex; align-items: center; justify-content: center; background: #ed212a; color: #fff; border-radius: 6px 6px 0 0; letter-spacing: 1.8px; font-size: 14px; }
 .package-card--custom { grid-column: 1 / -1; min-height: 0; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 28px; align-items: start; z-index: 3; }
+.package-card:hover,
+.package-card:focus-within,
+.package-card--info-open { z-index: 6; }
 .package-tier { width: 100%; display: flex; flex-direction: column; gap: 9px; }
 .package-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); }
 .package-name { font-size: clamp(24px, 3vw, 34px); font-weight: 900; color: var(--charcoal); line-height: 1.05; }
@@ -115,10 +118,10 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .package-price-term { font-size: 13.5px; font-weight: 700; color: var(--gray); }
 .package-price-note { display: block; font-size: 14px; color: var(--gray); margin-top: 0; line-height: 1.45; }
 .package-summary { font-size: 14px; color: var(--body); line-height: 1.7; }
-.package-includes { width: 100%; padding-top: 4px; flex: 1; display: flex; flex-direction: column; }
+.package-includes { --package-heading-gap: 12px; --package-row-gap: 5px; --package-group-gap: 28px; width: 100%; padding-top: 4px; flex: 1; display: flex; flex-direction: column; }
 .package-includes-heading,
-.package-complimentary-heading { display: block; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--charcoal); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-.package-include-list { list-style: none; display: flex; flex: 1; flex-direction: column; gap: 12px; }
+.package-complimentary-heading { display: block; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--charcoal); margin-bottom: var(--package-heading-gap); padding-bottom: var(--package-heading-gap); border-bottom: 1px solid var(--border); }
+.package-include-list { list-style: none; display: flex; flex: 1; flex-direction: column; gap: var(--package-group-gap); }
 .package-include-list li { position: relative; padding-left: 24px; font-size: 13.5px; color: var(--body); line-height: 1.45; }
 .package-include-list li::before { content: "\2713"; position: absolute; left: 0; top: 1px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
 .package-include-list strong { display: block; color: var(--charcoal); font-size: 14px; line-height: 1.25; margin-bottom: 2px; }
@@ -126,24 +129,57 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .package-include-list a:hover { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .package-item-badge { display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; padding: 0; background: transparent; color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; line-height: 1; vertical-align: 1px; }
 .package-include-divider { padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.package-special-offer { margin-top: 8px; padding: 24px 24px 16px !important; border: 1px solid var(--red); border-radius: 8px; background: transparent; cursor: pointer; transition: background-color .16s ease, border-color .16s ease; }
+.package-special-offer:hover,
+.package-special-offer:focus-within { background: rgba(237, 33, 42, 0.035); }
+.package-special-offer:active { background: rgba(237, 33, 42, 0.075); }
+.package-include-list .package-special-offer::before { content: none; }
+.package-special-offer > strong { width: 100%; padding-bottom: var(--package-heading-gap); border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.package-special-offer-link { position: absolute; inset: 0; z-index: 3; border-radius: inherit; }
+.package-special-offer-link:focus-visible { outline: 2px solid rgba(237, 33, 42, 0.32); outline-offset: 3px; }
+.package-special-offer-label { position: absolute; top: -7px; right: 12px; padding: 0 6px; background: white; color: var(--red); font-size: 10px; font-weight: 800; letter-spacing: 1.1px; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.package-card--featured .package-special-offer-label { background: #FEF5F5; }
+.package-option-list.package-sponsorship-options { margin-top: 15px; gap: calc(var(--package-row-gap) + 1.2em); }
+.package-sponsorship-options .package-option { align-items: flex-start; min-height: 34px; padding-bottom: 0; }
+.package-sponsorship-options .package-option .package-option-link { line-height: 1.2; }
+.package-sponsorship-options .package-option .package-option-link:hover { text-decoration: none; }
 .package-product-row { margin-left: 18px; }
 .package-product-row::before { left: 0; }
-.package-include-note { margin-top: auto; padding-top: 34px; padding-left: 0 !important; border-top: 0; color: var(--body) !important; font-size: 13.5px !important; }
+.package-include-note { margin-top: 12px; padding-top: 0; padding-right: 24px; padding-left: 25px !important; border-top: 0; color: var(--body) !important; font-size: 13.5px !important; }
+.package-card--silver .package-include-note { margin-top: 228px; }
 .package-include-list .package-include-note::before { content: none; }
 .package-include-note strong { color: var(--charcoal); font-size: 14px; }
-.package-complimentary-heading { width: 100%; margin-top: 0; margin-left: 0; }
-.package-complimentary-feature { --feature-check-offset: 0px; display: block; position: relative; padding-left: 24px; }
-.package-complimentary-feature::before { content: "\2713"; position: absolute; left: 0; top: calc(var(--feature-check-offset) + 1px); color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; }
-.package-complimentary-feature + .package-complimentary-feature { --feature-check-offset: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-.package-product-options { margin-top: 2px; padding-top: 0; border-top: 0; color: var(--body) !important; }
-.package-product-options::before { content: "\2713"; top: 1px; color: var(--red); font-size: 15px; font-weight: 900; line-height: 1; background: transparent; }
-.package-product-options > strong { width: calc(100% + 24px); margin-left: -24px; padding-left: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.package-complimentary-heading { width: 100%; margin-top: 0; margin-bottom: 15px; margin-left: 0; }
+.package-complimentary-feature { display: flex; align-items: flex-start; gap: 10px; position: relative; min-height: 34px; padding: 0; }
+.package-complimentary-feature::before { content: none; }
+.package-complimentary-feature:not(:last-child) { border-bottom: 0; }
+.package-complimentary-feature + .package-complimentary-feature { margin-top: var(--package-row-gap); }
+.package-complimentary-feature .package-option-box { cursor: default; }
+.package-complimentary-feature.is-selected .package-option-box { background: var(--red); border-color: var(--red); }
+.package-complimentary-feature.is-selected .package-option-box::after { opacity: 1; }
+.package-complimentary-title { display: inline-block; position: relative; }
+.package-complimentary-name { color: var(--charcoal); font-size: 14px; font-weight: 400; line-height: 1.2; }
+.package-info-wrap { position: relative; display: inline-flex; align-items: center; margin-left: 6px; vertical-align: 1px; }
+.package-info-button { width: 18px; height: 18px; border: 1px solid #cbc6be; border-radius: 50%; background: white; color: #cbc6be; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-family: Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 800; line-height: 1; cursor: pointer; }
+.package-card--featured .package-info-button { background: #FEF5F5; }
+.package-info-button:hover { border-color: #8f8a84; color: #8f8a84; }
+.package-info-button:focus-visible { outline: 2px solid rgba(237,33,42,0.22); outline-offset: 3px; }
+.package-info-tooltip { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translate(-50%, 4px); width: max-content; max-width: min(230px, calc(100vw - 48px)); padding: 9px 10px; border-radius: 6px; background: var(--charcoal); color: white; font-size: 12px; font-weight: 500; line-height: 1.35; box-shadow: 0 10px 24px rgba(31,31,31,0.16); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s ease, transform .15s ease, visibility .15s ease; z-index: 20; }
+.package-info-tooltip::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; background: var(--charcoal); transform: translateX(-50%) rotate(45deg); }
+.package-info-wrap:hover .package-info-tooltip,
+.package-info-button:focus + .package-info-tooltip,
+.package-info-wrap.is-open .package-info-tooltip { opacity: 1; visibility: visible; transform: translate(-50%, 0); pointer-events: auto; }
+.package-product-options { margin-top: 2px; padding-top: 0; padding-right: 24px; padding-left: 25px !important; border-top: 0; color: var(--body) !important; }
+.package-special-offer + .package-product-options { margin-top: 0; }
+.package-include-list .package-product-options::before { content: none; }
+.package-product-options > strong { width: 100%; margin-left: 0; padding-left: 0; padding-bottom: var(--package-heading-gap); border-bottom: 1px solid var(--border); margin-bottom: 0; }
 .package-product-options > strong { color: var(--charcoal); font-size: 14px; }
-.package-option-list { width: 100%; display: grid; gap: 12px; margin-top: 12px; }
-.package-option { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 34px; padding: 0 0 12px; font-family: Helvetica, Arial, sans-serif; text-align: left; cursor: default; }
-.package-option:not(:last-child) { border-bottom: 1px solid var(--border); }
-.package-option-box { width: 18px; height: 18px; border: 1px solid #cbc6be; border-radius: 3px; background: white; padding: 0; appearance: none; -webkit-appearance: none; flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
-.package-option-box::after { content: ""; width: 11px; height: 7px; border-left: 1.5px solid white; border-bottom: 1.5px solid white; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.package-product-options > .package-option-list { margin-top: 15px; }
+.package-option-list { width: 100%; display: grid; gap: var(--package-row-gap); margin-top: var(--package-heading-gap); }
+.package-option { width: 100%; display: flex; align-items: flex-start; gap: 10px; min-height: 34px; padding: 0; font-family: Helvetica, Arial, sans-serif; text-align: left; cursor: default; }
+.package-option:not(:last-child) { border-bottom: 0; }
+.package-option-box { position: relative; width: 18px; height: 18px; border: 1px solid #cbc6be; border-radius: 3px; background: white; padding: 0; appearance: none; -webkit-appearance: none; flex: 0 0 18px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.package-option-box::after { content: ""; position: absolute; left: 50%; top: 47%; width: 9px; height: 5px; border-left: 2px solid white; border-bottom: 2px solid white; transform: translate(-50%, -50%) rotate(-45deg); opacity: 0; }
 .package-option .package-option-link { color: var(--charcoal); font-size: 14px; font-weight: 500; line-height: 1.35; text-decoration: none; }
 .package-option .package-option-link:hover { color: var(--charcoal); text-decoration: underline; text-underline-offset: 2px; }
 .package-option-box:hover { border-color: var(--red); }
@@ -298,6 +334,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   .packages-section { padding: 42px 20px; scroll-margin-top: 28px; }
   .packages-list { grid-template-columns: 1fr; gap: 40px; }
   .package-card { min-height: 0; gap: 18px; padding: 24px 22px; }
+  .package-card--silver .package-include-note { margin-top: 20px; }
   .package-card--featured { margin-top: 40px; }
   .package-card--custom { grid-template-columns: 1fr; gap: 20px; }
   .package-card--custom .package-action { justify-self: center; }
@@ -403,6 +440,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/bonded-lash-bar-ticker-logo.png" alt="Bonded Lash Bar" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/armonk-outdoor-art-show-logo.png" alt="Armonk Outdoor Art Show" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ny-firehouse-grille-logo.png" alt="NY Firehouse Grille" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide dark-ticker-logo--natural" src="assets/logos/dogfather-grooming-logo.png" alt="The DOGfather" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/horseneck-wines-logo.png" alt="Horseneck Wines" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/the-goose-logo.png" alt="The Goose" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/the-union-bar-provisions-logo.png" alt="The Union Bar &amp; Provisions" /></div>
@@ -424,6 +462,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/bonded-lash-bar-ticker-logo.png" alt="Bonded Lash Bar" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/armonk-outdoor-art-show-logo.png" alt="Armonk Outdoor Art Show" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large dark-ticker-logo--invert" src="assets/logos/ny-firehouse-grille-logo.png" alt="NY Firehouse Grille" /></div>
+      <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide dark-ticker-logo--natural" src="assets/logos/dogfather-grooming-logo.png" alt="The DOGfather" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--tall" src="assets/logos/horseneck-wines-logo.png" alt="Horseneck Wines" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--wide" src="assets/logos/the-goose-logo.png" alt="The Goose" /></div>
       <div class="dark-ticker-item dark-ticker-item--logo"><img class="dark-ticker-logo dark-ticker-logo--large" src="assets/logos/the-union-bar-provisions-logo.png" alt="The Union Bar &amp; Provisions" /></div>
@@ -439,7 +478,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <p class="section-sub">Simple starting points for small businesses that want to build awareness, reach nearby customers, and stay visible in the communities they serve.</p>
     </div>
     <div class="packages-list">
-      <article class="package-card">
+      <article class="package-card package-card--silver">
         <div class="package-tier">
           <h3 class="package-name">Silver</h3>
           <p class="package-summary">A simple way for businesses to get in front of local readers.</p>
@@ -453,7 +492,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
             <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><div class="package-option-list" data-package-choice-group="silver"><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Website &amp; Newsletter Banners"></button><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Dedicated Email Blast"></button><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Branded Article"></button><a href="products.html#product-03" class="package-option-link">Branded Article</a></div></div></li>
-            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features</span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Creative Services</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Creative Services details" aria-expanded="false" aria-describedby="silver-creative-services-info">i</button><span class="package-info-tooltip" id="silver-creative-services-info" role="tooltip">Must provide content. Includes one round of revisions.</span></span></span></span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Additional Purchase Discount (50% off)</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Additional Purchase Discount details" aria-expanded="false" aria-describedby="silver-purchase-discount-info">i</button><span class="package-info-tooltip" id="silver-purchase-discount-info" role="tooltip">Purchase any additional towns for 50% off each.</span></span></span></span></li>
           </ul>
         </div>
       </article>
@@ -471,9 +510,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <div class="package-includes">
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
-            <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
+            <li class="package-include-divider package-special-offer"><a href="products.html#product-01" class="package-special-offer-link" aria-label="View Local Site Sponsorship product"></a><span class="package-special-offer-label">New Special Offer</span><strong>Local Site Sponsorship (2/2)</strong><div class="package-option-list package-sponsorship-options"><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-option-link">Premium local sponsor ad on every page of your local site(s).</span></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-option-link">Native homepage banner built into the local news experience.</span></span></div></li>
             <li class="package-product-options"><strong>Pick One Ad Product (1/3)</strong><div class="package-option-list" data-package-choice-group="gold"><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Website &amp; Newsletter Banners"></button><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Dedicated Email Blast"></button><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></div><div class="package-option package-option-selectable"><button type="button" class="package-option-box" aria-pressed="false" aria-label="Choose Branded Article"></button><a href="products.html#product-03" class="package-option-link">Branded Article</a></div></div></li>
-            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features</span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Creative Services</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Creative Services details" aria-expanded="false" aria-describedby="gold-creative-services-info">i</button><span class="package-info-tooltip" id="gold-creative-services-info" role="tooltip">Must provide content. Includes one round of revisions.</span></span></span></span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Additional Purchase Discount (50% off)</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Additional Purchase Discount details" aria-expanded="false" aria-describedby="gold-purchase-discount-info">i</button><span class="package-info-tooltip" id="gold-purchase-discount-info" role="tooltip">Purchase any additional towns for 50% off each.</span></span></span></span></li>
           </ul>
         </div>
       </article>
@@ -492,9 +531,9 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
         <div class="package-includes">
           <span class="package-includes-heading">What's Included:</span>
           <ul class="package-include-list">
-            <li class="package-include-divider"><strong><a href="products.html#product-01">Local Site Sponsorship</a> <span class="package-item-badge">NEW</span></strong>Local sponsor ad at the top of the local site plus a native homepage banner.</li>
+            <li class="package-include-divider package-special-offer"><a href="products.html#product-01" class="package-special-offer-link" aria-label="View Local Site Sponsorship product"></a><span class="package-special-offer-label">New Special Offer</span><strong>Local Site Sponsorship (2/2)</strong><div class="package-option-list package-sponsorship-options"><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-option-link">Premium local sponsor ad on every page of your local site(s).</span></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-option-link">Native homepage banner built into the local news experience.</span></span></div></li>
             <li class="package-product-options"><strong>Get All Ad Products (3/3)</strong><div class="package-option-list"><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-04" class="package-option-link">Website &amp; Newsletter Banners</a></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-02" class="package-option-link">Dedicated Email Blast</a></span><span class="package-option package-option--included is-selected"><span class="package-option-box" aria-hidden="true"></span><a href="products.html#product-03" class="package-option-link">Branded Article</a></span></div></li>
-            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features:</span><span class="package-complimentary-feature"><strong>Creative Services</strong>Must provide content. Includes one round of revisions.</span><span class="package-complimentary-feature"><strong>Additional Purchase Discount</strong>Purchase any additional towns for 50% off.</span></li>
+            <li class="package-include-note"><span class="package-complimentary-heading">Complimentary Features</span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Creative Services</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Creative Services details" aria-expanded="false" aria-describedby="platinum-creative-services-info">i</button><span class="package-info-tooltip" id="platinum-creative-services-info" role="tooltip">Must provide content. Includes one round of revisions.</span></span></span></span><span class="package-complimentary-feature is-selected"><span class="package-option-box" aria-hidden="true"></span><span class="package-complimentary-title"><span class="package-complimentary-name">Additional Purchase Discount (50% off)</span><span class="package-info-wrap"><button type="button" class="package-info-button" aria-label="Additional Purchase Discount details" aria-expanded="false" aria-describedby="platinum-purchase-discount-info">i</button><span class="package-info-tooltip" id="platinum-purchase-discount-info" role="tooltip">Purchase any additional towns for 50% off each.</span></span></span></span></li>
           </ul>
         </div>
       </article>
@@ -580,14 +619,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div class="action-copy">
         <span class="section-kicker">Get in Touch</span>
         <h2 class="section-h">Tell Us About Your Business.<br>We'll Take It From There.</h2>
-        <p>Daily Voice provides a direct line of communication to your neighbors. Fill out the form and our marketing experts will build the right package to reach your local customers and fit any budget.</p>
+        <p>Daily Voice provides a direct line of communication to your neighbors. Fill out the form and our team will help with your selected package or recommend the best option for your business.</p>
         <div class="action-hiw">
           <div class="action-hiw-label">What happens when you reach out</div>
           <div class="action-hiw-steps">
             <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">1</div><div class="ahs-line"></div></div><span class="ahs-text">You tell us about your business and your goals</span></div>
-            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">2</div><div class="ahs-line"></div></div><span class="ahs-text">We come back with a specific recommendation and pricing</span></div>
-            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">3</div><div class="ahs-line"></div></div><span class="ahs-text">We handle everything from start to finish</span></div>
-            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">4</div><div class="ahs-line"></div></div><span class="ahs-text">We deliver the results</span></div>
+            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">2</div><div class="ahs-line"></div></div><span class="ahs-text">We recommend the right package</span></div>
+            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">3</div><div class="ahs-line"></div></div><span class="ahs-text">We handle setup, creative, and placement</span></div>
+            <div class="action-hiw-step"><div class="ahs-left"><div class="ahs-n">4</div><div class="ahs-line"></div></div><span class="ahs-text">Your business gets in front of the local audience</span></div>
           </div>
         </div>
         <div class="action-contacts">
@@ -600,8 +639,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
       <div class="action-form-wrap" id="contact-form">
         <div class="action-form-header">
           <h3>Contact Our Team</h3>
-          <p>Please provide some basic information and we'll be in touch to build a package and pricing.</p>
-          <p>We typically respond the <strong>same day</strong>, often within a few hours.</p>
+          <p>Please provide some basic information and we'll be in touch, typically the same day, often within a few hours.</p>
         </div>
         <form onsubmit="handleSubmit(event)" enctype="multipart/form-data">
           <div class="fg req">
@@ -1114,6 +1152,36 @@ if (_interestSelect && _interestCustomWrap && _interestCustomInput) {
     });
   });
 }
+function _closePackageInfoTips() {
+  document.querySelectorAll('.package-info-wrap.is-open').forEach(function(wrap) {
+    wrap.classList.remove('is-open');
+    var card = wrap.closest('.package-card');
+    if (card) card.classList.remove('package-card--info-open');
+    var button = wrap.querySelector('.package-info-button');
+    if (button) button.setAttribute('aria-expanded', 'false');
+  });
+}
+document.querySelectorAll('.package-info-button').forEach(function(button) {
+  button.addEventListener('click', function(event) {
+    event.stopPropagation();
+    var wrap = button.closest('.package-info-wrap');
+    if (!wrap) return;
+    var shouldOpen = !wrap.classList.contains('is-open');
+    _closePackageInfoTips();
+    if (shouldOpen) {
+      wrap.classList.add('is-open');
+      var card = wrap.closest('.package-card');
+      if (card) card.classList.add('package-card--info-open');
+      button.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+document.addEventListener('click', function(event) {
+  if (!event.target.closest('.package-info-wrap')) _closePackageInfoTips();
+});
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') _closePackageInfoTips();
+});
 var _mobileAnchorScrollFrame = 0;
 var _mobileAnchorScrollBehaviorRestore = null;
 function _restoreMobileAnchorScrollBehavior() {
