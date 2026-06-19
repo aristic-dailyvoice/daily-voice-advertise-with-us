@@ -854,7 +854,7 @@ function _scrollToProductAnchorPosition(top) {
   document.documentElement.style.scrollBehavior = 'auto';
   var start = window.pageYOffset;
   var distance = top - start;
-  var duration = Math.min(1300, Math.max(850, Math.abs(distance) * 0.38));
+  var duration = Math.min(780, Math.max(520, Math.abs(distance) * 0.28));
   var startedAt = null;
 
   function step(timestamp) {
