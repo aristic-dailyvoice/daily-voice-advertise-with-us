@@ -166,6 +166,66 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
 </nav>
 
+<script>
+(function() {
+  var spacer = document.getElementById('nav-spacer');
+  var nav = document.querySelector('nav');
+  var agencyBar = document.querySelector('.agency-bar');
+  var agencyDismissed = false;
+  var agencySeen = false;
+  try {
+    agencyDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+    agencySeen = sessionStorage.getItem('agencyBarSeen') === 'true';
+  } catch (e) {}
+  if (agencyBar && agencyDismissed) {
+    agencyBar.style.display = 'none';
+  } else if (agencyBar) {
+    if (agencySeen) {
+      agencyBar.style.transition = 'none';
+      agencyBar.classList.add('is-visible');
+      requestAnimationFrame(function() { agencyBar.style.transition = ''; });
+    } else {
+      setTimeout(function() {
+        if (agencyBar && !agencyDismissed) {
+          agencyBar.classList.add('is-visible');
+          try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
+          syncTopSpace();
+        }
+      }, 2000);
+    }
+  }
+  var spacerTransition = spacer ? spacer.style.transition : '';
+  var navTransition = nav ? nav.style.transition : '';
+  if (spacer) spacer.style.transition = 'none';
+  if (nav) nav.style.transition = 'none';
+  function syncTopSpace() {
+    if (!spacer || !nav) return;
+    var agencyOffset = agencyBar && agencyBar.classList.contains('is-visible') && agencyBar.style.display !== 'none' ? agencyBar.offsetHeight : 0;
+    var linksEl = nav.querySelector('.nav-links');
+    var isMobile = window.matchMedia('(max-width: 960px)').matches;
+    var linksOverflow = 0;
+    var linksAreMobileRow = linksEl && window.getComputedStyle(linksEl).position === 'absolute';
+    if (linksAreMobileRow) {
+      linksOverflow = Math.max(0, linksEl.offsetTop + linksEl.offsetHeight - nav.offsetHeight);
+    }
+    var hideBuffer = isMobile ? 12 : 36;
+    var hideShift = agencyOffset + nav.offsetHeight + linksOverflow + hideBuffer;
+    if (isMobile && linksAreMobileRow) {
+      hideShift = Math.max(0, Math.round(linksEl.getBoundingClientRect().top - nav.getBoundingClientRect().top));
+    }
+    nav.style.top = agencyOffset + 'px';
+    nav.style.setProperty('--nav-hide-shift', '-' + hideShift + 'px');
+    spacer.style.height = (nav.offsetHeight + agencyOffset) + 'px';
+  }
+  syncTopSpace();
+  if (spacer) void spacer.offsetHeight;
+  requestAnimationFrame(function() {
+    if (spacer) spacer.style.transition = spacerTransition;
+    if (nav) nav.style.transition = navTransition;
+  });
+})();
+</script>
+
 <section class="legal-hero">
   <div class="legal-hero-inner">
     <span class="section-kicker">Legal Notices</span>
@@ -279,12 +339,22 @@ try {
   _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
 } catch (e) {}
 if (_agencyBarEl && !_agencyBarDismissed) {
-  setTimeout(function() {
-    if (_agencyBarEl && !_agencyBarDismissed) {
-      _agencyBarEl.classList.add('is-visible');
-      _updateSpacer();
-    }
-  }, 2000);
+  var _agencyBarSeen = false;
+  try { _agencyBarSeen = sessionStorage.getItem('agencyBarSeen') === 'true'; } catch (e) {}
+  if (_agencyBarSeen) {
+    _agencyBarEl.style.transition = 'none';
+    _agencyBarEl.classList.add('is-visible');
+    _updateSpacer();
+    requestAnimationFrame(function() { _agencyBarEl.style.transition = ''; });
+  } else {
+    setTimeout(function() {
+      if (_agencyBarEl && !_agencyBarDismissed) {
+        _agencyBarEl.classList.add('is-visible');
+        try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
+        _updateSpacer();
+      }
+    }, 2000);
+  }
 } else if (_agencyBarEl) {
   _agencyBarEl.style.display = 'none';
 }

@@ -220,13 +220,27 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   var nav = document.querySelector('nav');
   var agencyBar = document.querySelector('.agency-bar');
   var agencyDismissed = false;
+  var agencySeen = false;
   try {
     agencyDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+    agencySeen = sessionStorage.getItem('agencyBarSeen') === 'true';
   } catch (e) {}
   if (agencyBar && agencyDismissed) {
     agencyBar.style.display = 'none';
   } else if (agencyBar) {
-    agencyBar.classList.add('is-visible');
+    if (agencySeen) {
+      agencyBar.style.transition = 'none';
+      agencyBar.classList.add('is-visible');
+      requestAnimationFrame(function() { agencyBar.style.transition = ''; });
+    } else {
+      setTimeout(function() {
+        if (agencyBar && !agencyDismissed) {
+          agencyBar.classList.add('is-visible');
+          try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
+          syncTopSpace();
+        }
+      }, 2000);
+    }
   }
   var spacerTransition = spacer ? spacer.style.transition : '';
   var navTransition = nav ? nav.style.transition : '';
@@ -423,12 +437,22 @@ try {
   _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
 } catch (e) {}
 if (_agencyBarEl && !_agencyBarDismissed) {
-  setTimeout(function() {
-    if (_agencyBarEl && !_agencyBarDismissed) {
-      _agencyBarEl.classList.add('is-visible');
-      _updateSpacer();
-    }
-  }, 2000);
+  var _agencyBarSeen = false;
+  try { _agencyBarSeen = sessionStorage.getItem('agencyBarSeen') === 'true'; } catch (e) {}
+  if (_agencyBarSeen) {
+    _agencyBarEl.style.transition = 'none';
+    _agencyBarEl.classList.add('is-visible');
+    _updateSpacer();
+    requestAnimationFrame(function() { _agencyBarEl.style.transition = ''; });
+  } else {
+    setTimeout(function() {
+      if (_agencyBarEl && !_agencyBarDismissed) {
+        _agencyBarEl.classList.add('is-visible');
+        try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
+        _updateSpacer();
+      }
+    }, 2000);
+  }
 } else if (_agencyBarEl) {
   _agencyBarEl.style.display = 'none';
 }
