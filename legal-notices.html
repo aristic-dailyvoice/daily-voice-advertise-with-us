@@ -173,9 +173,14 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   var agencyBar = document.querySelector('.agency-bar');
   var agencyDismissed = false;
   var agencySeen = false;
+  var agencyDelayStartedAt = Date.now();
   try {
     agencyDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
     agencySeen = sessionStorage.getItem('agencyBarSeen') === 'true';
+    if (!sessionStorage.getItem('agencyBarDelayStartedAt')) {
+      sessionStorage.setItem('agencyBarDelayStartedAt', String(agencyDelayStartedAt));
+    }
+    agencyDelayStartedAt = Number(sessionStorage.getItem('agencyBarDelayStartedAt')) || agencyDelayStartedAt;
   } catch (e) {}
   if (agencyBar && agencyDismissed) {
     agencyBar.style.display = 'none';
@@ -191,7 +196,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
           try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
           syncTopSpace();
         }
-      }, 2000);
+      }, Math.max(0, 2000 - (Date.now() - agencyDelayStartedAt)));
     }
   }
   var spacerTransition = spacer ? spacer.style.transition : '';
@@ -330,6 +335,7 @@ var _spacerEl = document.getElementById('nav-spacer');
 var _agencyBarEl = document.querySelector('.agency-bar');
 var _agencyBarCloseEl = document.querySelector('.agency-bar-close');
 var _agencyBarDismissed = false;
+var _agencyBarDelayStartedAt = Date.now();
 var _navLastShownAt = 0;
 var _navLastHiddenAt = 0;
 document.querySelectorAll('.js-current-year').forEach(function(el) {
@@ -337,6 +343,10 @@ document.querySelectorAll('.js-current-year').forEach(function(el) {
 });
 try {
   _agencyBarDismissed = sessionStorage.getItem('agencyBarDismissed') === 'true';
+  if (!sessionStorage.getItem('agencyBarDelayStartedAt')) {
+    sessionStorage.setItem('agencyBarDelayStartedAt', String(_agencyBarDelayStartedAt));
+  }
+  _agencyBarDelayStartedAt = Number(sessionStorage.getItem('agencyBarDelayStartedAt')) || _agencyBarDelayStartedAt;
 } catch (e) {}
 if (_agencyBarEl && !_agencyBarDismissed) {
   var _agencyBarSeen = false;
@@ -353,7 +363,7 @@ if (_agencyBarEl && !_agencyBarDismissed) {
         try { sessionStorage.setItem('agencyBarSeen', 'true'); } catch (e) {}
         _updateSpacer();
       }
-    }, 2000);
+    }, Math.max(0, 2000 - (Date.now() - _agencyBarDelayStartedAt)));
   }
 } else if (_agencyBarEl) {
   _agencyBarEl.style.display = 'none';
