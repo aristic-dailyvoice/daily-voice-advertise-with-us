@@ -53,9 +53,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .footer-col h5 { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.56); margin-bottom: 12px; }
 .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.42); text-decoration: none; margin-bottom: 8px; }
 .footer-col a:hover { text-decoration: underline; }
-.footer-bottom { max-width: 1160px; margin: 28px auto 0; padding-top: 20px; border-top: 1px solid var(--charcoal-divider); font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; color: rgba(255,255,255,0.42); }
+.footer-bottom { max-width: 1160px; margin: 28px auto 0; padding-top: 20px; border-top: 1px solid var(--charcoal-divider); font-size: 12px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; color: rgba(255,255,255,0.42); }
+.footer-legal-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .footer-bottom a { color: rgba(255,255,255,0.42); text-decoration: none; }
 .footer-bottom a:hover { text-decoration: underline; }
+@media (max-width: 760px) { .footer-bottom { flex-direction: column; justify-content: flex-start; } }
 .section-inner { max-width: 1160px; margin: 0 auto; }
 .section-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
 .section-h { font-size: clamp(22px, 3vw, 33px); font-weight: 900; color: var(--charcoal); line-height: 1.14; margin-bottom: 12px; }
@@ -124,7 +126,11 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
 .aud-hero h1 em { color: var(--red); font-style: normal; }
 .aud-hero-sub { font-size: 17px; color: var(--body); max-width: 650px; line-height: 1.85; margin-bottom: 0; }
 .aud-hero-sub { animation: fadeUp .45s ease .13s both; }
-</style>
+@media (min-width: 641px) and (max-width: 960px) {
+  .nav-links { justify-content: space-between; padding-left: 20px; padding-right: 20px; overflow-x: hidden; }
+  .nav-link:not(.nav-cta) { flex: 1 1 0; min-width: 0; padding-left: 8px; padding-right: 8px; }
+}
+  </style>
 </head>
 <body>
 <div id="nav-spacer" style="height:66px"></div>
@@ -234,7 +240,7 @@ footer { background: var(--charcoal); color: var(--charcoal-muted); padding: 32p
   </div>
   <div class="footer-bottom">
     <span>© <span class="js-current-year"></span> Daily Voice / Cantata Media LLC. All rights reserved.</span>
-    <div style="display:flex;gap:16px;"><a href="https://dailyvoice.com/privacy-policy/">Privacy Policy</a><a href="https://dailyvoice.com/terms-of-use/">Terms of Use</a></div>
+    <div class="footer-legal-links"><a href="https://dailyvoice.com/privacy-policy/">Privacy Policy</a><a href="https://dailyvoice.com/terms-of-use/">Terms of Use</a></div>
   </div>
 </footer>
 
